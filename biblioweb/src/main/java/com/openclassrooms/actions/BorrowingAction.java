@@ -17,10 +17,10 @@ public class BorrowingAction extends ActionSupport {
 
     private static final Logger log = LoggerFactory.getLogger(BorrowingAction.class);
 
-    //WebService
+
     TestPortService service = new TestPortService();
     TestPort testPort = service.getTestPortSoap11();
-    //Properties loading
+
     PropSource propSource = new PropSource();
     Properties props = propSource.getProps();
 
