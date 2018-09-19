@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="" basedir=".">
+    <property name="dist" value="${dist.ant}" />
+    <property name="version" value="${version.ant}" />
+    <property name="name" value="${name.ant}" />
+
+    <target name="clean">
+        <delete dir="${dist}" />
+        <delete file="${name}-${version}.tar" />
+    </target>
+
+    <target name="init" depends="clean">
+        <mkdir dir="${dist}" />
+        <mkdir dir="${dist}/lib" />
+        <mkdir dir="${dist}/logs" />
+        <mkdir dir="${dist}/scripts" />
+    </target>
+
+    <target name="generate-package" depends="init">
+        <copy todir="${dist}/lib">
+            <fileset dir="target/lib">
+                <include name="*.jar" />
+            </fileset>
+        </copy>
+        <copy todir="${dist}/bin">
+            <fileset dir="target/">
+                <include name="*.jar" />
+            </fileset>
+        </copy>
+        <copy todir="${dist}/scripts">
+            <fileset dir="target/classes">
+                <include name="nomDeTonScript" />
+            </fileset>
+        </copy>
+    </target>
+
+</project>
