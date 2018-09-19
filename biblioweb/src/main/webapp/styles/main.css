@@ -1,0 +1,19 @@
+body{
+    background: darkslateblue;
+    color: floralwhite;
+}
+
+a{
+    color: aqua;
+}
+
+h4, td{
+    color: floralwhite;
+}
+
+ul{
+    list-style-type: none ;
+}
+
+
+
