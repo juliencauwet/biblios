@@ -1,0 +1,15 @@
+version: '3.5'
+services:
+  biblioback:
+    image: postgres:alpine
+    ports:
+      - '2131:5432'
+    container_name: biblioback
+    environment:
+      POSTGRES_DB: db_back
+      POSTGRES_USER: back
+      POSTGRES_PASSWORD: back
+    volumes:
+      - './sql:/docker-entrypoint-initdb.d'
+    restart: always
+    network_mode: bridge
