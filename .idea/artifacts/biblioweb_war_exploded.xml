@@ -1,6 +1,13 @@
 <component name="ArtifactManager">
   <artifact type="exploded-war" name="biblioweb:war exploded">
-    <output-path>$PROJECT_DIR$/biblioweb/target/struts2-archetype-starter</output-path>
+    <output-path>$PROJECT_DIR$/biblioweb/target/biblioweb</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <exploded>true</exploded>
+        <module>biblioweb</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
     <root id="root">
       <element id="directory" name="WEB-INF">
         <element id="directory" name="classes">
@@ -76,7 +83,7 @@
         </element>
       </element>
       <element id="directory" name="META-INF">
-        <element id="file-copy" path="$PROJECT_DIR$/biblioweb/target/struts2-archetype-starter/META-INF/MANIFEST.MF" />
+        <element id="file-copy" path="$PROJECT_DIR$/biblioweb/target/biblioweb/META-INF/MANIFEST.MF" />
       </element>
       <element id="javaee-facet-resources" facet="biblioweb/web/Web" />
     </root>

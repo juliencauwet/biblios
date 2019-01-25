@@ -1,7 +1,13 @@
 <component name="ArtifactManager">
   <artifact type="war" name="biblioweb:war">
     <output-path>$PROJECT_DIR$/biblioweb/target</output-path>
-    <root id="archive" name="struts2-archetype-starter.war">
+    <properties id="maven-jee-properties">
+      <options>
+        <module>biblioweb</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="biblioweb.war">
       <element id="artifact" artifact-name="biblioweb:war exploded" />
     </root>
   </artifact>
