@@ -1,16 +1,19 @@
 décrire les différentes étapes
 ajouter les todos dans les diffénts composants et différentes classes
 
+
+- modifier le xsd:
+        1. créer les entités correspondantes
+        2. créer les méthodes
+
+- build biblioback créer les classes et méthodes depuis le xsd
+
 commencer à coder:
  - d'abord celles de biblioback:
         1. endpoints
         2. interfaces
         3. services
         4. repo
-
- - modifier le xsd:
-        1. créer les entités correspondantes
-        2. créer les méthodes
 
  -importation des classes dans batch et front
 
