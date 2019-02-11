@@ -25,6 +25,7 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
     String hashedPassword;
     AppUser appUser;
     Boolean isAdmin;
+    Boolean isEmployee;
 
     private SessionMap<String, Object> sessionMap;
 
@@ -56,6 +57,7 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
             sessionMap.put("email", appUser.getEmail());
             sessionMap.put("firstName",firstName);
             sessionMap.put("isAdmin", isAdmin);
+            sessionMap.put("isEmployee", appUser.isIsEmployee());
 
             addActionMessage("Utilisateur enregistré avec succès");
 
@@ -90,6 +92,7 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
             sessionMap.put("email", appUser.getEmail());
             sessionMap.put("firstName", appUser.getFirstName());
             sessionMap.put("isAdmin", appUser.isIsAdmin());
+            sessionMap.put("isEmployee", appUser.isIsEmployee());
 
             return SUCCESS;
         }
@@ -164,6 +167,14 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
 
     public void setAdmin(Boolean admin) {
         isAdmin = admin;
+    }
+
+    public Boolean getEmployee() {
+        return isEmployee;
+    }
+
+    public void setEmployee(Boolean employee) {
+        isEmployee = employee;
     }
 
     @Override

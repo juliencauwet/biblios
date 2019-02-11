@@ -1,15 +1,16 @@
 package com.openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.test.*;
-import com.openclassrooms.conversions.BookConversion;
 import com.openclassrooms.conversions.BorrowingConversion;
 import com.openclassrooms.entities.BookEntity;
+import com.openclassrooms.entities.Status;
 import com.openclassrooms.services.IAppUserService;
 import com.openclassrooms.services.IBookService;
 import com.openclassrooms.services.IBorrowingService;
 import org.apache.log4j.Logger;
-import org.springframework.beans.BeanUtils;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -32,7 +33,9 @@ public class BorrowingEndPoint {
     @Autowired
     private IAppUserService appUserService;
 
-    BorrowingConversion borrowingConversion = new BorrowingConversion();
+    private BorrowingConversion borrowingConversion = new BorrowingConversion();
+
+    private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
     public BorrowingEndPoint(IBorrowingService borrowingService) {
         this.borrowingService = borrowingService;
@@ -79,6 +82,9 @@ public class BorrowingEndPoint {
         if (book.getNumber() < 1)
             response.setConfirmation(false);
         else {
+            //new: Upon order, the borrowing is at PANIER status for 48h
+            borrowing.setStatus(Status.PANIER);
+
             borrowing.setAppUser(appUser);
             borrowing.setBookEntity(book);
             borrowing.setStartDate(request.getStartDate().toGregorianCalendar().getTime());
@@ -90,6 +96,32 @@ public class BorrowingEndPoint {
         }
         return response;
     }
+
+     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingsConfirmationRequest")
+     @ResponsePayload
+     public BorrowingsConfirmationResponse confirmBorrowings(@RequestPayload BorrowingsConfirmationRequest request){
+         BorrowingsConfirmationResponse response = new BorrowingsConfirmationResponse();
+         com.openclassrooms.entities.AppUser user = appUserService.getAppUserById(request.getUserId());
+         List<com.openclassrooms.entities.Borrowing> borrowingsToHaveStatusChanged = borrowingService.findAllBorrowingswithBasketStatusPerUser(user);
+         for(com.openclassrooms.entities.Borrowing b : borrowingsToHaveStatusChanged)
+             b.setStatus(Status.COMMANDE);
+         response.setConfirmation(true);
+         return response;
+     }
+
+     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingsGetPanierRequest")
+     @ResponsePayload
+     public BorrowingsGetPanierResponse getAllWithPanierStatus(@RequestPayload BorrowingsGetPanierRequest request){
+        BorrowingsGetPanierResponse response = new BorrowingsGetPanierResponse();
+        com.openclassrooms.entities.AppUser user = appUserService.getAppUserById(request.getUserId());
+        List<com.openclassrooms.entities.Borrowing> borrowings = borrowingService.findAllBorrowingswithBasketStatusPerUser(user);
+        for(com.openclassrooms.entities.Borrowing b : borrowings){
+            response.getPanier().add(borrowingConversion.toWS(b));
+        }
+        return response;
+     }
+
+
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingGetRequest")
     @ResponsePayload
@@ -175,6 +207,20 @@ public class BorrowingEndPoint {
         response.getBorrowingGetExpired().addAll(wsBors);
         return response;
     }
+
+    //TODO: method to remove targeted borrowings by id
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingsDeleteByIdRequest")
+    @ResponsePayload
+    @Transactional
+    public BorrowingsDeleteByIdResponse deleteBorrowingListById(@RequestPayload BorrowingsDeleteByIdRequest request){
+        logger.info("entering deleteBorrowingListById");
+        BorrowingsDeleteByIdResponse response = new BorrowingsDeleteByIdResponse();
+
+        borrowingService.deleteBorrowingListById(request.getBorrowingDeleteById());
+
+        return response;
+    }
+
 
 }
 

@@ -21,6 +21,7 @@ public class AppUser {
     @Size(min = 5)
     private String password;
     private Boolean isAdmin = false;
+    private Boolean isEmployee = false;
 
     @OneToMany
     @JoinColumn(name = "borrowing_id")
@@ -29,12 +30,13 @@ public class AppUser {
     public AppUser() {
     }
 
-    public AppUser(String firstName, String name, String email, String password, Boolean isAdmin) {
+    public AppUser(String firstName, String name, String email, String password, Boolean isAdmin, Boolean isEmployee) {
         this.firstName = firstName;
         this.name = name;
         this.email = email;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.isEmployee = isEmployee;
     }
 
     public int getId() {
@@ -83,5 +85,22 @@ public class AppUser {
 
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
+    }
+
+    public Boolean getIsEmployee() {
+        return isEmployee;
+    }
+
+    public void setIsEmployee(Boolean employee) {
+        isEmployee = employee;
+    }
+
+
+    public Set<Borrowing> getBorrowings() {
+        return borrowings;
+    }
+
+    public void setBorrowings(Set<Borrowing> borrowings) {
+        this.borrowings = borrowings;
     }
 }

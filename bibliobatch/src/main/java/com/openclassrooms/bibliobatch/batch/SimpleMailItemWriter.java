@@ -14,6 +14,7 @@ import java.util.List;
 public class SimpleMailItemWriter implements ItemWriter<SimpleMailMessage> {
 
     private JavaMailSender javaMailSender;
+
     private static  final Logger log = LoggerFactory.getLogger(SimpleMailItemWriter.class);
 
     @Autowired

@@ -4,6 +4,8 @@ import com.openclassrooms.biblioback.ws.test.Borrowing;
 import com.openclassrooms.biblioback.ws.test.BorrowingGetExpiredRequest;
 import com.openclassrooms.biblioback.ws.test.TestPort;
 import com.openclassrooms.biblioback.ws.test.TestPortService;
+import com.openclassrooms.bibliobatch.batch.Processor;
+import com.openclassrooms.bibliobatch.batch.SimpleMailItemWriter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.batch.core.*;
@@ -12,6 +14,9 @@ import org.springframework.batch.core.configuration.annotation.JobBuilderFactory
 import org.springframework.batch.core.configuration.annotation.StepBuilderFactory;
 import org.springframework.batch.core.launch.JobLauncher;
 import org.springframework.batch.core.launch.support.RunIdIncrementer;
+import org.springframework.batch.core.repository.JobExecutionAlreadyRunningException;
+import org.springframework.batch.core.repository.JobInstanceAlreadyCompleteException;
+import org.springframework.batch.core.repository.JobRestartException;
 import org.springframework.batch.item.*;
 import org.springframework.batch.item.support.ListItemReader;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +25,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Scheduled;
 
+import java.util.Date;
 import java.util.List;
+
 
 
 @Configuration
@@ -38,12 +45,19 @@ public class BatchConfiguration {
     @Autowired
     JobLauncher jobLauncher;
 
-
     TestPortService service = new TestPortService();
     TestPort testPort = service.getTestPortSoap11();
 
+   //@Scheduled(fixedRate =  60 * 60 * 1000)
+   //public void reportCurrentTime() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+
+   //    JobParameters param = new JobParametersBuilder().addString("JobID",
+   //            String.valueOf(System.currentTimeMillis())).toJobParameters();
+   //   // jobLauncher.run(ExpiredBorrowingJob(jobBuilderFactory, stepBuilderFactory, itemReader(), processor(), new SimpleMailItemWriter()), param);
+   //}
+
     @Bean
-    public Job job(JobBuilderFactory jobBuilderFactory,
+    public Job ExpiredBorrowingJob(JobBuilderFactory jobBuilderFactory,
                    StepBuilderFactory stepBuilderFactory,
                    ItemReader<Borrowing> itemReader,
                    ItemProcessor<Borrowing, SimpleMailMessage> itemProcessor,
@@ -63,6 +77,7 @@ public class BatchConfiguration {
                 .build();
     }
 
+
     @Bean
     public ListItemReader<Borrowing> itemReader() {
         List<Borrowing> borrowings = testPort.borrowingGetExpired(new BorrowingGetExpiredRequest()).getBorrowingGetExpired();
@@ -74,7 +89,5 @@ public class BatchConfiguration {
 
         return reader;
     }
-
-
 
 }

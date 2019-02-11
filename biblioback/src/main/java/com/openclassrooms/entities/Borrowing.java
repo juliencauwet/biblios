@@ -16,21 +16,25 @@ public class Borrowing {
 
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private BookEntity book;
+
     @NotNull
     private Date startDate;
     private Date returnDate;
     private Date dueReturnDate;
     private Boolean isExtended = false;
 
+    private Status status;
+
     public Borrowing() {
     }
 
-    public Borrowing(AppUser appUser, BookEntity book, Date startDate, Date dueReturnDate, Date returnDate) {
+    public Borrowing(AppUser appUser, BookEntity book, Date startDate, Date dueReturnDate, Date returnDate, Status status) {
         this.appUser = appUser;
         this.book = book;
         this.startDate = startDate;
         this.returnDate= returnDate;
         this.dueReturnDate = dueReturnDate;
+        this.status = status;
     }
 
     public int getId() {
@@ -89,4 +93,11 @@ public class Borrowing {
         isExtended = extended;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 }

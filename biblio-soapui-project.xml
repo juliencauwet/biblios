@@ -1,0 +1,751 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<con:soapui-project id="c87bd274-a607-40e8-8215-c1fe090aff0d" activeEnvironment="Default" name="biblio" resourceRoot="" soapui-version="5.4.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config"><con:settings/><con:interface xsi:type="con:WsdlInterface" id="caab1976-e0e9-4ca4-abe2-0cb5feccb88b" wsaVersion="NONE" name="TestPortSoap11" type="wsdl" bindingName="{http://test.ws.biblioback.openclassrooms.com}TestPortSoap11" soapVersion="1_1" anonymous="optional" definition="http://localhost:21310/ws/test.wsdl" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"><con:settings/><con:definitionCache type="TEXT" rootPart="http://localhost:21310/ws/test.wsdl"><con:part><con:url>http://localhost:21310/ws/test.wsdl</con:url><con:content><![CDATA[<wsdl:definitions targetNamespace="http://test.ws.biblioback.openclassrooms.com" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://test.ws.biblioback.openclassrooms.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://test.ws.biblioback.openclassrooms.com">
+  <wsdl:types>
+    <xs:schema elementFormDefault="qualified" targetNamespace="http://test.ws.biblioback.openclassrooms.com" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="appUserGetByIdRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="appUserGetByIdResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="appUserGet" type="tns:appUser"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--- Vérification id et mdp
+	*	AppUser user
+	**	String name
+		String password-->
+      <xs:element name="appUserValidityCheckRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="password" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="appUserValidityCheckResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="user" type="tns:appUser"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--- Entrée nouvel utilisateur
+	*	Boolean confirmation
+	**	String firstName
+	    String name
+		String email
+		String password
+		Boolean isAdmin-->
+      <xs:element name="appUserAddRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="password" type="xs:string"/>
+            <xs:element name="firstName" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="isAdmin" type="xs:boolean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="appUserAddResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="confirmation" type="xs:boolean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!---->
+      <xs:element name="appUserGetAllRequest">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="appUserGetAllResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="getAllAppUsers" type="tns:appUser"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--définition appUser-->
+      <xs:complexType name="appUser">
+        <xs:sequence>
+          <xs:element name="id" type="xs:int"/>
+          <xs:element name="email" type="xs:string"/>
+          <xs:element name="password" type="xs:string"/>
+          <xs:element name="firstName" type="xs:string"/>
+          <xs:element name="name" type="xs:string"/>
+          <xs:element name="isAdmin" type="xs:boolean"/>
+        </xs:sequence>
+      </xs:complexType>
+      <!--- Recherche d’un ouvrage par titre et nombre d’exemplaires dispos
+	*	List<Book> books
+	**	String title-->
+      <xs:element name="bookGetRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="title" type="xs:string"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="bookGetResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="bookGet" type="tns:book"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--- Recherche d’un ouvrage par id et nombre d’exemplaires dispos
+	*	Book book
+	**	int id-->
+      <xs:element name="bookGetByIdRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="bookGetByIdResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="bookGet" type="tns:book"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--- Entrée d’un nouvel ouvrage et nombre exemplaires
+	*	Boolean confirmation
+	**	String title
+		String authorName
+		String authorFirstName
+		String number-->
+      <xs:element name="bookAddRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="authorFirstName" type="xs:string"/>
+            <xs:element name="authorName" type="xs:string"/>
+            <xs:element name="number" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="bookAddResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="confirmation" type="xs:boolean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="bookGetAllRequest">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="bookGetAllResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="bookGetAll" type="tns:book"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:complexType name="book">
+        <xs:sequence>
+          <xs:element name="id" type="xs:int"/>
+          <xs:element name="authorName" type="xs:string"/>
+          <xs:element name="authorFirstName" type="xs:string"/>
+          <xs:element name="title" type="xs:string"/>
+          <xs:element name="number" type="xs:int"/>
+        </xs:sequence>
+      </xs:complexType>
+      <!---->
+      <xs:element name="borrowingGetRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="borrowingGetResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="borrowing" type="tns:borrowing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--- Enregistrement d’un nouvel emprunt
+	*	int caseCode
+	**	int bookId
+		Date startDate-->
+      <xs:element name="borrowingAddRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="appUserId" type="xs:int"/>
+            <xs:element name="bookId" type="xs:int"/>
+            <xs:element name="startDate" type="xs:date"/>
+            <xs:element name="dueReturnDate" type="xs:date"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="borrowingAddResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="confirmation" type="xs:boolean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--- Prolongation (modification d’un emprunt)
+   *	int codeError
+   **	int borrowingId-->
+      <xs:element name="borrowingExtendRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="borrowingId" type="xs:int"/>
+            <xs:element name="newDueReturnDate" type="xs:date"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="borrowingExtendResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="codeResp" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--- Retour de prêt (modification emprunt)
+   *	Boolean confirmation
+   **	intBorrowingId-->
+      <xs:element name="borrowingReturnRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="borrowingReturnResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="confirmation" type="xs:boolean"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--- Liste des emprunts en cours de tous les utilisateurs
+  *	List<Borrowing> borrowings
+  **	no parameter-->
+      <xs:element name="borrowingGetAllRequest">
+        <xs:complexType>
+          <xs:sequence/>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="borrowingGetAllResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="borrowingGetAll" type="tns:borrowing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--- Liste des emprunts en cours de l'utilisateur connecté
+   *	List<Borrowing> borrowings
+   **	no parameter-->
+      <xs:element name="borrowingGetCurrentRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element name="userId" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="borrowingGetCurrentResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="borrowingGetCurrent" type="tns:borrowing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="borrowingGetExpiredRequest">
+        <xs:complexType>
+          <xs:sequence></xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="borrowingGetExpiredResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="borrowingGetExpired" type="tns:borrowing"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <!--- Liste des emprunts prolongés
+   * 	List<Borrowing> borrowings
+   **	Boolean IsExtended
+- Liste des emprunts non rendus à temps
+   *-->
+      <xs:element name="borrowingsDeleteByIdRequest">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="borrowingDeleteById" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element name="borrowingsDeleteByIdResponse">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="borrowingDeleteById" type="xs:int"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:simpleType final="restriction" name="status">
+        <xs:restriction base="xs:string">
+          <xs:enumeration value="panier"/>
+          <xs:enumeration value="commande"/>
+        </xs:restriction>
+      </xs:simpleType>
+      <xs:complexType name="borrowing">
+        <xs:sequence>
+          <xs:element name="id" type="xs:int"/>
+          <xs:element name="book" type="tns:book"/>
+          <xs:element name="appUser" type="tns:appUser"/>
+          <xs:element name="startDate" type="xs:date"/>
+          <xs:element name="returnDate" type="xs:date"/>
+          <xs:element name="dueReturnDate" type="xs:date"/>
+          <xs:element name="status" type="tns:status"/>
+        </xs:sequence>
+      </xs:complexType>
+    </xs:schema>
+  </wsdl:types>
+  <wsdl:message name="borrowingAddRequest">
+    <wsdl:part element="tns:borrowingAddRequest" name="borrowingAddRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookAddResponse">
+    <wsdl:part element="tns:bookAddResponse" name="bookAddResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingReturnResponse">
+    <wsdl:part element="tns:borrowingReturnResponse" name="borrowingReturnResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetExpiredRequest">
+    <wsdl:part element="tns:borrowingGetExpiredRequest" name="borrowingGetExpiredRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserAddResponse">
+    <wsdl:part element="tns:appUserAddResponse" name="appUserAddResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingExtendRequest">
+    <wsdl:part element="tns:borrowingExtendRequest" name="borrowingExtendRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetAllResponse">
+    <wsdl:part element="tns:borrowingGetAllResponse" name="borrowingGetAllResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserValidityCheckResponse">
+    <wsdl:part element="tns:appUserValidityCheckResponse" name="appUserValidityCheckResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetRequest">
+    <wsdl:part element="tns:borrowingGetRequest" name="borrowingGetRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingsDeleteByIdRequest">
+    <wsdl:part element="tns:borrowingsDeleteByIdRequest" name="borrowingsDeleteByIdRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetResponse">
+    <wsdl:part element="tns:borrowingGetResponse" name="borrowingGetResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetExpiredResponse">
+    <wsdl:part element="tns:borrowingGetExpiredResponse" name="borrowingGetExpiredResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingAddResponse">
+    <wsdl:part element="tns:borrowingAddResponse" name="borrowingAddResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookGetAllRequest">
+    <wsdl:part element="tns:bookGetAllRequest" name="bookGetAllRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetCurrentRequest">
+    <wsdl:part element="tns:borrowingGetCurrentRequest" name="borrowingGetCurrentRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetAllRequest">
+    <wsdl:part element="tns:borrowingGetAllRequest" name="borrowingGetAllRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookAddRequest">
+    <wsdl:part element="tns:bookAddRequest" name="bookAddRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserValidityCheckRequest">
+    <wsdl:part element="tns:appUserValidityCheckRequest" name="appUserValidityCheckRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserGetAllResponse">
+    <wsdl:part element="tns:appUserGetAllResponse" name="appUserGetAllResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserGetByIdRequest">
+    <wsdl:part element="tns:appUserGetByIdRequest" name="appUserGetByIdRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingsDeleteByIdResponse">
+    <wsdl:part element="tns:borrowingsDeleteByIdResponse" name="borrowingsDeleteByIdResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookGetResponse">
+    <wsdl:part element="tns:bookGetResponse" name="bookGetResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetCurrentResponse">
+    <wsdl:part element="tns:borrowingGetCurrentResponse" name="borrowingGetCurrentResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingReturnRequest">
+    <wsdl:part element="tns:borrowingReturnRequest" name="borrowingReturnRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookGetByIdResponse">
+    <wsdl:part element="tns:bookGetByIdResponse" name="bookGetByIdResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookGetAllResponse">
+    <wsdl:part element="tns:bookGetAllResponse" name="bookGetAllResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserGetAllRequest">
+    <wsdl:part element="tns:appUserGetAllRequest" name="appUserGetAllRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingExtendResponse">
+    <wsdl:part element="tns:borrowingExtendResponse" name="borrowingExtendResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserGetByIdResponse">
+    <wsdl:part element="tns:appUserGetByIdResponse" name="appUserGetByIdResponse"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookGetByIdRequest">
+    <wsdl:part element="tns:bookGetByIdRequest" name="bookGetByIdRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookGetRequest">
+    <wsdl:part element="tns:bookGetRequest" name="bookGetRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserAddRequest">
+    <wsdl:part element="tns:appUserAddRequest" name="appUserAddRequest"></wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="TestPort">
+    <wsdl:operation name="borrowingAdd">
+      <wsdl:input message="tns:borrowingAddRequest" name="borrowingAddRequest"></wsdl:input>
+      <wsdl:output message="tns:borrowingAddResponse" name="borrowingAddResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookAdd">
+      <wsdl:input message="tns:bookAddRequest" name="bookAddRequest"></wsdl:input>
+      <wsdl:output message="tns:bookAddResponse" name="bookAddResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingReturn">
+      <wsdl:input message="tns:borrowingReturnRequest" name="borrowingReturnRequest"></wsdl:input>
+      <wsdl:output message="tns:borrowingReturnResponse" name="borrowingReturnResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGetExpired">
+      <wsdl:input message="tns:borrowingGetExpiredRequest" name="borrowingGetExpiredRequest"></wsdl:input>
+      <wsdl:output message="tns:borrowingGetExpiredResponse" name="borrowingGetExpiredResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserAdd">
+      <wsdl:input message="tns:appUserAddRequest" name="appUserAddRequest"></wsdl:input>
+      <wsdl:output message="tns:appUserAddResponse" name="appUserAddResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingExtend">
+      <wsdl:input message="tns:borrowingExtendRequest" name="borrowingExtendRequest"></wsdl:input>
+      <wsdl:output message="tns:borrowingExtendResponse" name="borrowingExtendResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGetAll">
+      <wsdl:input message="tns:borrowingGetAllRequest" name="borrowingGetAllRequest"></wsdl:input>
+      <wsdl:output message="tns:borrowingGetAllResponse" name="borrowingGetAllResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserValidityCheck">
+      <wsdl:input message="tns:appUserValidityCheckRequest" name="appUserValidityCheckRequest"></wsdl:input>
+      <wsdl:output message="tns:appUserValidityCheckResponse" name="appUserValidityCheckResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGet">
+      <wsdl:input message="tns:borrowingGetRequest" name="borrowingGetRequest"></wsdl:input>
+      <wsdl:output message="tns:borrowingGetResponse" name="borrowingGetResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingsDeleteById">
+      <wsdl:input message="tns:borrowingsDeleteByIdRequest" name="borrowingsDeleteByIdRequest"></wsdl:input>
+      <wsdl:output message="tns:borrowingsDeleteByIdResponse" name="borrowingsDeleteByIdResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookGetAll">
+      <wsdl:input message="tns:bookGetAllRequest" name="bookGetAllRequest"></wsdl:input>
+      <wsdl:output message="tns:bookGetAllResponse" name="bookGetAllResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGetCurrent">
+      <wsdl:input message="tns:borrowingGetCurrentRequest" name="borrowingGetCurrentRequest"></wsdl:input>
+      <wsdl:output message="tns:borrowingGetCurrentResponse" name="borrowingGetCurrentResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserGetAll">
+      <wsdl:input message="tns:appUserGetAllRequest" name="appUserGetAllRequest"></wsdl:input>
+      <wsdl:output message="tns:appUserGetAllResponse" name="appUserGetAllResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserGetById">
+      <wsdl:input message="tns:appUserGetByIdRequest" name="appUserGetByIdRequest"></wsdl:input>
+      <wsdl:output message="tns:appUserGetByIdResponse" name="appUserGetByIdResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookGet">
+      <wsdl:input message="tns:bookGetRequest" name="bookGetRequest"></wsdl:input>
+      <wsdl:output message="tns:bookGetResponse" name="bookGetResponse"></wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookGetById">
+      <wsdl:input message="tns:bookGetByIdRequest" name="bookGetByIdRequest"></wsdl:input>
+      <wsdl:output message="tns:bookGetByIdResponse" name="bookGetByIdResponse"></wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TestPortSoap11" type="tns:TestPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="borrowingAdd">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingAddRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingAddResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookAdd">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="bookAddRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="bookAddResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingReturn">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingReturnRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingReturnResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGetExpired">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingGetExpiredRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingGetExpiredResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserAdd">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="appUserAddRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="appUserAddResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingExtend">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingExtendRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingExtendResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGetAll">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingGetAllRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingGetAllResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserValidityCheck">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="appUserValidityCheckRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="appUserValidityCheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGet">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingGetRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingGetResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingsDeleteById">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingsDeleteByIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingsDeleteByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookGetAll">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="bookGetAllRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="bookGetAllResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGetCurrent">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingGetCurrentRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingGetCurrentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserGetAll">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="appUserGetAllRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="appUserGetAllResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserGetById">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="appUserGetByIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="appUserGetByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookGet">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="bookGetRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="bookGetResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookGetById">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="bookGetByIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="bookGetByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TestPortService">
+    <wsdl:port binding="tns:TestPortSoap11" name="TestPortSoap11">
+      <soap:address location="http://localhost:21310/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>]]></con:content><con:type>http://schemas.xmlsoap.org/wsdl/</con:type></con:part></con:definitionCache><con:endpoints><con:endpoint>http://localhost:21310/ws</con:endpoint></con:endpoints><con:operation id="18d77073-1fe7-446b-bda2-7a1fd81e2b9f" isOneWay="false" action="" name="appUserAdd" bindingOperationName="appUserAdd" type="Request-Response" outputName="appUserAddResponse" inputName="appUserAddRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d30bf1cd-b328-4582-9399-ce9f732b3355" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:appUserAddRequest>
+         <test:email>?</test:email>
+         <test:password>?</test:password>
+         <test:firstName>?</test:firstName>
+         <test:name>?</test:name>
+         <test:isAdmin>?</test:isAdmin>
+      </test:appUserAddRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/appUserAddRequest"/></con:call></con:operation><con:operation id="21c830d9-f061-4f8a-992b-63d0dd4464ed" isOneWay="false" action="" name="appUserGetAll" bindingOperationName="appUserGetAll" type="Request-Response" outputName="appUserGetAllResponse" inputName="appUserGetAllRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="c6fe60f2-acad-44e6-9c5f-8b3cd8665b5e" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:appUserGetAllRequest/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/appUserGetAllRequest"/></con:call></con:operation><con:operation id="efc96a37-981d-4c0e-b36a-9d767e9a2f6f" isOneWay="false" action="" name="appUserGetById" bindingOperationName="appUserGetById" type="Request-Response" outputName="appUserGetByIdResponse" inputName="appUserGetByIdRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="d2246e83-4199-4b39-bc34-448a369ba949" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:appUserGetByIdRequest>
+         <test:id>?</test:id>
+      </test:appUserGetByIdRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/appUserGetByIdRequest"/></con:call></con:operation><con:operation id="3e5ec9fb-6eda-43ac-b3de-0c2a5abd2d40" isOneWay="false" action="" name="appUserValidityCheck" bindingOperationName="appUserValidityCheck" type="Request-Response" outputName="appUserValidityCheckResponse" inputName="appUserValidityCheckRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="a8f59bbb-297e-42df-b921-4f5762c89e46" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:appUserValidityCheckRequest>
+         <test:email>?</test:email>
+         <test:password>?</test:password>
+      </test:appUserValidityCheckRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/appUserValidityCheckRequest"/></con:call></con:operation><con:operation id="188bb14c-f757-4621-a719-3b05b08c7fc8" isOneWay="false" action="" name="bookAdd" bindingOperationName="bookAdd" type="Request-Response" outputName="bookAddResponse" inputName="bookAddRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0db47bbc-3e0d-4a08-bbab-9f57bcd76dd9" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:bookAddRequest>
+         <test:title>?</test:title>
+         <test:authorFirstName>?</test:authorFirstName>
+         <test:authorName>?</test:authorName>
+         <test:number>?</test:number>
+      </test:bookAddRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/bookAddRequest"/></con:call></con:operation><con:operation id="fb2dd19f-0721-464f-97b8-15f5e11e19b0" isOneWay="false" action="" name="bookGet" bindingOperationName="bookGet" type="Request-Response" outputName="bookGetResponse" inputName="bookGetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="bcfd701c-322a-4294-b005-c6b0f59b7c84" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:bookGetRequest>
+         <test:title>?</test:title>
+      </test:bookGetRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/bookGetRequest"/></con:call></con:operation><con:operation id="430fe97c-285c-44d4-9835-4bdac10300c2" isOneWay="false" action="" name="bookGetAll" bindingOperationName="bookGetAll" type="Request-Response" outputName="bookGetAllResponse" inputName="bookGetAllRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="cd5030ed-4ff1-4c2c-bca5-d45e6e8daf09" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:bookGetAllRequest/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/bookGetAllRequest"/></con:call></con:operation><con:operation id="58e717b3-d15d-42e8-85b9-db70e0fa3857" isOneWay="false" action="" name="bookGetById" bindingOperationName="bookGetById" type="Request-Response" outputName="bookGetByIdResponse" inputName="bookGetByIdRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="2fa5e5c1-6084-4131-b9c5-797b0f26b798" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:bookGetByIdRequest>
+         <test:id>?</test:id>
+      </test:bookGetByIdRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/bookGetByIdRequest"/></con:call></con:operation><con:operation id="23ca9201-f08b-49f5-b3aa-b53041279fd4" isOneWay="false" action="" name="borrowingAdd" bindingOperationName="borrowingAdd" type="Request-Response" outputName="borrowingAddResponse" inputName="borrowingAddRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="eede521b-e653-42e5-964c-42c00b4c20ba" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:borrowingAddRequest>
+         <test:appUserId>?</test:appUserId>
+         <test:bookId>?</test:bookId>
+         <test:startDate>?</test:startDate>
+         <test:dueReturnDate>?</test:dueReturnDate>
+      </test:borrowingAddRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/borrowingAddRequest"/></con:call></con:operation><con:operation id="9ca1766b-3a5d-4e88-8ea6-5766e5403115" isOneWay="false" action="" name="borrowingExtend" bindingOperationName="borrowingExtend" type="Request-Response" outputName="borrowingExtendResponse" inputName="borrowingExtendRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="fc600b87-e4bb-4708-9852-54e855aabfbd" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:borrowingExtendRequest>
+         <test:borrowingId>?</test:borrowingId>
+         <test:newDueReturnDate>?</test:newDueReturnDate>
+      </test:borrowingExtendRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/borrowingExtendRequest"/></con:call></con:operation><con:operation id="c3de4197-2ace-48b8-8c72-e11df868fb17" isOneWay="false" action="" name="borrowingGet" bindingOperationName="borrowingGet" type="Request-Response" outputName="borrowingGetResponse" inputName="borrowingGetRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="9f16e8ae-c358-4350-a4b4-6a83b653f889" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:borrowingGetRequest>
+         <test:id>?</test:id>
+      </test:borrowingGetRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/borrowingGetRequest"/></con:call></con:operation><con:operation id="b24acc47-0438-4e8a-8131-f07259a24c35" isOneWay="false" action="" name="borrowingGetAll" bindingOperationName="borrowingGetAll" type="Request-Response" outputName="borrowingGetAllResponse" inputName="borrowingGetAllRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="27d3ab0e-d79c-4be2-b745-518e52036b39" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:borrowingGetAllRequest/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/borrowingGetAllRequest"/></con:call></con:operation><con:operation id="e16e0765-718d-4b37-8f14-03e4c9295c28" isOneWay="false" action="" name="borrowingGetCurrent" bindingOperationName="borrowingGetCurrent" type="Request-Response" outputName="borrowingGetCurrentResponse" inputName="borrowingGetCurrentRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="9bbe788b-f1bc-4e49-9d81-ee6c14fb884c" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:borrowingGetCurrentRequest>
+         <test:userId>?</test:userId>
+      </test:borrowingGetCurrentRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/borrowingGetCurrentRequest"/></con:call></con:operation><con:operation id="e139cd03-0ee3-436d-b430-e98a567549d2" isOneWay="false" action="" name="borrowingGetExpired" bindingOperationName="borrowingGetExpired" type="Request-Response" outputName="borrowingGetExpiredResponse" inputName="borrowingGetExpiredRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0da33318-870f-4a87-85e2-b5bd702d21a9" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:borrowingGetExpiredRequest/>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/borrowingGetExpiredRequest"/></con:call></con:operation><con:operation id="db5563a0-65e2-4265-b0f6-0e0d04494de7" isOneWay="false" action="" name="borrowingReturn" bindingOperationName="borrowingReturn" type="Request-Response" outputName="borrowingReturnResponse" inputName="borrowingReturnRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="0457b4e4-1201-4e37-aa92-c0a3ae5716a5" name="Request 1"><con:settings/><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:borrowingReturnRequest>
+         <test:id>?</test:id>
+      </test:borrowingReturnRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/borrowingReturnRequest"/></con:call></con:operation><con:operation id="01905d3a-ec05-4ab3-a0d7-a69757c0180f" isOneWay="false" action="" name="borrowingsDeleteById" bindingOperationName="borrowingsDeleteById" type="Request-Response" outputName="borrowingsDeleteByIdResponse" inputName="borrowingsDeleteByIdRequest" receivesAttachments="false" sendsAttachments="false" anonymous="optional"><con:settings/><con:call id="b1b85119-d44d-4af1-969c-cb6197aafb9e" name="Request 1"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:encoding>UTF-8</con:encoding><con:endpoint>http://localhost:21310/ws</con:endpoint><con:request><![CDATA[<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:test="http://test.ws.biblioback.openclassrooms.com">
+   <soapenv:Header/>
+   <soapenv:Body>
+      <test:borrowingsDeleteByIdRequest>
+         <!--Zero or more repetitions:-->
+         <test:borrowingDeleteById>13</test:borrowingDeleteById>
+         <test:borrowingDeleteById>14</test:borrowingDeleteById>
+  
+      </test:borrowingsDeleteByIdRequest>
+   </soapenv:Body>
+</soapenv:Envelope>]]></con:request><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:wsaConfig mustUnderstand="NONE" version="200508" action="http://test.ws.biblioback.openclassrooms.com/TestPort/borrowingsDeleteByIdRequest"/><con:wsrmConfig version="1.2"/></con:call></con:operation></con:interface><con:properties/><con:wssContainer/><con:oAuth2ProfileContainer/><con:oAuth1ProfileContainer/></con:soapui-project>

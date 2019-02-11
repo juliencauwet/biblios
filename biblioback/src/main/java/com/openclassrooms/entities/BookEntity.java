@@ -1,7 +1,5 @@
 package com.openclassrooms.entities;
 
-import com.openclassrooms.Status;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -21,7 +19,6 @@ public class BookEntity {
     @Size(min = 1, max = 100)
     private String authorName;
     private String authorFirstName;
-    private Status status = Status.DISPONIBLE;
 
     @OneToMany
     @JoinColumn(name = "borrowing_id")

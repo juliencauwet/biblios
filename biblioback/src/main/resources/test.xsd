@@ -101,6 +101,7 @@
             <xs:element name="firstName" type="xs:string"/>
             <xs:element name="name" type="xs:string"/>
             <xs:element name="isAdmin" type="xs:boolean"/>
+            <xs:element name="isEmployee" type="xs:boolean"/>
         </xs:sequence>
     </xs:complexType>
 
@@ -373,6 +374,63 @@
 - Liste des emprunts non rendus à temps
    *
    -->
+    <xs:element name="borrowingsDeleteByIdRequest" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="borrowingDeleteById" type="xs:int"
+                            minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingsDeleteByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="borrowingDeleteById" type="xs:int"
+                            minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingsConfirmationRequest" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingsConfirmationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="confirmation" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingsGetPanierRequest" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingsGetPanierResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="panier" type="tns:borrowing"
+                            minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType name="status" final="restriction" >
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="panier" />
+            <xs:enumeration value="commande" />
+        </xs:restriction>
+    </xs:simpleType>
 
     <xs:complexType name="borrowing">
         <xs:sequence>
@@ -382,9 +440,8 @@
             <xs:element name="startDate" type="xs:date"/>
             <xs:element name="returnDate" type="xs:date" />
             <xs:element name="dueReturnDate" type="xs:date" />
+            <xs:element name="status" type="tns:status" />
         </xs:sequence>
     </xs:complexType>
-
-
 
 </xs:schema>
