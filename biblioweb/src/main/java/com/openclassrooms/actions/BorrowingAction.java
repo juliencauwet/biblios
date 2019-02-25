@@ -36,6 +36,8 @@ public class BorrowingAction extends ActionSupport {
     private Book book;
     private int bookId;
 
+    private Status status;
+
     @Override
     public String execute() throws Exception {
         return SUCCESS;
@@ -86,10 +88,12 @@ public class BorrowingAction extends ActionSupport {
 
         request.setBookId(bookId);
 
-        if (testPort.borrowingAdd(request).isConfirmation())
-            setMessage("L'emprunt a bien été enregistré. Veuillez s'il vous plait le retourner avant le " + calendar.getTime());
-        else
+        Borrowing borrowing = testPort.borrowingAdd(request).getBorrowing();
+        log.info("status: " + borrowing.getStatus());
+        if (borrowing.getStatus() == null)
             setMessage("L'emprunt n'a pas pu être effectué.");
+        else
+            setMessage("L'emprunt a bien été enregistré. Veuillez s'il vous plait le retourner avant le " + borrowing.getDueReturnDate());
 
         return SUCCESS;
     }
@@ -197,6 +201,13 @@ public class BorrowingAction extends ActionSupport {
         this.bookId = bookId;
     }
 
+    public Status getStatus() {
+        return status;
+    }
+
+    public void setStatus(Status status) {
+        this.status = status;
+    }
 
     public XMLGregorianCalendar toXmlGregorianCalendar(GregorianCalendar cal){
         try {

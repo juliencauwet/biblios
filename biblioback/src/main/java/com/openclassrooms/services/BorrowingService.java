@@ -1,6 +1,6 @@
 package com.openclassrooms.services;
 
-import com.openclassrooms.entities.AppUser;
+import com.openclassrooms.entities.BookEntity;
 import com.openclassrooms.entities.Borrowing;
 import com.openclassrooms.entities.Status;
 import com.openclassrooms.repositories.BorrowingRepository;
@@ -80,9 +80,13 @@ public class BorrowingService implements IBorrowingService {
     }
 
     @Override
-    public List<Borrowing> findAllBorrowingswithBasketStatusPerUser(AppUser user) {
-        return borrowingRepository.findBorrowingsByStatusAndAppUser(Status.PANIER, user);
+    public List<Borrowing> getBorrowingsByBook(BookEntity book) {
+        return borrowingRepository.findBorrowingsByBook(book);
     }
 
+    @Override
+    public List<Borrowing> getBorrowingsByBookAndStatus(BookEntity book, Status status) {
+        return borrowingRepository.findBorrowingsByBookAndStatus(book, status);
+    }
 
 }

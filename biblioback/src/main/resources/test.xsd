@@ -44,7 +44,6 @@
     </xs:element>
 
     <!--
-
 - Entrée nouvel utilisateur
 	*	Boolean confirmation
 	**	String firstName
@@ -123,7 +122,7 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="bookGet" type="tns:book"
-                minOccurs="0" maxOccurs="unbounded"/>
+                            minOccurs="0" maxOccurs="unbounded"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -157,7 +156,6 @@
 		String authorName
 		String authorFirstName
 		String number
-
 		-->
 
     <xs:element name="bookAddRequest" >
@@ -227,12 +225,10 @@
     </xs:element>
 
     <!--
-
 - Enregistrement d’un nouvel emprunt
 	*	int caseCode
 	**	int bookId
 		Date startDate
-
 		-->
 
     <xs:element name="borrowingAddRequest" >
@@ -249,7 +245,7 @@
     <xs:element name="borrowingAddResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="confirmation" type="xs:boolean"/>
+                <xs:element name="borrowing" type="tns:borrowing"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -279,11 +275,9 @@
     </xs:element>
 
     <!--
-
 - Retour de prêt (modification emprunt)
    *	Boolean confirmation
    **	intBorrowingId
-
    -->
     <xs:element name="borrowingReturnRequest" >
         <xs:complexType>
@@ -302,11 +296,9 @@
     </xs:element>
 
     <!--
-
 - Liste des emprunts en cours de tous les utilisateurs
   *	List<Borrowing> borrowings
   **	no parameter
-
  -->
 
     <xs:element name="borrowingGetAllRequest" >
@@ -326,11 +318,9 @@
 
 
     <!--
-
 - Liste des emprunts en cours de l'utilisateur connecté
    *	List<Borrowing> borrowings
    **	no parameter
-
   -->
 
     <xs:element name="borrowingGetCurrentRequest" >
@@ -367,7 +357,6 @@
     </xs:element>
 
     <!--
-
 - Liste des emprunts prolongés
    * 	List<Borrowing> borrowings
    **	Boolean IsExtended
@@ -427,8 +416,9 @@
 
     <xs:simpleType name="status" final="restriction" >
         <xs:restriction base="xs:string">
-            <xs:enumeration value="panier" />
-            <xs:enumeration value="commande" />
+            <xs:enumeration value="waitinglist" />
+            <xs:enumeration value="ongoing" />
+            <xs:enumeration value="none" />
         </xs:restriction>
     </xs:simpleType>
 
@@ -441,6 +431,7 @@
             <xs:element name="returnDate" type="xs:date" />
             <xs:element name="dueReturnDate" type="xs:date" />
             <xs:element name="status" type="tns:status" />
+            <xs:element name="waitingListOrder" type="xs:int" />
         </xs:sequence>
     </xs:complexType>
 

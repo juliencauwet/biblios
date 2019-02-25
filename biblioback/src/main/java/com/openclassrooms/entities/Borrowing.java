@@ -23,19 +23,32 @@ public class Borrowing {
     private Date dueReturnDate;
     private Boolean isExtended = false;
 
+    @Enumerated(value = EnumType.STRING)
     private Status status;
+
+    private int waitingListOrder;
 
     public Borrowing() {
     }
 
-    public Borrowing(AppUser appUser, BookEntity book, Date startDate, Date dueReturnDate, Date returnDate, Status status) {
+    public Borrowing(AppUser appUser, BookEntity book, Date startDate, Date dueReturnDate, Date returnDate) {
         this.appUser = appUser;
         this.book = book;
         this.startDate = startDate;
         this.returnDate= returnDate;
         this.dueReturnDate = dueReturnDate;
-        this.status = status;
     }
+
+    public Borrowing(BookEntity book, int waitingListOrder){
+        this.book = book;
+        this.waitingListOrder = waitingListOrder;
+    }
+
+    public Borrowing(BookEntity book){
+        this.book = book;
+    }
+
+
 
     public int getId() {
         return id;
@@ -99,5 +112,36 @@ public class Borrowing {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public BookEntity getBook() {
+        return book;
+    }
+
+    public void setBook(BookEntity book) {
+        this.book = book;
+    }
+
+    public int getWaitingListOrder() {
+        return waitingListOrder;
+    }
+
+    public void setWaitingListOrder(int waitingListOrder) {
+        this.waitingListOrder = waitingListOrder;
+    }
+
+    @Override
+    public String toString() {
+        return "Borrowing{" +
+                "id=" + id +
+                ", appUser=" + appUser +
+                ", book=" + book +
+                ", startDate=" + startDate +
+                ", returnDate=" + returnDate +
+                ", dueReturnDate=" + dueReturnDate +
+                ", isExtended=" + isExtended +
+                ", status=" + status +
+                ", waitingListOrder=" + waitingListOrder +
+                '}';
     }
 }

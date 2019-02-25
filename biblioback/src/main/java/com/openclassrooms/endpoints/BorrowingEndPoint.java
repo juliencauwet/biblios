@@ -1,6 +1,7 @@
 package com.openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.test.*;
+import com.openclassrooms.conversions.BookConversion;
 import com.openclassrooms.conversions.BorrowingConversion;
 import com.openclassrooms.entities.BookEntity;
 import com.openclassrooms.entities.Status;
@@ -9,6 +10,7 @@ import com.openclassrooms.services.IBookService;
 import com.openclassrooms.services.IBorrowingService;
 import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -17,6 +19,7 @@ import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -70,58 +73,44 @@ public class BorrowingEndPoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingAddRequest")
     @ResponsePayload
     public BorrowingAddResponse addBorrowing(@RequestPayload BorrowingAddRequest request) {
-
         BorrowingAddResponse response = new BorrowingAddResponse();
-
-        log.info("ajout d'un nouvel emprunt:" + request.getBookId());
-
+        logger.info("ajout d'un nouvel emprunt:" + request.getBookId());
         com.openclassrooms.entities.Borrowing borrowing = new com.openclassrooms.entities.Borrowing();
-
         com.openclassrooms.entities.AppUser appUser = appUserService.getAppUserById(request.getAppUserId());
         BookEntity book = bookService.getBookById(request.getBookId());
-        if (book.getNumber() < 1)
-            response.setConfirmation(false);
-        else {
-            //new: Upon order, the borrowing is at PANIER status for 48h
-            borrowing.setStatus(Status.PANIER);
+        borrowing.setBookEntity(book);
+        borrowing.setAppUser(appUser);
+        borrowing.setStartDate(request.getStartDate().toGregorianCalendar().getTime());
+        borrowing.setDueReturnDate(request.getDueReturnDate().toGregorianCalendar().getTime());
 
-            borrowing.setAppUser(appUser);
-            borrowing.setBookEntity(book);
-            borrowing.setStartDate(request.getStartDate().toGregorianCalendar().getTime());
-            borrowing.setDueReturnDate(request.getDueReturnDate().toGregorianCalendar().getTime());
+        //if no more book available
+        if (book.getNumber() < 1) {
+            logger.info("The book is not available: " + book.getNumber());
+            //if waiting list greater than twice the total number of books, reservation not possible
+            if (borrowingService.getBorrowingsByBookAndStatus(book, Status.WAITINGLIST).size() >= borrowingService.getBorrowingsByBookAndStatus(book, Status.ONGOING).size() * 2) {
+                logger.info("Waiting list full!");
+                logger.info("set status None");
+                borrowing.setStatus(Status.NONE);
+                response.setBorrowing(borrowingConversion.toWS(borrowing));
+                logger.info("send response back");
+                return response;
+            } else {
+                borrowing.setStatus(Status.WAITINGLIST);
+                borrowing.setWaitingListOrder(waitingListPosition(borrowing));
+                logger.info("The book is on the waiting list, position: " + borrowing.getWaitingListOrder());
+            }
+        } else {
+            logger.info("borrowing successful");
+            borrowing.setStatus(Status.ONGOING);
             book.setNumber(book.getNumber() - 1);
-            bookService.updateBook(book);
-            borrowingService.newBorrowing(borrowing);
-            response.setConfirmation(true);
         }
+
+        bookService.updateBook(book);
+        borrowingService.newBorrowing(borrowing);
+
+        response.setBorrowing(borrowingConversion.toWS(borrowing));
         return response;
     }
-
-     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingsConfirmationRequest")
-     @ResponsePayload
-     public BorrowingsConfirmationResponse confirmBorrowings(@RequestPayload BorrowingsConfirmationRequest request){
-         BorrowingsConfirmationResponse response = new BorrowingsConfirmationResponse();
-         com.openclassrooms.entities.AppUser user = appUserService.getAppUserById(request.getUserId());
-         List<com.openclassrooms.entities.Borrowing> borrowingsToHaveStatusChanged = borrowingService.findAllBorrowingswithBasketStatusPerUser(user);
-         for(com.openclassrooms.entities.Borrowing b : borrowingsToHaveStatusChanged)
-             b.setStatus(Status.COMMANDE);
-         response.setConfirmation(true);
-         return response;
-     }
-
-     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingsGetPanierRequest")
-     @ResponsePayload
-     public BorrowingsGetPanierResponse getAllWithPanierStatus(@RequestPayload BorrowingsGetPanierRequest request){
-        BorrowingsGetPanierResponse response = new BorrowingsGetPanierResponse();
-        com.openclassrooms.entities.AppUser user = appUserService.getAppUserById(request.getUserId());
-        List<com.openclassrooms.entities.Borrowing> borrowings = borrowingService.findAllBorrowingswithBasketStatusPerUser(user);
-        for(com.openclassrooms.entities.Borrowing b : borrowings){
-            response.getPanier().add(borrowingConversion.toWS(b));
-        }
-        return response;
-     }
-
-
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingGetRequest")
     @ResponsePayload
@@ -208,7 +197,6 @@ public class BorrowingEndPoint {
         return response;
     }
 
-    //TODO: method to remove targeted borrowings by id
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingsDeleteByIdRequest")
     @ResponsePayload
     @Transactional
@@ -220,6 +208,20 @@ public class BorrowingEndPoint {
 
         return response;
     }
+
+    protected int waitingListPosition(com.openclassrooms.entities.Borrowing borrowing){
+
+        logger.info("waitingListPositonMethod");
+        List<com.openclassrooms.entities.Borrowing> borrowings = borrowingService.getBorrowingsByBook(borrowing.getBook());
+        ArrayList<Integer> positions = new ArrayList<>();
+
+        for (com.openclassrooms.entities.Borrowing b: borrowings) {
+            positions.add(b.getWaitingListOrder());
+        }
+        //looks for the maximum waiting list position and add 1
+        return Collections.max(positions) + 1;
+    }
+
 
 
 }

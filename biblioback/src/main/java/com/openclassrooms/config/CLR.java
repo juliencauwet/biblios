@@ -1,9 +1,10 @@
 package com.openclassrooms.config;
 
+import com.openclassrooms.entities.AppRole;
 import com.openclassrooms.entities.AppUser;
 import com.openclassrooms.entities.BookEntity;
 import com.openclassrooms.entities.Borrowing;
-import com.openclassrooms.entities.Status;
+import com.openclassrooms.repositories.AppRoleRepository;
 import com.openclassrooms.services.AppUserService;
 import com.openclassrooms.services.BookService;
 import com.openclassrooms.services.BorrowingService;
@@ -13,6 +14,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,6 +27,8 @@ public class CLR implements CommandLineRunner{
     AppUserService appUserService;
     @Autowired
     BorrowingService borrowingService;
+    @Autowired
+    AppRoleRepository appRoleRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -42,11 +46,11 @@ public class CLR implements CommandLineRunner{
         bookService.addBook(b5);
         bookService.addBook(b6);
 
-        AppUser u1 = new AppUser("Julien", "Cauwet", "juliencauwet@yahoo.fr", "12345", true,true);
-        AppUser u2 = new AppUser("Juan", "Olivero", "jjolivero83@gmail.com", "abcde", false, true);
-        AppUser u3 = new AppUser("Manu", "Favre", "emfavvic@gmail.com", "vwxyz", false, true);
-        AppUser u4 = new AppUser("Laëtitia", "Cauwet", "laetis0609@yahoo.fr", "98765", false, false);
-        AppUser u5 = new AppUser("Cesare", "De Padua", "cesaredepadua@gmail.com", "23456", false, false);
+        AppUser u1 = new AppUser("Julien", "Cauwet", "juliencauwet@yahoo.fr", "12345", true);
+        AppUser u2 = new AppUser("Juan", "Olivero", "jjolivero83@gmail.com", "abcde", false);
+        AppUser u3 = new AppUser("Manu", "Favre", "emfavvic@gmail.com", "vwxyz", false);
+        AppUser u4 = new AppUser("Laëtitia", "Cauwet", "laetis0609@yahoo.fr", "98765", false);
+        AppUser u5 = new AppUser("Cesare", "De Padua", "cesaredepadua@gmail.com", "23456", false);
 
         appUserService.addUser(u1);
         appUserService.addUser(u2);
@@ -73,21 +77,27 @@ public class CLR implements CommandLineRunner{
         Date date7 = sdf.parse(strDate7);
         Date date8 = sdf.parse(strDate8);
 
-        Borrowing bor1 = new Borrowing(u1, b3, date1, date5, null, Status.PANIER);
-        Borrowing bor2 = new Borrowing(u4, b6, date2, date6, null, Status.PANIER);
-        Borrowing bor3 = new Borrowing(u2, b2, date3, date5, date6, Status.PANIER);
-        Borrowing bor4 = new Borrowing(u5, b1, date4, date7, date8, Status.COMMANDE);
-        Borrowing bor5 = new Borrowing(u3, b4, date1, date2, null, Status.PANIER);
-        Borrowing bor6 = new Borrowing(u3, b1, date1, date2, null, Status.PANIER);
+        Borrowing bor1 = new Borrowing(u1, b3, date1, date5, null);
+        Borrowing bor2 = new Borrowing(u4, b6, date2, date6, null);
+        Borrowing bor3 = new Borrowing(u2, b2, date3, date5, date6);
+        Borrowing bor4 = new Borrowing(u5, b1, date4, date7, date8);
+        Borrowing bor5 = new Borrowing(u3, b4, date1, date2, null);
 
         borrowingService.newBorrowing(bor1);
         borrowingService.newBorrowing(bor2);
         borrowingService.newBorrowing(bor3);
         borrowingService.newBorrowing(bor4);
         borrowingService.newBorrowing(bor5);
-        borrowingService.newBorrowing(bor6);
 
         List<Borrowing> borrowings = borrowingService.getExpiredBorrowing();
+
+        AppRole admin = new AppRole(1,"ADMIN", new ArrayList<>());
+        AppRole employe = new AppRole(2, "EMPLOYE", new ArrayList<>());
+        AppRole utillisateur = new AppRole(3, "UTILISATEUR", new ArrayList<>());
+
+        appRoleRepository.save(admin);
+        appRoleRepository.save(employe);
+        appRoleRepository.save(utillisateur);
 
         if (borrowings.size() == 0){
             System.out.println("Il n'y a pas d'emprunts retardés");

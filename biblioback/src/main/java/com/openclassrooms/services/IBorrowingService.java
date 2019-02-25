@@ -1,6 +1,6 @@
 package com.openclassrooms.services;
 
-import com.openclassrooms.entities.AppUser;
+import com.openclassrooms.entities.BookEntity;
 import com.openclassrooms.entities.Borrowing;
 import com.openclassrooms.entities.Status;
 import org.springframework.stereotype.Service;
@@ -19,5 +19,6 @@ public interface IBorrowingService {
     List<Borrowing> getAllBorrowings();
     List<Borrowing> filterBorrowingByStatus(Status status);
     void deleteBorrowingListById(List<Integer> borrowingIds);
-    List<Borrowing> findAllBorrowingswithBasketStatusPerUser(AppUser user);
+    List<Borrowing> getBorrowingsByBook(BookEntity book);
+    List<Borrowing> getBorrowingsByBookAndStatus(BookEntity book, Status status);
 }

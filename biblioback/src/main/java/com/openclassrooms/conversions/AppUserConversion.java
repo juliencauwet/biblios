@@ -17,9 +17,7 @@ public class AppUserConversion {
         appUser.setFirstName(appUserEntity.getFirstName());
         appUser.setName(appUserEntity.getName());
         appUser.setEmail(appUserEntity.getEmail());
-        appUser.setPassword(appUserEntity.getPassword());
-        appUser.setIsAdmin(appUserEntity.getIsAdmin());
-        appUser.setIsEmployee(appUserEntity.getIsEmployee());
+        appUser.setPassword(appUser.getPassword());
         return appUser;
     }
 //
@@ -30,8 +28,6 @@ public class AppUserConversion {
         appUserEntity.setFirstName(appUser.getFirstName());
         appUserEntity.setEmail(appUser.getEmail());
         appUserEntity.setPassword(appUser.getPassword());
-        appUserEntity.setIsAdmin(appUser.isIsAdmin());
-        appUserEntity.setIsEmployee(appUser.isIsEmployee());
         return appUserEntity;
     }
 

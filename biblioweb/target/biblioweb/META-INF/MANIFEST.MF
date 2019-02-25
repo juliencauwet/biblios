@@ -1,5 +1,34 @@
 Manifest-Version: 1.0
 Built-By: julien
+Class-Path: struts2-core-2.5.16.jar freemarker-2.3.26-incubating.jar o
+ gnl-3.1.15.jar javassist-3.20.0-GA.jar log4j-api-2.10.0.jar commons-i
+ o-2.5.jar commons-lang3-3.6.jar struts2-sitemesh-plugin-2.5.16.jar si
+ temesh-2.4.2.jar struts2-spring-plugin-2.5.16.jar spring-beans-4.3.13
+ .RELEASE.jar spring-core-4.3.13.RELEASE.jar spring-context-4.3.13.REL
+ EASE.jar spring-aop-4.3.13.RELEASE.jar spring-expression-4.3.13.RELEA
+ SE.jar spring-web-4.3.13.RELEASE.jar struts2-config-browser-plugin-2.
+ 5.16.jar javax.servlet-api-3.1.0.jar jsp-api-2.0.jar servlet-api-2.4.
+ jar jBCrypt-0.4.jar commons-fileupload-1.3.jar dwr-1.1-beta-3.jar com
+ mons-logging-1.0.4.jar cxf-spring-boot-starter-jaxws-3.2.5.jar spring
+ -boot-starter-1.5.14.RELEASE.jar spring-boot-1.5.14.RELEASE.jar sprin
+ g-boot-autoconfigure-1.5.14.RELEASE.jar spring-boot-starter-logging-1
+ .5.14.RELEASE.jar logback-classic-1.1.11.jar logback-core-1.1.11.jar 
+ slf4j-api-1.7.22.jar jcl-over-slf4j-1.7.25.jar jul-to-slf4j-1.7.25.ja
+ r log4j-over-slf4j-1.7.25.jar snakeyaml-1.17.jar spring-boot-starter-
+ web-1.5.14.RELEASE.jar spring-boot-starter-tomcat-1.5.14.RELEASE.jar 
+ tomcat-embed-core-8.5.31.jar tomcat-annotations-api-8.5.31.jar tomcat
+ -embed-el-8.5.31.jar tomcat-embed-websocket-8.5.31.jar hibernate-vali
+ dator-5.3.6.Final.jar jboss-logging-3.3.0.Final.jar classmate-1.3.1.j
+ ar jackson-databind-2.8.11.2.jar jackson-annotations-2.8.0.jar jackso
+ n-core-2.8.10.jar spring-webmvc-4.3.18.RELEASE.jar cxf-spring-boot-au
+ toconfigure-3.2.5.jar cxf-rt-transports-http-3.2.5.jar cxf-core-3.2.5
+ .jar woodstox-core-5.0.3.jar stax2-api-3.1.4.jar xmlschema-core-2.2.3
+ .jar cxf-rt-frontend-jaxws-3.2.5.jar xml-resolver-1.2.jar asm-5.2.jar
+  cxf-rt-bindings-soap-3.2.5.jar cxf-rt-wsdl-3.2.5.jar wsdl4j-1.6.3.ja
+ r cxf-rt-databinding-jaxb-3.2.5.jar cxf-rt-bindings-xml-3.2.5.jar cxf
+ -rt-frontend-simple-3.2.5.jar cxf-rt-ws-addr-3.2.5.jar cxf-rt-ws-poli
+ cy-3.2.5.jar neethi-3.1.1.jar validation-api-1.1.0.Final.jar log4j-1.
+ 2.17.jar
 Created-By: IntelliJ IDEA
 Build-Jdk: 1.8.0_161
 

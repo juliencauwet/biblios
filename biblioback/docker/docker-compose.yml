@@ -1,6 +1,6 @@
 version: '3.5'
 services:
-  biblioback:
+  bibliodb:
     image: postgres:alpine
     ports:
       - '2131:5432'
@@ -13,3 +13,8 @@ services:
       - './sql:/docker-entrypoint-initdb.d'
     restart: always
     network_mode: bridge
+  #biblioback:
+    #image: biblioback
+    #depends_on:
+     # - bibliodb
+
