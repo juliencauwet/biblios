@@ -30,6 +30,5 @@ hs_err_pid*
 
 .idea
 
-**/ws
-/target
-**/ws/**
+**/target/
+**/ws/
