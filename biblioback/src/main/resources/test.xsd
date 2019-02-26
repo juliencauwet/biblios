@@ -447,19 +447,17 @@
     <xs:element name="stateOfBorrowingResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="stateOfBorrowing" type="tns:stateOfBorrowing" />
+                <xs:element name="stateOfBorrowing" type="tns:stateOfBorrowing"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
 
     <xs:complexType name="stateOfBorrowing">
         <xs:sequence>
-            <xs:element name="borrowing" type="tns:borrowing"/>
-            <xs:element name="waintingListNumber" type="xs:int"/>
+            <xs:element name="book" type="tns:book"/>
+            <xs:element name="waitingListNumber" type="xs:int"/>
             <xs:element name="nextReturn" type="xs:date"/>
         </xs:sequence>
     </xs:complexType>
-
-
 
 </xs:schema>

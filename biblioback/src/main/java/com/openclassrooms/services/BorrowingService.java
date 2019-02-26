@@ -100,4 +100,16 @@ public class BorrowingService implements IBorrowingService {
         return borrowingRepository.findBorrowingsByBookAndAppUser(book,user).size() > 0;
     }
 
+    @Override
+    public Date nextReturnDate(BookEntity bookEntity) {
+        Date date = new Date();
+        List<Borrowing> borrowings = borrowingRepository.findBorrowingsByBook(bookEntity);
+        for (Borrowing b : borrowings){
+            if (date.before(b.getDueReturnDate()))
+                date = b.getDueReturnDate();
+        }
+
+        return date;
+    }
+
 }

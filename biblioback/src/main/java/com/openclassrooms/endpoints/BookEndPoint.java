@@ -1,9 +1,14 @@
 package com.openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.test.*;
+import com.openclassrooms.conversions.BookConversion;
+import com.openclassrooms.conversions.BorrowingConversion;
 import com.openclassrooms.entities.BookEntity;
+import com.openclassrooms.entities.Borrowing;
+import com.openclassrooms.entities.Status;
 import com.openclassrooms.services.BookService;
 import com.openclassrooms.services.IBookService;
+import com.openclassrooms.services.IBorrowingService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -20,6 +25,13 @@ public class BookEndPoint {
 
     @Autowired
     private IBookService bookService;
+
+    @Autowired
+    private IBorrowingService borrowingService;
+
+    private BookConversion bookConversion = new BookConversion();
+
+    private BorrowingConversion borrowingConversion = new BorrowingConversion();
 
     @Autowired
     public BookEndPoint(BookService bookService){
@@ -75,6 +87,21 @@ public class BookEndPoint {
         BookGetAllResponse response = new BookGetAllResponse();
         List<BookEntity> bookEntities = bookService.getAllBooks();
         response.getBookGetAll().addAll(convertBooks(bookEntities));
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "stateOfBorrowingRequest")
+    @ResponsePayload
+    public StateOfBorrowingResponse getStateOfBorrowing(@RequestPayload StateOfBorrowingRequest request){
+        StateOfBorrowingResponse response = new StateOfBorrowingResponse();
+        BookEntity book = bookService.getBookById(request.getBookId());
+        StateOfBorrowing state = new StateOfBorrowing();
+
+        state.setBook(bookConversion.bookEntityToBook(book));
+        state.setWaitingListNumber(borrowingService.getBorrowingsByBookAndStatus(book, Status.WAITINGLIST).size());
+        //searches for the next return date and converts into XML
+        state.setNextReturn(borrowingConversion.toXmlGregorianCalendar(borrowingConversion.dateToGregorianCalendar(borrowingService.nextReturnDate(book))));
+        response.setStateOfBorrowing(state);
         return response;
     }
 
