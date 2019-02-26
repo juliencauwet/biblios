@@ -90,8 +90,11 @@ public class BorrowingAction extends ActionSupport {
 
         Borrowing borrowing = testPort.borrowingAdd(request).getBorrowing();
         log.info("status: " + borrowing.getStatus());
-        if (borrowing.getStatus() == null)
-            setMessage("L'emprunt n'a pas pu être effectué.");
+
+        if(borrowing.getStatus() == Status.DENIED)
+            setMessage("Vous avez déjà emprunté ce livre.");
+        else if (borrowing.getStatus() == Status.NONE)
+            setMessage("L'emprunt n'a pas pu être effectué car la liste d'attente est pleine.");
         else
             setMessage("L'emprunt a bien été enregistré. Veuillez s'il vous plait le retourner avant le " + borrowing.getDueReturnDate());
 

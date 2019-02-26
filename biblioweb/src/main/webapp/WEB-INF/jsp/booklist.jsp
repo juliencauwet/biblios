@@ -35,7 +35,10 @@
                     <th>Prénom de l'auteur</th>
                     <th>Nom de l'auteur</th>
                     <th>Titre</th>
-                    <th>Nombre d'exemplaires disponibles</th>
+                    <th>disponibilité</th>
+                    <th>attente</th>
+                    <th>prochain retour</th>
+
                 </tr>
                 <s:iterator value="books">
                     <tr>
@@ -43,6 +46,8 @@
                         <td><s:property value="authorName"/></td>
                         <td><s:a action="getBookById"><s:param name="id" value="id"/> <s:property value="title" /></s:a> </td>
                         <td><s:property value="number"/> </td>
+                        <td></td><!--nb à attendre -->
+                        <td></td><!-- prochaine date de retour -->
                     </tr>
                 </s:iterator>
             </table>

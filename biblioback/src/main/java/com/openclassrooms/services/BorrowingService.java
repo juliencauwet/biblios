@@ -1,9 +1,12 @@
 package com.openclassrooms.services;
 
+import com.openclassrooms.entities.AppUser;
 import com.openclassrooms.entities.BookEntity;
 import com.openclassrooms.entities.Borrowing;
 import com.openclassrooms.entities.Status;
 import com.openclassrooms.repositories.BorrowingRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,6 +20,8 @@ public class BorrowingService implements IBorrowingService {
 
     @Autowired
     BorrowingRepository borrowingRepository;
+
+    Logger logger = LoggerFactory.getLogger(this.getClass());
 
     @Override
     public void newBorrowing(Borrowing borrowing) {
@@ -87,6 +92,12 @@ public class BorrowingService implements IBorrowingService {
     @Override
     public List<Borrowing> getBorrowingsByBookAndStatus(BookEntity book, Status status) {
         return borrowingRepository.findBorrowingsByBookAndStatus(book, status);
+    }
+
+    @Override
+    public Boolean alreadyBorrowed(AppUser user, BookEntity book) {
+        logger.info("alreadyBorrowed Method:" + (borrowingRepository.findBorrowingsByBookAndAppUser(book,user)).size());
+        return borrowingRepository.findBorrowingsByBookAndAppUser(book,user).size() > 0;
     }
 
 }

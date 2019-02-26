@@ -73,36 +73,40 @@ public class BorrowingEndPoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingAddRequest")
     @ResponsePayload
     public BorrowingAddResponse addBorrowing(@RequestPayload BorrowingAddRequest request) {
-        BorrowingAddResponse response = new BorrowingAddResponse();
         logger.info("ajout d'un nouvel emprunt:" + request.getBookId());
-        com.openclassrooms.entities.Borrowing borrowing = new com.openclassrooms.entities.Borrowing();
+
+        BorrowingAddResponse response = new BorrowingAddResponse();
         com.openclassrooms.entities.AppUser appUser = appUserService.getAppUserById(request.getAppUserId());
         BookEntity book = bookService.getBookById(request.getBookId());
-        borrowing.setBookEntity(book);
-        borrowing.setAppUser(appUser);
-        borrowing.setStartDate(request.getStartDate().toGregorianCalendar().getTime());
-        borrowing.setDueReturnDate(request.getDueReturnDate().toGregorianCalendar().getTime());
+        com.openclassrooms.entities.Borrowing borrowing = new com.openclassrooms.entities.Borrowing(book, appUser, request.getStartDate().toGregorianCalendar().getTime(),request.getDueReturnDate().toGregorianCalendar().getTime());
 
+        logger.info("already borrowed ? " + borrowingService.alreadyBorrowed(appUser, book));
+        if(borrowingService.alreadyBorrowed(appUser, book)) {
+            borrowing.setStatus(Status.DENIED);
+            response.setBorrowing(borrowingConversion.toWS(borrowing));
+            return response;
+        }
         //if no more book available
         if (book.getNumber() < 1) {
             logger.info("The book is not available: " + book.getNumber());
+
             //if waiting list greater than twice the total number of books, reservation not possible
             if (borrowingService.getBorrowingsByBookAndStatus(book, Status.WAITINGLIST).size() >= borrowingService.getBorrowingsByBookAndStatus(book, Status.ONGOING).size() * 2) {
-                logger.info("Waiting list full!");
-                logger.info("set status None");
                 borrowing.setStatus(Status.NONE);
                 response.setBorrowing(borrowingConversion.toWS(borrowing));
-                logger.info("send response back");
+                logger.info("Waiting list full!");
                 return response;
+
             } else {
                 borrowing.setStatus(Status.WAITINGLIST);
                 borrowing.setWaitingListOrder(waitingListPosition(borrowing));
                 logger.info("The book is on the waiting list, position: " + borrowing.getWaitingListOrder());
             }
+
         } else {
-            logger.info("borrowing successful");
             borrowing.setStatus(Status.ONGOING);
             book.setNumber(book.getNumber() - 1);
+            logger.info("borrowing successful");
         }
 
         bookService.updateBook(book);
@@ -221,6 +225,8 @@ public class BorrowingEndPoint {
         //looks for the maximum waiting list position and add 1
         return Collections.max(positions) + 1;
     }
+
+
 
 
 

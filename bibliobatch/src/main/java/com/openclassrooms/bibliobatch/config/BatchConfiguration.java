@@ -48,20 +48,24 @@ public class BatchConfiguration {
     TestPortService service = new TestPortService();
     TestPort testPort = service.getTestPortSoap11();
 
-   //@Scheduled(fixedRate =  60 * 60 * 1000)
-   //public void reportCurrentTime() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+    @Scheduled(fixedRate = 5000)
+    public void reportCurrentTime() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
+        JobParameters param = new JobParametersBuilder().addString("JobID",
+                String.valueOf(System.currentTimeMillis())).toJobParameters();
+         jobLauncher.run(ExpiredBorrowingJob(jobBuilderFactory, stepBuilderFactory, itemReader(), processor(), new SimpleMailItemWriter()), param);
+    }
 
-   //    JobParameters param = new JobParametersBuilder().addString("JobID",
-   //            String.valueOf(System.currentTimeMillis())).toJobParameters();
-   //   // jobLauncher.run(ExpiredBorrowingJob(jobBuilderFactory, stepBuilderFactory, itemReader(), processor(), new SimpleMailItemWriter()), param);
-   //}
+    @Bean
+    public Processor processor(){
+        return new Processor();
+    }
 
     @Bean
     public Job ExpiredBorrowingJob(JobBuilderFactory jobBuilderFactory,
-                   StepBuilderFactory stepBuilderFactory,
-                   ItemReader<Borrowing> itemReader,
-                   ItemProcessor<Borrowing, SimpleMailMessage> itemProcessor,
-                   ItemWriter<SimpleMailMessage> itemWriter
+                                   StepBuilderFactory stepBuilderFactory,
+                                   ItemReader<Borrowing> itemReader,
+                                   ItemProcessor<Borrowing, SimpleMailMessage> itemProcessor,
+                                   ItemWriter<SimpleMailMessage> itemWriter
     ) {
 
         Step step = stepBuilderFactory.get("Expired-Borrowing-List")
@@ -85,7 +89,6 @@ public class BatchConfiguration {
             System.out.println(borrowing.getBook().getTitle());
         }
         ListItemReader<Borrowing> reader = new ListItemReader<Borrowing>(borrowings);
-
 
         return reader;
     }

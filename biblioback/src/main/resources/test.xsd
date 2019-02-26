@@ -419,6 +419,7 @@
             <xs:enumeration value="waitinglist" />
             <xs:enumeration value="ongoing" />
             <xs:enumeration value="none" />
+            <xs:enumeration value="denied" />
         </xs:restriction>
     </xs:simpleType>
 

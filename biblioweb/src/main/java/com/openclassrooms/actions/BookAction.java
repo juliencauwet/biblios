@@ -1,9 +1,11 @@
 package com.openclassrooms.actions;
 
 
+import com.openclassrooms.beans.BorrowingState;
 import com.openclassrooms.biblioback.ws.test.*;
 import com.opensymphony.xwork2.ActionSupport;
 
+import java.util.Date;
 import java.util.List;
 
 public class BookAction extends ActionSupport{
@@ -12,6 +14,7 @@ public class BookAction extends ActionSupport{
     TestPort testPort = service.getTestPortSoap11();
 
     private List<Book> books = null;
+
     private Book book;
 
     private int id;
@@ -20,7 +23,7 @@ public class BookAction extends ActionSupport{
     private String authorName;
     private int number;
 
-
+    private BorrowingState borrowingState;
 
     @Override
     public String execute() throws Exception {
@@ -45,6 +48,9 @@ public class BookAction extends ActionSupport{
 
     public String getAllBooks(){
         setBooks(testPort.bookGetAll(new BookGetAllRequest()).getBookGetAll());
+        for(Book b :books){
+
+        }
         return SUCCESS;
     }
 
@@ -117,5 +123,11 @@ public class BookAction extends ActionSupport{
         this.number = number;
     }
 
+    public BorrowingState getBorrowingState() {
+        return borrowingState;
+    }
 
+    public void setBorrowingState(BorrowingState borrowingState) {
+        this.borrowingState = borrowingState;
+    }
 }

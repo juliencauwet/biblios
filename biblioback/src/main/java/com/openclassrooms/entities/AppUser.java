@@ -40,12 +40,13 @@ public class AppUser {
             inverseJoinColumns = @JoinColumn(name = "app_role_id"))
     private List<AppRole> appRole;
 
-    public AppUser(String firstName, String name, String email, String password, Boolean isAdmin) {
+    public AppUser(String firstName, String name, String email, String password, Boolean isAdmin, List<AppRole> appRoles) {
         this.firstName = firstName;
         this.name = name;
         this.email = email;
         this.password = password;
         this.isAdmin = isAdmin;
+        this.appRole = appRoles;
     }
 
 }

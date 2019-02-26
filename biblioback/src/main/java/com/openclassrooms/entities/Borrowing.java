@@ -31,12 +31,20 @@ public class Borrowing {
     public Borrowing() {
     }
 
-    public Borrowing(AppUser appUser, BookEntity book, Date startDate, Date dueReturnDate, Date returnDate) {
+    public Borrowing(BookEntity book, AppUser user, Date startDate, Date dueReturnDate){
+        this.book =book;
+        this.appUser = user;
+        this.startDate = startDate;
+        this.dueReturnDate =dueReturnDate;
+    }
+
+    public Borrowing(AppUser appUser, BookEntity book, Date startDate, Date dueReturnDate, Date returnDate, Status status) {
         this.appUser = appUser;
         this.book = book;
         this.startDate = startDate;
         this.returnDate= returnDate;
         this.dueReturnDate = dueReturnDate;
+        this.status = status;
     }
 
     public Borrowing(BookEntity book, int waitingListOrder){
