@@ -62,15 +62,9 @@ public class BookEndPoint {
 
         BookGetResponse response = new BookGetResponse();
 
-        List<Book> books = new ArrayList<>();
         List<BookEntity> bookEntities = bookService.getBookByTitle(request.getTitle());
 
-        for(int i = 0; i < bookEntities.size(); i++){
-            Book b = new Book();
-            BeanUtils.copyProperties(bookEntities.get(i), b);
-            books.add(b);
-        }
-        response.getBookGet().addAll(books);
+        response.getBookGet().addAll(convertBooks(bookEntities));
         return response;
     }
 
@@ -79,21 +73,23 @@ public class BookEndPoint {
     public BookGetAllResponse getAllBooks() {
 
         BookGetAllResponse response = new BookGetAllResponse();
-        List<Book> books = new ArrayList<>();
         List<BookEntity> bookEntities = bookService.getAllBooks();
+        response.getBookGetAll().addAll(convertBooks(bookEntities));
+        return response;
+    }
+
+
+
+    List<Book> convertBooks(List<BookEntity> bookEntities){
+        List<Book> books = new ArrayList<>();
 
         for(int i = 0; i < bookEntities.size(); i++){
             Book b = new Book();
             BeanUtils.copyProperties(bookEntities.get(i), b);
             books.add(b);
         }
-        response.getBookGetAll().addAll(books);
-        return response;
+        return books;
     }
-
-
-
-
 
 }
 
