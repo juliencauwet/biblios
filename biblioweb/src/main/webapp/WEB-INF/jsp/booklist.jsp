@@ -45,11 +45,12 @@
 
                         <td><s:property value="book.authorFirstName"/></td>
                         <td><s:property value="book.authorName"/></td>
-                        <td><s:a action="getBookById"><s:param name="book.id" value="book.id"/> <s:property value="book.title" /></s:a> </td>
+                        <td><s:a action="getBookById"><s:param name="id" value="book.id"/> <s:property value="book.title" /></s:a> </td>
                         <td><s:property value="book.number"/> </td>
 
                         <td><s:property value="waitingListNumber"/></td><!--nb à attendre -->
                         <td><s:property value="nextReturn"/></td><!-- prochaine date de retour -->
+
                     </tr>
                 </s:iterator>
             </table>

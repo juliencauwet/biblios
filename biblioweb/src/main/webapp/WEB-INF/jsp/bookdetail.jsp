@@ -26,7 +26,17 @@
 
             <s:hidden name="bookId" value="%{book.id}"/>
             <!-- <input class="form-control" type="date" name="startDate" value="Date de départ"/> -->
-            <s:submit class="form-control" value="Emprunter" />
+            <br>
+
+            <s:if test="number == 0">
+                Ce livre n'est pas disponible pour le moment, mais vous pouvez le réserver. La liste d'attente est de <s:property value="state.waitingListNumber"/> personnes un prochain retour est programmé avant le: <s:property value="state.nextReturn"/>.
+                <s:submit class="form-control" value="Réserver" />
+            </s:if>
+
+            <s:else>
+                Ce livre est disponible! Vous pouvez l'emprunter dès aujourd'hui.
+                <s:submit class="form-control" value="Emprunter" />
+            </s:else>
         </s:form>
 
     </div>
