@@ -79,7 +79,7 @@
                 </div>
 
             <div id="admins" class="col-md-3">
-                <s:if test="#session.isEmployee">
+                <s:if test="#session.isAdmin">
                     <h2>Espace Administrateurs</h2>
                     <s:a action="admin">Enregistrement d'un ouvrage</s:a><br/>
                     <s:a action="configuration">Configuration</s:a><br/>
