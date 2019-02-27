@@ -87,7 +87,7 @@
                     <s:a action="allBorrowings">Voir tous les emprunts</s:a><br/>
 
                     <s:if test="#session.appUser.isAdmin">
-                        <s:a action="newAppUser">Entrer un nouvel utilisateur</s:a>
+                        <s:a action="inscription">Entrer un nouvel utilisateur</s:a>
                     </s:if>
 
                 </s:if>
