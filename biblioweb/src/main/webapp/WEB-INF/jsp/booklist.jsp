@@ -40,14 +40,16 @@
                     <th>prochain retour</th>
 
                 </tr>
-                <s:iterator value="books">
+                <s:iterator value="states">
                     <tr>
-                        <td><s:property value="authorFirstName"/></td>
-                        <td><s:property value="authorName"/></td>
-                        <td><s:a action="getBookById"><s:param name="id" value="id"/> <s:property value="title" /></s:a> </td>
-                        <td><s:property value="number"/> </td>
-                        <td></td><!--nb à attendre -->
-                        <td></td><!-- prochaine date de retour -->
+
+                        <td><s:property value="book.authorFirstName"/></td>
+                        <td><s:property value="book.authorName"/></td>
+                        <td><s:a action="getBookById"><s:param name="book.id" value="book.id"/> <s:property value="book.title" /></s:a> </td>
+                        <td><s:property value="book.number"/> </td>
+
+                        <td><s:property value="waitingListNumber"/></td><!--nb à attendre -->
+                        <td><s:property value="nextReturn"/></td><!-- prochaine date de retour -->
                     </tr>
                 </s:iterator>
             </table>

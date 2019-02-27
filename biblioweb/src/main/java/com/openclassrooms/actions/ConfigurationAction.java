@@ -1,13 +1,9 @@
 package com.openclassrooms.actions;
 
-import com.openclassrooms.biblioback.ws.test.BorrowingExtendRequest;
 import com.openclassrooms.config.PropSource;
 import com.opensymphony.xwork2.ActionSupport;
 
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Properties;
-import java.util.ResourceBundle;
 
 public class ConfigurationAction extends ActionSupport {
 

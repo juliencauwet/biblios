@@ -1,10 +1,11 @@
 package com.openclassrooms.actions;
 
-
-import com.openclassrooms.beans.BorrowingState;
 import com.openclassrooms.biblioback.ws.test.*;
 import com.opensymphony.xwork2.ActionSupport;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -13,17 +14,21 @@ public class BookAction extends ActionSupport{
     TestPortService service = new TestPortService();
     TestPort testPort = service.getTestPortSoap11();
 
+    Logger logger = LoggerFactory.getLogger(this.getClass());
+
     private List<Book> books = null;
 
     private Book book;
-
     private int id;
     private String title;
     private String authorFirstName;
     private String authorName;
     private int number;
 
-    private BorrowingState borrowingState;
+    private int waitingListNumber;
+    private Date nextReturn;
+
+    private List<StateOfBorrowing> states;
 
     @Override
     public String execute() throws Exception {
@@ -48,8 +53,15 @@ public class BookAction extends ActionSupport{
 
     public String getAllBooks(){
         setBooks(testPort.bookGetAll(new BookGetAllRequest()).getBookGetAll());
+        StateOfBorrowingRequest request = new StateOfBorrowingRequest();
+        states = new ArrayList<>();
         for(Book b :books){
-
+            request.setBookId(b.getId());
+            logger.info(testPort.stateOfBorrowing(request).getStateOfBorrowing().getBook().getTitle());
+            states.add(testPort.stateOfBorrowing(request).getStateOfBorrowing());
+        }
+        for (StateOfBorrowing sB: states) {
+            logger.info("sB: " + sB.getBook().getTitle() + " " + sB.getWaitingListNumber() + " " + sB.getNextReturn());
         }
         return SUCCESS;
     }
@@ -123,11 +135,27 @@ public class BookAction extends ActionSupport{
         this.number = number;
     }
 
-    public BorrowingState getBorrowingState() {
-        return borrowingState;
+    public List<StateOfBorrowing> getStates() {
+        return states;
     }
 
-    public void setBorrowingState(BorrowingState borrowingState) {
-        this.borrowingState = borrowingState;
+    public void setStates(List<StateOfBorrowing> states) {
+        this.states = states;
+    }
+
+    public int getWaitingListNumber() {
+        return waitingListNumber;
+    }
+
+    public void setWaitingListNumber(int waitingListNumber) {
+        this.waitingListNumber = waitingListNumber;
+    }
+
+    public Date getNextReturn() {
+        return nextReturn;
+    }
+
+    public void setNextReturn(Date nextReturn) {
+        this.nextReturn = nextReturn;
     }
 }
