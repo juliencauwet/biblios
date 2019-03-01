@@ -153,10 +153,13 @@ public class BorrowingEndPoint {
         BookEntity bookEntity = borrowing.getBookEntity();
         List<openclassrooms.entities.Borrowing> borrowingsOnWaitingList = borrowingService.getBorrowingsByBookAndStatus(bookEntity, Status.WAITINGLIST);
 
-        //
+        //if some people are on waiting list
         if (borrowingsOnWaitingList.size() > 0) {
+            //for each borrowing
             for (openclassrooms.entities.Borrowing b: borrowingsOnWaitingList) {
+                //waiting list position
                 b.setWaitingListOrder(b.getWaitingListOrder() - 1);
+                //if position is 0, email to be sent to the borrower
                 if (b.getWaitingListOrder() == 0)
                     borrowingService.sendEmailToNextBorrower(b);
             }
@@ -170,7 +173,7 @@ public class BorrowingEndPoint {
 
         //sauve la date de retour
         borrowing.setReturnDate(new Date());
-        //borrowingService.updateBorrowing(borrowing);
+        borrowingService.updateBorrowing(borrowing);
 
         response.setConfirmation(true);
 
