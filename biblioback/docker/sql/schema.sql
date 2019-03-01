@@ -1,46 +1,77 @@
-CREATE SEQUENCE hibernate_sequence;
+-- we don't know how to generate root <with-no-name> (class Root) :(
+create sequence hibernate_sequence;
 
-CREATE TABLE app_user
+alter sequence hibernate_sequence owner to back;
+
+create table app_role
 (
-  id         INTEGER      NOT NULL
-    CONSTRAINT app_user_pkey
-      PRIMARY KEY,
-  email      VARCHAR(255) NOT NULL,
-  first_name VARCHAR(255),
-  is_admin   BOOLEAN,
-  name       VARCHAR(255),
-  password   VARCHAR(30)  NOT NULL
+  id serial not null
+    constraint app_role_pkey
+      primary key,
+  name varchar(255)
 );
 
-CREATE TABLE book_entity
+alter table app_role owner to back;
+
+create table app_user
 (
-  id                INTEGER      NOT NULL
-    CONSTRAINT book_entity_pkey
-      PRIMARY KEY,
-  author_first_name VARCHAR(255),
-  author_name       VARCHAR(100) NOT NULL,
-  number            INTEGER      NOT NULL,
-  status            INTEGER,
-  title             VARCHAR(300) NOT NULL
+  id integer not null
+    constraint app_user_pkey
+      primary key,
+  email varchar(255) not null,
+  first_name varchar(255),
+  is_admin boolean,
+  name varchar(255),
+  password varchar(255) not null
 );
 
-CREATE TABLE borrowing
+alter table app_user owner to back;
+
+create table app_role_app_user
 (
-  id              INTEGER   NOT NULL
-    CONSTRAINT borrowing_pkey
-      PRIMARY KEY,
-  due_return_date TIMESTAMP,
-  is_extended     BOOLEAN,
-  return_date     TIMESTAMP,
-  start_date      TIMESTAMP NOT NULL,
-  app_user_id     INTEGER
-    CONSTRAINT fke9xahml51rph2xou979xgrf79
-      REFERENCES app_user,
-  book_id         INTEGER
-    CONSTRAINT fkkvk1p4ptqn6n2y0rhhy292fl4
-      REFERENCES book_entity,
-  borrowing_id    INTEGER
-    CONSTRAINT fkpqb9d934357s7lai67j3vdnb6
-      REFERENCES book_entity
+  app_role_id integer not null
+    constraint fki0rl707b9g0190knculbwhshs
+      references app_role,
+  app_user_id integer not null
+    constraint fkftj0mdruxjyodpb4ay6hna1a2
+      references app_user
 );
+
+alter table app_role_app_user owner to back;
+
+create table book_entity
+(
+  id integer not null
+    constraint book_entity_pkey
+      primary key,
+  author_first_name varchar(255),
+  author_name varchar(100) not null,
+  number integer not null,
+  title varchar(300) not null
+);
+
+alter table book_entity owner to back;
+
+create table borrowing
+(
+  id integer not null
+    constraint borrowing_pkey
+      primary key,
+  due_return_date timestamp,
+  is_extended boolean,
+  return_date timestamp,
+  start_date timestamp not null,
+  status integer,
+  app_user_id integer
+    constraint fke9xahml51rph2xou979xgrf79
+      references app_user,
+  book_id integer
+    constraint fkkvk1p4ptqn6n2y0rhhy292fl4
+      references book_entity,
+  borrowing_id integer
+    constraint fkpqb9d934357s7lai67j3vdnb6
+      references book_entity
+);
+
+alter table borrowing owner to back;
 

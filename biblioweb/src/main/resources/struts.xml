@@ -11,55 +11,55 @@
 
         <default-action-ref name="index" />
 
-        <action name="index" class="com.openclassrooms.actions.IndexAction">
+        <action name="index" class="openclassrooms.actions.IndexAction">
             <result>/WEB-INF/jsp/index.jsp</result>
         </action>
 
         <!-- Actions relatives au livres-->
 
-        <action name="book" class="com.openclassrooms.actions.BookAction" method="getAllBooks">
+        <action name="book" class="openclassrooms.actions.BookAction" method="getAllBooks">
             <result>/WEB-INF/jsp/booklist.jsp</result>
         </action>
 
-        <action name="addBook" class="com.openclassrooms.actions.BookAction" method="addBook">
+        <action name="addBook" class="openclassrooms.actions.BookAction" method="addBook">
             <result>/WEB-INF/jsp/index.jsp</result>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
         </action>
 
-        <action name="getBookById" class="com.openclassrooms.actions.BookAction" method="getBookById">
+        <action name="getBookById" class="openclassrooms.actions.BookAction" method="getBookById">
             <result>/WEB-INF/jsp/bookdetail.jsp</result>
         </action>
 
-        <action name="findBookByTitle" class="com.openclassrooms.actions.BookAction" method="getBookByTitle">
+        <action name="findBookByTitle" class="openclassrooms.actions.BookAction" method="getBookByTitle">
             <result>/WEB-INF/jsp/booklist.jsp</result>
         </action>
 
         <!-- Actions relatives aux emprunts-->
 
-        <action name="borrowThisBook" class="com.openclassrooms.actions.BorrowingAction" method="borrowThisBook">
+        <action name="borrowThisBook" class="openclassrooms.actions.BorrowingAction" method="borrowThisBook">
             <result>/WEB-INF/jsp/bookdetail.jsp</result>
             <result name="login">/WEB-INF/jsp/auth.jsp</result>
         </action>
 
-        <action name="currentBorrowings" class="com.openclassrooms.actions.BorrowingAction" method="getCurrentBorrowings">
+        <action name="currentBorrowings" class="openclassrooms.actions.BorrowingAction" method="getCurrentBorrowings">
             <result>/WEB-INF/jsp/borrowinglist.jsp</result>
             <result name="login">/WEB-INF/jsp/auth.jsp</result>
         </action>
 
-        <action name="allBorrowings" class="com.openclassrooms.actions.BorrowingAction" method="getAllBorrowings">
+        <action name="allBorrowings" class="openclassrooms.actions.BorrowingAction" method="getAllBorrowings">
             <result>/WEB-INF/jsp/borrowinglist.jsp</result>
             <result name="login">/WEB-INF/jsp/auth.jsp</result>
         </action>
 
-        <action name="extendThisBorrowing" class="com.openclassrooms.actions.BorrowingAction" method="extend">
+        <action name="extendThisBorrowing" class="openclassrooms.actions.BorrowingAction" method="extend">
             <result>/WEB-INF/jsp/bookdetail.jsp</result>
         </action>
 
-        <action name="borrowingDetail" class="com.openclassrooms.actions.BorrowingAction"  method="getBorrowingById">
+        <action name="borrowingDetail" class="openclassrooms.actions.BorrowingAction" method="getBorrowingById">
             <result>/WEB-INF/jsp/borrowingdetail.jsp</result>
         </action>
 
-        <action name="returnBorrowing" class="com.openclassrooms.actions.BorrowingAction" method="returnThisBook">
+        <action name="returnBorrowing" class="openclassrooms.actions.BorrowingAction" method="returnThisBook">
             <result>/WEB-INF/jsp/borrowingdetail.jsp</result>
         </action>
 
@@ -67,49 +67,49 @@
 
 
 
-        <action name="getAllAppUsers" class="com.openclassrooms.actions.AppUserAction" method="getAllAppUsers">
+        <action name="getAllAppUsers" class="openclassrooms.actions.AppUserAction" method="getAllAppUsers">
             <result>/WEB-INF/jsp/userlist.jsp</result>
         </action>
 
         <!-- Actions relatives àla configuration -->
-        <action name="configuration" class="com.openclassrooms.actions.ConfigurationAction">
+        <action name="configuration" class="openclassrooms.actions.ConfigurationAction">
             <result>/WEB-INF/jsp/config.jsp</result>
         </action>
 
-        <action name="changeConfig" class="com.openclassrooms.actions.ConfigurationAction" method="changeConfig">
+        <action name="changeConfig" class="openclassrooms.actions.ConfigurationAction" method="changeConfig">
             <result>/WEB-INF/jsp/config.jsp</result>
         </action>
 
         <!-- Actions relatives à l'authentification -->
 
-        <action name="authentification" class="com.openclassrooms.actions.AuthentificationAction">
+        <action name="authentification" class="openclassrooms.actions.AuthentificationAction">
             <result>/WEB-INF/jsp/auth.jsp</result>
         </action>
 
-        <action name="inscription" class="com.openclassrooms.actions.AuthentificationAction">
+        <action name="inscription" class="openclassrooms.actions.AuthentificationAction">
             <result>/WEB-INF/jsp/inscription.jsp</result>
 
         </action>
 
-        <action name="newAppUser" class="com.openclassrooms.actions.AuthentificationAction" method="newAppUser">
+        <action name="newAppUser" class="openclassrooms.actions.AuthentificationAction" method="newAppUser">
             <result>/WEB-INF/jsp/inscription.jsp</result>
             <result name="input">/WEB-INF/jsp/inscription.jsp</result>
             <result name="error">/WEB-INF/jsp/inscription.jsp</result>
         </action>
 
-        <action name="login" class="com.openclassrooms.actions.AuthentificationAction" method="checkUserValidity">
+        <action name="login" class="openclassrooms.actions.AuthentificationAction" method="checkUserValidity">
             <result>/WEB-INF/jsp/index.jsp</result>
             <result name="input">/WEB-INF/jsp/auth.jsp</result>
             <result name="error">/WEB-INF/jsp/auth.jsp</result>
         </action>
 
-        <action name="logout" class="com.openclassrooms.actions.AuthentificationAction"  method="logout">
+        <action name="logout" class="openclassrooms.actions.AuthentificationAction" method="logout">
             <result>/WEB-INF/jsp/index.jsp</result>
         </action>
 
 
         <!-- Actions relatives aux administrateurs -->
-        <action name="admin" class="com.openclassrooms.actions.AdminAction">
+        <action name="admin" class="openclassrooms.actions.AdminAction">
             <result>/WEB-INF/jsp/admin.jsp</result>
         </action>
 
