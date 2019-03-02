@@ -4,7 +4,9 @@ import com.openclassrooms.biblioback.ws.test.*;
 import com.openclassrooms.conversions.BookConversion;
 import com.openclassrooms.conversions.BorrowingConversion;
 import com.openclassrooms.entities.BookEntity;
+import com.openclassrooms.entities.BorrowingProperty;
 import com.openclassrooms.entities.Status;
+import com.openclassrooms.repositories.PropertiesRepository;
 import com.openclassrooms.services.IAppUserService;
 import com.openclassrooms.services.IBookService;
 import com.openclassrooms.services.IBorrowingService;
@@ -35,6 +37,9 @@ public class BorrowingEndPoint {
     private IBookService bookService;
     @Autowired
     private IAppUserService appUserService;
+
+    @Autowired
+    PropertiesRepository propertiesRepository;
 
     private BorrowingConversion borrowingConversion = new BorrowingConversion();
 
@@ -210,6 +215,18 @@ public class BorrowingEndPoint {
 
         borrowingService.deleteBorrowingListById(request.getBorrowingDeleteById());
 
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updatePropertiesRequest")
+    @ResponsePayload
+    public UpdatePropertiesResponse updateProperties(@RequestPayload UpdatePropertiesRequest request){
+        UpdatePropertiesResponse response = new UpdatePropertiesResponse();
+        BorrowingProperty property = propertiesRepository.getByLibraryId(request.getLibraryId());
+        property.setBorrowingExtensionLength(request.getExtensionLength());
+        property.setBorrowingLength(request.getBorrowingLength());
+        propertiesRepository.save(property);
+        response.setConfirmation(true);
         return response;
     }
 

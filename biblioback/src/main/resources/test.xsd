@@ -460,4 +460,22 @@
         </xs:sequence>
     </xs:complexType>
 
+    <xs:element name="updatePropertiesRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="libraryId" type="xs:int" />
+                <xs:element name="borrowingLength" type="xs:int" />
+                <xs:element name="extensionLength" type="xs:int" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updatePropertiesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="confirmation" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
 </xs:schema>
