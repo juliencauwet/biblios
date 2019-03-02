@@ -98,21 +98,6 @@ public class BorrowingServiceTest {
 
     @Before
     public void init(){
-        appUserService.addUser(u1);
-        appUserService.addUser(u2);
-        appUserService.addUser(u3);
-        appUserService.addUser(u4);
-        appUserService.addUser(u5);
-
-        bookService.addBook(b1);
-        bookService.addBook(b2);
-        bookService.addBook(b3);
-        bookService.addBook(b4);
-        bookService.addBook(b5);
-
-        bor1.setId(1);
-        borrowingRepository.save(bor1);
-
 
     }
 
@@ -170,6 +155,11 @@ public class BorrowingServiceTest {
 
     @Test
     public void deleteBorrowingListById() {
+    }
+
+    @Test
+    public  void sendEmailToNextBorrower(){
+        service.sendEmailToNextBorrower(new Borrowing());
     }
 
     @Test

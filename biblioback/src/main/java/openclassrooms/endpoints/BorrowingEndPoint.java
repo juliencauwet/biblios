@@ -103,6 +103,7 @@ public class BorrowingEndPoint {
 
         } else {
             borrowing.setStatus(Status.ONGOING);
+            borrowing.setStartDate(new Date());
             book.setNumber(book.getNumber() - 1);
             logger.info("borrowing successful");
         }

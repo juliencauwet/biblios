@@ -82,7 +82,6 @@ public class BorrowingAction extends ActionSupport {
         calendar.setTime(startDate);
         xmlCalendar = toXmlGregorianCalendar(calendar);
 
-        request.setStartDate(xmlCalendar);
         request.setAppUserId(appUser.getId());
         request.setDueReturnDate(toXmlGregorianCalendar(setDRD(calendar)));
 
@@ -95,9 +94,9 @@ public class BorrowingAction extends ActionSupport {
             setMessage("Vous avez déjà emprunté ce livre.");
         else if (borrowing.getStatus() == Status.NONE)
             setMessage("L'emprunt n'a pas pu être effectué car la liste d'attente est pleine.");
-        else
+        else {
             setMessage("L'emprunt a bien été enregistré. Veuillez s'il vous plait le retourner avant le " + borrowing.getDueReturnDate());
-
+        }
         return SUCCESS;
     }
 

@@ -17,7 +17,6 @@ public class Borrowing {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private BookEntity book;
 
-    @NotNull
     private Date startDate;
     private Date returnDate;
     private Date dueReturnDate;

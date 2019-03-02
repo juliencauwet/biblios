@@ -1,5 +1,7 @@
 package openclassrooms.services;
 
+import openclassrooms.email.Email;
+import openclassrooms.email.MailSender;
 import openclassrooms.entities.AppUser;
 import openclassrooms.entities.BookEntity;
 import openclassrooms.entities.Borrowing;
@@ -8,6 +10,8 @@ import openclassrooms.repositories.BorrowingRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -22,6 +26,7 @@ public class BorrowingService implements IBorrowingService {
     BorrowingRepository borrowingRepository;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
+
 
     @Override
     public void newBorrowing(Borrowing borrowing) {
@@ -114,6 +119,14 @@ public class BorrowingService implements IBorrowingService {
 
     @Override
     public void sendEmailToNextBorrower(Borrowing borrowing) {
+        SimpleMailMessage email = new SimpleMailMessage();
+        MailSender sender = new MailSender();
+        email.setText("hello");
+        email.setSubject("test");
+        email.setTo("juliencauwet@yahooo.fr");
+
+        sender.sendEmail(email);
+
 
     }
 

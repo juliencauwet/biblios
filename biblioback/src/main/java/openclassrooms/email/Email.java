@@ -1,6 +1,6 @@
 package openclassrooms.email;
 
-import openclassrooms.biblioback.ws.test.Borrowing;
+import openclassrooms.entities.Borrowing;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,9 +8,9 @@ import java.util.Date;
 public class Email {
     private String senderEmail;
     private String recipientEmail;
-    private Borrowing borrowing;
+    private openclassrooms.entities.Borrowing borrowing;
 
-    public Email(String senderEmail, String recipientEmail, Borrowing borrowing) {
+    public Email(String senderEmail, String recipientEmail, openclassrooms.entities.Borrowing borrowing) {
         this.senderEmail = senderEmail;
         this.recipientEmail = recipientEmail;
         this.borrowing = borrowing;
@@ -47,10 +47,9 @@ public class Email {
     @Override
     public String toString() {
         return "Bonjour M./ Mme " + borrowing.getAppUser().getName() + ".\n" +
-                "Vous avez emprunté le livre de " + borrowing.getBook().getAuthorFirstName() + " " + borrowing.getBook().getAuthorName() + '\'' +
+                "Le livre que vous avez réservé est arrivé: " + borrowing.getBook().getTitle() + " de "+ borrowing.getBook().getAuthorFirstName() + " " + borrowing.getBook().getAuthorName() + '\'' +
                 ", qui s'intitule " + borrowing.getBook().getTitle() + "." +'\'' +
-                "Le livre aurait dû être restitué avant le " + borrowing.getDueReturnDate() + " mais il ne nous a pas été retourné à ce jour." + '\'' +
-                "Nous vous prions de bien vouloir le rapporter dès que possible.\n Cordialement, \n" +
+                "Merci de bien vouloir venir le chercher rapidement." +
                 "L'équipe de Biblioweb.";
     }
 
