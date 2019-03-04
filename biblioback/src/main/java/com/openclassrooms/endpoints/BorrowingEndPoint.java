@@ -230,6 +230,24 @@ public class BorrowingEndPoint {
         return response;
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getBorrowingLengthRequest")
+    @ResponsePayload
+    public GetBorrowingLengthResponse getBorrowingLength(@RequestPayload GetBorrowingLengthRequest request){
+        GetBorrowingLengthResponse response = new GetBorrowingLengthResponse();
+        BorrowingProperty property = propertiesRepository.getByLibraryId(request.getLibraryId());
+        response.setBorrowingLength(property.getBorrowingLength());
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getExtensionLengthRequest")
+    @ResponsePayload
+    public GetExtensionLengthResponse getExtensionLength(@RequestPayload GetExtensionLengthRequest request){
+        GetExtensionLengthResponse response = new GetExtensionLengthResponse();
+        BorrowingProperty property = propertiesRepository.getByLibraryId(request.getLibraryId());
+        response.setExtensionLength(property.getBorrowingLength());
+        return response;
+    }
+
     protected int waitingListPosition(com.openclassrooms.entities.Borrowing borrowing){
 
         logger.info("waitingListPositonMethod");

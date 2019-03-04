@@ -478,4 +478,36 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="getBorrowingLengthRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="libraryId" type="xs:int" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getBorrowingLengthResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="borrowingLength" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getExtensionLengthRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="libraryId" type="xs:int" />
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getExtensionLengthResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="extensionLength" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
 </xs:schema>
