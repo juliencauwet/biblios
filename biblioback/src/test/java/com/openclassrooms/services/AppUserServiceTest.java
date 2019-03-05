@@ -51,7 +51,7 @@ public class AppUserServiceTest {
         appUserService.addUser(new AppUser("test2@test.fr", "okokok"));
         Assert.assertEquals(nb + 1, appUserService.getAllAppUsers().size());
     }
-
+/*
     @Test
     public void checkUser() {
             AppUser user = appUserService.checkUser("test@test.com");
@@ -80,4 +80,5 @@ public class AppUserServiceTest {
         for( AppUser user : users)
             appUserService.deletUser(user);
     }
+    */
 }

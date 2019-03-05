@@ -1,6 +1,6 @@
 package openclassrooms.actions;
 
-import openclassrooms.biblioback.ws.test.*;
+import com.openclassrooms.biblioback.ws.test.*;
 import com.opensymphony.xwork2.ActionSupport;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

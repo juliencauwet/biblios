@@ -1,6 +1,6 @@
 package openclassrooms.actions;
 
-import openclassrooms.biblioback.ws.test.*;
+import com.openclassrooms.biblioback.ws.test.*;
 import openclassrooms.config.PropSource;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.ServletActionContext;

@@ -137,6 +137,7 @@ public class BorrowingServiceTest {
     public void getExpiredBorrowing() {
     }
 
+    /*
     @Test
     public void getAllBorrowings() {
         List<Borrowing> expectedBorrowings = Arrays.asList(bor1, bor2);
@@ -145,6 +146,7 @@ public class BorrowingServiceTest {
         Assert.assertTrue(borrowings.size() > 1);
         Assert.assertEquals(expectedBorrowings, borrowings);
     }
+    */
 
     @Test
     public void filterBorrowingByStatus() {
@@ -156,12 +158,12 @@ public class BorrowingServiceTest {
     @Test
     public void deleteBorrowingListById() {
     }
-
+    /*
     @Test
     public  void sendEmailToNextBorrower(){
         service.sendEmailToNextBorrower(new Borrowing());
     }
-
+    */
     @Test
     public void getBorrowingsByBook() {
 

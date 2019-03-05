@@ -1,8 +1,9 @@
 package openclassrooms.config;
 
-import openclassrooms.biblioback.ws.test.AppUserAddRequest;
-import openclassrooms.biblioback.ws.test.TestPort;
-import openclassrooms.biblioback.ws.test.TestPortService;
+
+import com.openclassrooms.biblioback.ws.test.AppUserAddRequest;
+import com.openclassrooms.biblioback.ws.test.TestPort;
+import com.openclassrooms.biblioback.ws.test.TestPortService;
 import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.boot.CommandLineRunner;

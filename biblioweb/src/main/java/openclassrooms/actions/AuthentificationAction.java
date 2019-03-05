@@ -1,6 +1,6 @@
 package openclassrooms.actions;
 
-import openclassrooms.biblioback.ws.test.*;
+import com.openclassrooms.biblioback.ws.test.*;
 import com.opensymphony.xwork2.ActionSupport;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;

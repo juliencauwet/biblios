@@ -1,7 +1,7 @@
 package openclassrooms.actions;
 
-import openclassrooms.biblioback.ws.test.TestPort;
-import openclassrooms.biblioback.ws.test.TestPortService;
+import com.openclassrooms.biblioback.ws.test.TestPort;
+import com.openclassrooms.biblioback.ws.test.TestPortService;
 import openclassrooms.config.PropSource;
 
 import com.opensymphony.xwork2.ActionSupport;
