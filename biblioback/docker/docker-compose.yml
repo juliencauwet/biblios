@@ -4,7 +4,7 @@ services:
     image: postgres:alpine
     ports:
       - '2131:5432'
-    container_name: biblioback
+#    container_name: biblioback
     environment:
       POSTGRES_DB: db_back
       POSTGRES_USER: back
@@ -13,8 +13,30 @@ services:
       - './sql:/docker-entrypoint-initdb.d'
     restart: always
     network_mode: bridge
-  #biblioback:
-    #image: biblioback
-    #depends_on:
-     # - bibliodb
+#  biblioback:
+#    image: biblioback
+#    depends_on:
+#      - bibliodb
+
+
+############################### switch configuration in application.properties #############
+#version: '2'
+#services:
+#  biblioback:
+#    container_name: biblioback
+#    image: biblioback
+#    #ports:
+#      #- "2131:5432"
+#    depends_on:
+#      - bibliodb
+#  bibliodb:
+#    container_name: bibliodb
+#    image: postgres
+#    ports:
+#      - "2131:5432"
+#    environment:
+#      - POSTGRES_PASSWORD=back
+#      - POSTGRES_USER=back
+#      - POSTGRES_DB=db_back
+
 
