@@ -1,7 +1,7 @@
-package openclassrooms.services;
+package com.openclassrooms.services;
 
-import openclassrooms.entities.AppRole;
-import openclassrooms.repositories.AppRoleRepository;
+import com.openclassrooms.entities.AppRole;
+import com.openclassrooms.repositories.AppRoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

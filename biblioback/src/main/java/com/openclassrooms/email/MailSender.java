@@ -1,6 +1,5 @@
-package openclassrooms.email;
+package com.openclassrooms.email;
 
-import openclassrooms.entities.Borrowing;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;

@@ -1,4 +1,4 @@
-package openclassrooms.entities;
+package com.openclassrooms.entities;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

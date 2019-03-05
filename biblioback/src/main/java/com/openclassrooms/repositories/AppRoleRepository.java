@@ -1,6 +1,6 @@
-package openclassrooms.repositories;
+package com.openclassrooms.repositories;
 
-import openclassrooms.entities.AppRole;
+import com.openclassrooms.entities.AppRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

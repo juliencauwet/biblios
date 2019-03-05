@@ -1,8 +1,8 @@
-package openclassrooms.conversions;
+package com.openclassrooms.conversions;
 
 
 import com.openclassrooms.biblioback.ws.test.AppUser;
-import openclassrooms.services.AppUserService;
+import com.openclassrooms.services.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class AppUserConversion {
@@ -11,7 +11,7 @@ public class AppUserConversion {
     @Autowired
     private AppUserService appUserService;
 
-    public AppUser appUserEntityToAppUser(openclassrooms.entities.AppUser appUserEntity){
+    public AppUser appUserEntityToAppUser(com.openclassrooms.entities.AppUser appUserEntity){
         AppUser appUser = new AppUser();
         appUser.setId(appUserEntity.getId());
         appUser.setFirstName(appUserEntity.getFirstName());
@@ -21,8 +21,8 @@ public class AppUserConversion {
         return appUser;
     }
 //
-    public openclassrooms.entities.AppUser appUserToAppUserEntity(AppUser appUser){
-        openclassrooms.entities.AppUser appUserEntity = appUserService.getAppUserById(appUser.getId());
+    public com.openclassrooms.entities.AppUser appUserToAppUserEntity(AppUser appUser){
+        com.openclassrooms.entities.AppUser appUserEntity = appUserService.getAppUserById(appUser.getId());
         appUserEntity.setId(appUser.getId());
         appUserEntity.setName(appUser.getName());
         appUserEntity.setFirstName(appUser.getFirstName());

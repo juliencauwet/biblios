@@ -1,9 +1,9 @@
-package openclassrooms.repositories;
+package com.openclassrooms.repositories;
 
-import openclassrooms.entities.AppUser;
-import openclassrooms.entities.BookEntity;
-import openclassrooms.entities.Borrowing;
-import openclassrooms.entities.Status;
+import com.openclassrooms.entities.AppUser;
+import com.openclassrooms.entities.BookEntity;
+import com.openclassrooms.entities.Borrowing;
+import com.openclassrooms.entities.Status;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

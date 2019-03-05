@@ -1,25 +1,14 @@
 package com.openclassrooms.config;
 
-import openclassrooms.BibliobackApplication;
-import openclassrooms.entities.*;
-import openclassrooms.repositories.AppRoleRepository;
-import openclassrooms.repositories.BorrowingRepository;
-import openclassrooms.services.AppUserService;
-import openclassrooms.services.BookService;
-import openclassrooms.services.BorrowingService;
+import com.openclassrooms.entities.*;
+import com.openclassrooms.repositories.AppRoleRepository;
+import com.openclassrooms.services.AppUserService;
+import com.openclassrooms.services.BookService;
+import com.openclassrooms.services.BorrowingService;
 import org.junit.runner.RunWith;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.context.annotation.PropertySource;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
-import org.springframework.stereotype.Component;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestPropertySource;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.support.AnnotationConfigContextLoader;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;

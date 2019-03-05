@@ -1,6 +1,6 @@
-package openclassrooms.repositories;
+package com.openclassrooms.repositories;
 
-import openclassrooms.entities.BookEntity;
+import com.openclassrooms.entities.BookEntity;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 

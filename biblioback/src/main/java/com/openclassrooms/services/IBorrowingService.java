@@ -1,9 +1,9 @@
-package openclassrooms.services;
+package com.openclassrooms.services;
 
-import openclassrooms.entities.AppUser;
-import openclassrooms.entities.BookEntity;
-import openclassrooms.entities.Borrowing;
-import openclassrooms.entities.Status;
+import com.openclassrooms.entities.AppUser;
+import com.openclassrooms.entities.BookEntity;
+import com.openclassrooms.entities.Borrowing;
+import com.openclassrooms.entities.Status;
 
 import java.util.Date;
 import java.util.List;

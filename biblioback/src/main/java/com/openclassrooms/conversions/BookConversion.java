@@ -1,8 +1,8 @@
-package openclassrooms.conversions;
+package com.openclassrooms.conversions;
 
 import com.openclassrooms.biblioback.ws.test.Book;
-import openclassrooms.entities.BookEntity;
-import openclassrooms.services.BookService;
+import com.openclassrooms.entities.BookEntity;
+import com.openclassrooms.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class BookConversion {

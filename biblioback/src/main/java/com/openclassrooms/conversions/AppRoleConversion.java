@@ -1,7 +1,7 @@
-package openclassrooms.conversions;
+package com.openclassrooms.conversions;
 
-import openclassrooms.entities.AppRole;
-import openclassrooms.services.AppRoleService;
+import com.openclassrooms.entities.AppRole;
+import com.openclassrooms.services.AppRoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class AppRoleConversion {
@@ -17,8 +17,8 @@ public class AppRoleConversion {
         return appRole;
     }
     //
-    public openclassrooms.entities.AppRole appRoleToAppRoleEntity(AppRole appRole){
-        openclassrooms.entities.AppRole appRoleEntity = appRoleService.getAppRoleById(appRole.getId());
+    public AppRole appRoleToAppRoleEntity(AppRole appRole){
+        AppRole appRoleEntity = appRoleService.getAppRoleById(appRole.getId());
         appRoleEntity.setId(appRole.getId());
         appRoleEntity.setName(appRole.getName());
         appRoleEntity.setUsers(appRole.getUsers());

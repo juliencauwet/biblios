@@ -1,4 +1,4 @@
-package openclassrooms.entities;
+package com.openclassrooms.entities;
 
 public enum Status {
     WAITINGLIST(1),

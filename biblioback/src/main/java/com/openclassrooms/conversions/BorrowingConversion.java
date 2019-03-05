@@ -1,4 +1,4 @@
-package openclassrooms.conversions;
+package com.openclassrooms.conversions;
 
 import com.openclassrooms.biblioback.ws.test.Borrowing;
 import com.openclassrooms.biblioback.ws.test.Status;
@@ -22,7 +22,7 @@ public class BorrowingConversion {
      * @param bor
      * @return
      */
-    public Borrowing toWS(openclassrooms.entities.Borrowing bor){
+    public Borrowing toWS(com.openclassrooms.entities.Borrowing bor){
 
         Borrowing borrowingWS = new Borrowing();
 
@@ -59,8 +59,8 @@ public class BorrowingConversion {
      * @param borWS
      * @return
      */
-    public openclassrooms.entities.Borrowing toEntity(Borrowing borWS){
-        openclassrooms.entities.Borrowing bor = new openclassrooms.entities.Borrowing();
+    public com.openclassrooms.entities.Borrowing toEntity(Borrowing borWS){
+        com.openclassrooms.entities.Borrowing bor = new com.openclassrooms.entities.Borrowing();
 
         //transfert des paramètres convertis de l'emprunt ws à Entity
         bor.setId(borWS.getId());
@@ -75,15 +75,15 @@ public class BorrowingConversion {
             bor.setDueReturnDate(gregToDate(borWS.getDueReturnDate().toGregorianCalendar()));
 
         switch (borWS.getStatus()){
-            case WAITINGLIST: bor.setStatus(openclassrooms.entities.Status.WAITINGLIST);
+            case WAITINGLIST: bor.setStatus(com.openclassrooms.entities.Status.WAITINGLIST);
                 break;
-            case ONGOING: bor.setStatus(openclassrooms.entities.Status.ONGOING);
+            case ONGOING: bor.setStatus(com.openclassrooms.entities.Status.ONGOING);
                 break;
-            case NONE: bor.setStatus(openclassrooms.entities.Status.NONE);
+            case NONE: bor.setStatus(com.openclassrooms.entities.Status.NONE);
                 break;
-            case DENIED: bor.setStatus(openclassrooms.entities.Status.DENIED);
+            case DENIED: bor.setStatus(com.openclassrooms.entities.Status.DENIED);
                 break;
-            default: bor.setStatus(openclassrooms.entities.Status.NONE);
+            default: bor.setStatus(com.openclassrooms.entities.Status.NONE);
         }
 
         logger.info("statut: " + bor.getStatus());

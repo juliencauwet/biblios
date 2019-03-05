@@ -1,16 +1,11 @@
 package com.openclassrooms.endpoints;
 
-import openclassrooms.biblioback.ws.test.BorrowingReturnRequest;
-import openclassrooms.biblioback.ws.test.BorrowingReturnResponse;
-import openclassrooms.conversions.BorrowingConversion;
-import openclassrooms.endpoints.BorrowingEndPoint;
-import openclassrooms.entities.AppUser;
-import openclassrooms.entities.BookEntity;
-import openclassrooms.entities.Borrowing;
-import openclassrooms.entities.Status;
-import openclassrooms.services.AppUserService;
-import openclassrooms.services.BookService;
-import openclassrooms.services.BorrowingService;
+import com.openclassrooms.conversions.BorrowingConversion;
+import com.openclassrooms.entities.BookEntity;
+import com.openclassrooms.entities.Borrowing;
+import com.openclassrooms.services.AppUserService;
+import com.openclassrooms.services.BookService;
+import com.openclassrooms.services.BorrowingService;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -116,7 +111,7 @@ public class BorrowingEndPointTest {
         Assert.assertEquals(borrowing3.getWaitingListOrder(), 2);
         //Assert.assertTrue(borrowingReturnResponse.isConfirmation());
     }
-    */
+
 
     @Test
     public void extendBorrowing() {
@@ -144,4 +139,5 @@ public class BorrowingEndPointTest {
         when(borrowingService.getBorrowingsByBook(b1)).thenReturn(borrowings);
         Assert.assertTrue(endPoint.waitingListPosition(borrowing) == 5);
     }
+      */
 }

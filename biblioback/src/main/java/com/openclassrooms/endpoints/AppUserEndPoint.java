@@ -1,9 +1,9 @@
-package openclassrooms.endpoints;
+package com.openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.test.*;
-import openclassrooms.entities.AppUser;
-import openclassrooms.services.AppUserService;
-import openclassrooms.services.IAppUserService;
+import com.openclassrooms.services.AppUserService;
+import com.openclassrooms.services.IAppUserService;
+import com.openclassrooms.entities.AppUser;
 import org.apache.log4j.Logger;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;

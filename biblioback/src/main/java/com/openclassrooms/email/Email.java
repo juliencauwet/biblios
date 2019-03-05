@@ -1,6 +1,6 @@
-package openclassrooms.email;
+package com.openclassrooms.email;
 
-import openclassrooms.entities.Borrowing;
+import com.openclassrooms.entities.Borrowing;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -8,9 +8,9 @@ import java.util.Date;
 public class Email {
     private String senderEmail;
     private String recipientEmail;
-    private openclassrooms.entities.Borrowing borrowing;
+    private Borrowing borrowing;
 
-    public Email(String senderEmail, String recipientEmail, openclassrooms.entities.Borrowing borrowing) {
+    public Email(String senderEmail, String recipientEmail, Borrowing borrowing) {
         this.senderEmail = senderEmail;
         this.recipientEmail = recipientEmail;
         this.borrowing = borrowing;

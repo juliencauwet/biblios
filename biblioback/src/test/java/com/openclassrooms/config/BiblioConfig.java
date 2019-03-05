@@ -14,7 +14,7 @@ import javax.sql.DataSource;
 
 @Configuration
 @EnableJpaRepositories(basePackages = "com.openclassrooms")
-@PropertySource("persistence-student.properties")
+@PropertySource("application-test.properties")
 @EnableTransactionManagement
 public class BiblioConfig {
 

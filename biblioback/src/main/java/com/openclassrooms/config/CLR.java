@@ -1,10 +1,11 @@
-package openclassrooms.config;
+package com.openclassrooms.config;
 
-import openclassrooms.entities.*;
-import openclassrooms.repositories.AppRoleRepository;
-import openclassrooms.services.AppUserService;
-import openclassrooms.services.BookService;
-import openclassrooms.services.BorrowingService;
+import com.openclassrooms.entities.*;
+import com.openclassrooms.services.AppUserService;
+import com.openclassrooms.services.BorrowingService;
+import com.openclassrooms.entities.*;
+import com.openclassrooms.repositories.AppRoleRepository;
+import com.openclassrooms.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

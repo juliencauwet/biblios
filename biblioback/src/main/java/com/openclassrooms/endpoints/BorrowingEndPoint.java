@@ -1,12 +1,12 @@
-package openclassrooms.endpoints;
+package com.openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.test.*;
-import openclassrooms.conversions.BorrowingConversion;
-import openclassrooms.entities.BookEntity;
-import openclassrooms.entities.Status;
-import openclassrooms.services.IAppUserService;
-import openclassrooms.services.IBookService;
-import openclassrooms.services.IBorrowingService;
+import com.openclassrooms.conversions.BorrowingConversion;
+import com.openclassrooms.services.IAppUserService;
+import com.openclassrooms.services.IBookService;
+import com.openclassrooms.entities.BookEntity;
+import com.openclassrooms.entities.Status;
+import com.openclassrooms.services.IBorrowingService;
 import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -52,7 +52,7 @@ public class BorrowingEndPoint {
         BorrowingGetAllResponse response = new BorrowingGetAllResponse();
 
         List<Borrowing> borrowingList = new ArrayList<>();
-        List<openclassrooms.entities.Borrowing> borrowings = borrowingService.borrowingReport();
+        List<com.openclassrooms.entities.Borrowing> borrowings = borrowingService.borrowingReport();
 
         for (int i = 0; i < borrowings.size(); i++) {
             Borrowing b = borrowingConversion.toWS(borrowings.get(i));
@@ -74,9 +74,9 @@ public class BorrowingEndPoint {
         logger.info("ajout d'un nouvel emprunt:" + request.getBookId());
 
         BorrowingAddResponse response = new BorrowingAddResponse();
-        openclassrooms.entities.AppUser appUser = appUserService.getAppUserById(request.getAppUserId());
+        com.openclassrooms.entities.AppUser appUser = appUserService.getAppUserById(request.getAppUserId());
         BookEntity book = bookService.getBookById(request.getBookId());
-        openclassrooms.entities.Borrowing borrowing = new openclassrooms.entities.Borrowing(book, appUser, request.getStartDate().toGregorianCalendar().getTime(),request.getDueReturnDate().toGregorianCalendar().getTime());
+        com.openclassrooms.entities.Borrowing borrowing = new com.openclassrooms.entities.Borrowing(book, appUser, request.getStartDate().toGregorianCalendar().getTime(),request.getDueReturnDate().toGregorianCalendar().getTime());
 
         logger.info("already borrowed ? " + borrowingService.alreadyBorrowed(appUser, book));
         if(borrowingService.alreadyBorrowed(appUser, book)) {
@@ -119,7 +119,7 @@ public class BorrowingEndPoint {
     @ResponsePayload
     public BorrowingGetResponse getBorrowingById(@RequestPayload BorrowingGetRequest request){
         BorrowingGetResponse response = new BorrowingGetResponse();
-        openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
+        com.openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
         Borrowing b = borrowingConversion.toWS(borrowing);
         response.setBorrowing(b);
         return response;
@@ -132,7 +132,7 @@ public class BorrowingEndPoint {
         BorrowingGetCurrentResponse response = new BorrowingGetCurrentResponse();
 
         List<Borrowing> wsBors = new ArrayList<>();
-        List<openclassrooms.entities.Borrowing> borrowings = borrowingService.getByAppUserId(request.getUserId());
+        List<com.openclassrooms.entities.Borrowing> borrowings = borrowingService.getByAppUserId(request.getUserId());
 
 
         for(int i = 0; i < borrowings.size(); i++){
@@ -148,16 +148,16 @@ public class BorrowingEndPoint {
     public BorrowingReturnResponse returnBook(@RequestPayload BorrowingReturnRequest request) {
 
         BorrowingReturnResponse response = new BorrowingReturnResponse();
-        openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
+        com.openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
 
         borrowing.setStatus(Status.RETURNED);
         BookEntity bookEntity = borrowing.getBookEntity();
-        List<openclassrooms.entities.Borrowing> borrowingsOnWaitingList = borrowingService.getBorrowingsByBookAndStatus(bookEntity, Status.WAITINGLIST);
+        List<com.openclassrooms.entities.Borrowing> borrowingsOnWaitingList = borrowingService.getBorrowingsByBookAndStatus(bookEntity, Status.WAITINGLIST);
 
         //if some people are on waiting list
         if (borrowingsOnWaitingList.size() > 0) {
             //for each borrowing
-            for (openclassrooms.entities.Borrowing b: borrowingsOnWaitingList) {
+            for (com.openclassrooms.entities.Borrowing b: borrowingsOnWaitingList) {
                 //waiting list position
                 b.setWaitingListOrder(b.getWaitingListOrder() - 1);
                 //if position is 0, email to be sent to the borrower
@@ -185,7 +185,7 @@ public class BorrowingEndPoint {
     @ResponsePayload
     public BorrowingExtendResponse extendBorrowing(@RequestPayload BorrowingExtendRequest request){
         BorrowingExtendResponse response = new BorrowingExtendResponse();
-        openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getBorrowingId());
+        com.openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getBorrowingId());
 
         if(borrowing.getExtended())
             response.setCodeResp(2);
@@ -205,7 +205,7 @@ public class BorrowingEndPoint {
         BorrowingGetExpiredResponse response = new BorrowingGetExpiredResponse();
 
         List<Borrowing> wsBors = new ArrayList<>();
-        List<openclassrooms.entities.Borrowing> borrowings = borrowingService.getExpiredBorrowing();
+        List<com.openclassrooms.entities.Borrowing> borrowings = borrowingService.getExpiredBorrowing();
 
 
         for(int i = 0; i < borrowings.size(); i++){
@@ -228,13 +228,13 @@ public class BorrowingEndPoint {
         return response;
     }
 
-    public int waitingListPosition(openclassrooms.entities.Borrowing borrowing){
+    public int waitingListPosition(com.openclassrooms.entities.Borrowing borrowing){
 
         logger.info("waitingListPositonMethod");
-        List<openclassrooms.entities.Borrowing> borrowings = borrowingService.getBorrowingsByBook(borrowing.getBook());
+        List<com.openclassrooms.entities.Borrowing> borrowings = borrowingService.getBorrowingsByBook(borrowing.getBook());
         ArrayList<Integer> positions = new ArrayList<>();
 
-        for (openclassrooms.entities.Borrowing b: borrowings) {
+        for (com.openclassrooms.entities.Borrowing b: borrowings) {
             positions.add(b.getWaitingListOrder());
         }
         //looks for the maximum waiting list position and add 1

@@ -1,7 +1,7 @@
-package openclassrooms.services;
+package com.openclassrooms.services;
 
-import openclassrooms.entities.BookEntity;
-import openclassrooms.repositories.BookRepository;
+import com.openclassrooms.entities.BookEntity;
+import com.openclassrooms.repositories.BookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

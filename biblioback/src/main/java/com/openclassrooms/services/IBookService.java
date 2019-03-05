@@ -1,6 +1,6 @@
-package openclassrooms.services;
+package com.openclassrooms.services;
 
-import openclassrooms.entities.BookEntity;
+import com.openclassrooms.entities.BookEntity;
 
 import java.util.List;
 

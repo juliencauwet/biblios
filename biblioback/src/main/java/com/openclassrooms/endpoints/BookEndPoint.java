@@ -1,13 +1,13 @@
-package openclassrooms.endpoints;
+package com.openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.test.*;
-import openclassrooms.conversions.BookConversion;
-import openclassrooms.conversions.BorrowingConversion;
-import openclassrooms.entities.BookEntity;
-import openclassrooms.entities.Status;
-import openclassrooms.services.BookService;
-import openclassrooms.services.IBookService;
-import openclassrooms.services.IBorrowingService;
+import com.openclassrooms.conversions.BorrowingConversion;
+import com.openclassrooms.services.IBookService;
+import com.openclassrooms.conversions.BookConversion;
+import com.openclassrooms.entities.BookEntity;
+import com.openclassrooms.entities.Status;
+import com.openclassrooms.services.BookService;
+import com.openclassrooms.services.IBorrowingService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;

@@ -1,4 +1,4 @@
-package openclassrooms.entities;
+package com.openclassrooms.entities;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

@@ -31,7 +31,7 @@ services:
       - POSTGRES_PASSWORD=back
       - POSTGRES_USER=back
       - POSTGRES_DB=db_back
-  app:
+  biblioback:
     image: biblioback
     container_name: backapp
     ports:

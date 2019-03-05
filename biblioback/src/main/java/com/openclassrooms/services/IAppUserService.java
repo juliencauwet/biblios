@@ -1,6 +1,6 @@
-package openclassrooms.services;
+package com.openclassrooms.services;
 
-import openclassrooms.entities.AppUser;
+import com.openclassrooms.entities.AppUser;
 
 import java.util.List;
 
