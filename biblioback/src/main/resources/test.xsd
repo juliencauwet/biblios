@@ -414,6 +414,22 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="borrowingUpdateRequest" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="borrowing" type="tns:borrowing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingUpdateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="borrowing" type="tns:borrowing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:simpleType name="status" final="restriction" >
         <xs:restriction base="xs:string">
             <xs:enumeration value="waitinglist" />

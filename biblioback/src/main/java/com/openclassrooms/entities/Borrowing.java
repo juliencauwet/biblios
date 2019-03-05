@@ -17,7 +17,6 @@ public class Borrowing {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private BookEntity book;
 
-    @NotNull
     private Date startDate;
     private Date returnDate;
     private Date dueReturnDate;
@@ -29,6 +28,11 @@ public class Borrowing {
     private int waitingListOrder;
 
     public Borrowing() {
+    }
+
+    public Borrowing(BookEntity book, AppUser user){
+        this.book = book;
+        this.appUser = user;
     }
 
     public Borrowing(BookEntity book, AppUser user, Date startDate, Date dueReturnDate){

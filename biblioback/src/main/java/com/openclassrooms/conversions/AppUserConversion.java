@@ -1,15 +1,15 @@
 package com.openclassrooms.conversions;
 
-
 import com.openclassrooms.biblioback.ws.test.AppUser;
 import com.openclassrooms.services.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class AppUserConversion {
 
-
     @Autowired
-    private AppUserService appUserService;
+    AppUserService appUserService;
 
     public AppUser appUserEntityToAppUser(com.openclassrooms.entities.AppUser appUserEntity){
         AppUser appUser = new AppUser();

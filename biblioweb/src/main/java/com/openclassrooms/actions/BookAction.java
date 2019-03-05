@@ -47,9 +47,15 @@ public class BookAction extends ActionSupport{
 
     public String getBookByTitle(){
         BookGetRequest request = new BookGetRequest();
+        StateOfBorrowingRequest stateRequest= new StateOfBorrowingRequest();
+        states = new ArrayList<>();
         request.setTitle(title);
         setBooks(testPort.bookGet(request).getBookGet());
-
+        for (Book b : books) {
+            stateRequest.setBookId(b.getId());
+            state = testPort.stateOfBorrowing(stateRequest).getStateOfBorrowing();
+            states.add(state);
+        }
         return SUCCESS;
     }
 
@@ -59,7 +65,9 @@ public class BookAction extends ActionSupport{
         states = new ArrayList<>();
         for(Book b :books){
             request.setBookId(b.getId());
-            states.add(testPort.stateOfBorrowing(request).getStateOfBorrowing());
+            state = testPort.stateOfBorrowing(request).getStateOfBorrowing();
+            logger.info("state: " + state.getBook() + " "+ state.getWaitingListNumber() + " "+ state.getNextReturn());
+            states.add(state);
         }
 
         return SUCCESS;

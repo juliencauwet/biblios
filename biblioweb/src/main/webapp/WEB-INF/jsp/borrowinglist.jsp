@@ -31,7 +31,12 @@
                     <th>n° emprunt</th>
                     <th>Utilisateur</th>
                     <th>Nom du livre</th>
-                    <th>Date de commencement</th>
+                    <s:if test="startDate">
+                        <th>Date de commencement</th>
+                    </s:if>
+                    <s:else>
+                        <th>Réservation</th>
+                    </s:else>
                     <th>Date échéance de retour</th>
                 </tr>
                 <s:iterator value="borrowings">
@@ -39,9 +44,15 @@
                         <td><s:a action="borrowingDetail"><s:property value="id" /><s:param value="id" name="id" /> </s:a> </td>
                         <td><s:property value="appUser.firstName"/> <s:property value="appUser.name"/> </td>
                         <td><s:property value="book.title"/></td>
-                        <td><s:property value="startDate" /> </td>
+                        <s:if test="startDate">
+                            <td><s:property value="startDate" /> </td>
+                        </s:if>
+                        <s:else>
+                            <th>Réservation</th>
+                        </s:else>
+
                         <s:if test="returnDate">
-                            <td><p>rendu</p></td>
+                            <td><p>rendu le <s:property value="returnDate"/></p></td>
                         </s:if>
                         <s:else>
                             <td><s:property value="dueReturnDate"/> </td>

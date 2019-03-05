@@ -5,16 +5,24 @@ import com.openclassrooms.entities.Status;
 import lombok.val;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
 
+
+@Component
 public class BorrowingConversion {
 
     //Constructeurs objets requis
-    AppUserConversion appUserConversion = new AppUserConversion();
+    @Autowired
+    AppUserConversion appUserConversion;
+
     BookConversion bookConversion = new BookConversion();
     Logger logger = LoggerFactory.getLogger(this.getClass());
 

@@ -40,6 +40,8 @@
                     <th>prochain retour</th>
 
                 </tr>
+
+
                 <s:iterator value="states">
                     <tr>
 
@@ -52,7 +54,9 @@
                         <td><s:property value="nextReturn"/></td><!-- prochaine date de retour -->
 
                     </tr>
+
                 </s:iterator>
+
             </table>
         </div>
 

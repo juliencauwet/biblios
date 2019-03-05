@@ -41,7 +41,8 @@ public class BorrowingEndPoint {
     @Autowired
     PropertiesRepository propertiesRepository;
 
-    private BorrowingConversion borrowingConversion = new BorrowingConversion();
+    @Autowired
+    BorrowingConversion borrowingConversion;
 
     private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -83,7 +84,7 @@ public class BorrowingEndPoint {
         BorrowingAddResponse response = new BorrowingAddResponse();
         com.openclassrooms.entities.AppUser appUser = appUserService.getAppUserById(request.getAppUserId());
         BookEntity book = bookService.getBookById(request.getBookId());
-        com.openclassrooms.entities.Borrowing borrowing = new com.openclassrooms.entities.Borrowing(book, appUser, request.getStartDate().toGregorianCalendar().getTime(),request.getDueReturnDate().toGregorianCalendar().getTime());
+        com.openclassrooms.entities.Borrowing borrowing = new com.openclassrooms.entities.Borrowing(book, appUser);
 
         logger.info("already borrowed ? " + borrowingService.alreadyBorrowed(appUser, book));
         if(borrowingService.alreadyBorrowed(appUser, book)) {
@@ -215,6 +216,19 @@ public class BorrowingEndPoint {
 
         borrowingService.deleteBorrowingListById(request.getBorrowingDeleteById());
 
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingUpdateRequest")
+    @ResponsePayload
+    @Transactional
+    public BorrowingUpdateResponse updateBorrowing(@RequestPayload BorrowingUpdateRequest request){
+        BorrowingUpdateResponse response = new BorrowingUpdateResponse();
+        logger.info("dans update borrowing: " + request.getBorrowing());
+        borrowingService.updateBorrowing(borrowingConversion.toEntity(request.getBorrowing()));
+        logger.info("dans update borrowing 2");
+        response.setBorrowing(request.getBorrowing());
+        logger.info("dans update borrowing 3");
         return response;
     }
 

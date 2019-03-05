@@ -77,26 +77,37 @@ public class BorrowingAction extends ActionSupport {
         }
 
         BorrowingAddRequest request = new BorrowingAddRequest();
+        BorrowingUpdateRequest updateRequest = new BorrowingUpdateRequest();
+
         XMLGregorianCalendar xmlCalendar;
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(startDate);
         xmlCalendar = toXmlGregorianCalendar(calendar);
 
-        request.setStartDate(xmlCalendar);
         request.setAppUserId(appUser.getId());
-        request.setDueReturnDate(toXmlGregorianCalendar(setDRD(calendar)));
-
         request.setBookId(bookId);
 
         Borrowing borrowing = testPort.borrowingAdd(request).getBorrowing();
         log.info("status: " + borrowing.getStatus());
 
-        if(borrowing.getStatus() == Status.DENIED)
-            setMessage("Vous avez déjà emprunté ce livre.");
-        else if (borrowing.getStatus() == Status.NONE)
-            setMessage("L'emprunt n'a pas pu être effectué car la liste d'attente est pleine.");
-        else
-            setMessage("L'emprunt a bien été enregistré. Veuillez s'il vous plait le retourner avant le " + borrowing.getDueReturnDate());
+        switch (borrowing.getStatus()){
+            case DENIED:
+                setMessage("Vous avez déjà emprunté ce livre.");
+            break;
+            case ONGOING:
+                borrowing.setStartDate(xmlCalendar);
+                borrowing.setDueReturnDate(toXmlGregorianCalendar(setDRD(calendar)));
+                updateRequest.setBorrowing(borrowing);
+                borrowing = testPort.borrowingUpdate(updateRequest).getBorrowing();
+                setMessage("L'emprunt a bien été enregistré. Veuillez s'il vous plait le retourner avant le " + borrowing.getDueReturnDate());
+            break;
+            case NONE:
+                setMessage("L'emprunt n'a pas pu être effectué car la liste d'attente est pleine.");
+            break;
+            case WAITINGLIST:
+                setMessage("Le livre est réservé!");
+            break;
+        }
 
         return SUCCESS;
     }
