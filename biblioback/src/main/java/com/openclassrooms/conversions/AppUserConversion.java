@@ -1,7 +1,7 @@
 package openclassrooms.conversions;
 
 
-import openclassrooms.biblioback.ws.test.AppUser;
+import com.openclassrooms.biblioback.ws.test.AppUser;
 import openclassrooms.services.AppUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 

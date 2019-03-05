@@ -1,6 +1,6 @@
 package openclassrooms.endpoints;
 
-import openclassrooms.biblioback.ws.test.*;
+import com.openclassrooms.biblioback.ws.test.*;
 import openclassrooms.entities.AppUser;
 import openclassrooms.services.AppUserService;
 import openclassrooms.services.IAppUserService;
@@ -61,7 +61,7 @@ public class AppUserEndPoint {
         AppUserValidityCheckResponse response = new AppUserValidityCheckResponse();
         try {
             AppUser au = appUserService.checkUser(request.getEmail());
-            openclassrooms.biblioback.ws.test.AppUser auws = new openclassrooms.biblioback.ws.test.AppUser();
+            com.openclassrooms.biblioback.ws.test.AppUser auws = new com.openclassrooms.biblioback.ws.test.AppUser();
             log.info("Vérification du password: ");
             log.info("au.password: " + au.getPassword());
             log.info("request.password: " +request.getPassword());
@@ -82,10 +82,10 @@ public class AppUserEndPoint {
     public AppUserGetAllResponse getAllAppUsers() {
         AppUserGetAllResponse response = new AppUserGetAllResponse();
         List<AppUser> appUsers = appUserService.getAllAppUsers();
-        List<openclassrooms.biblioback.ws.test.AppUser> WSAppUsers = new ArrayList<>();
+        List<com.openclassrooms.biblioback.ws.test.AppUser> WSAppUsers = new ArrayList<>();
 
         for (int i = 0; i < appUsers.size(); i++){
-            openclassrooms.biblioback.ws.test.AppUser appUser = new openclassrooms.biblioback.ws.test.AppUser();
+            com.openclassrooms.biblioback.ws.test.AppUser appUser = new com.openclassrooms.biblioback.ws.test.AppUser();
             BeanUtils.copyProperties(appUsers.get(i),appUser);
             WSAppUsers.add(appUser);
         }

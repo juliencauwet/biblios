@@ -1,6 +1,6 @@
 package openclassrooms.endpoints;
 
-import openclassrooms.biblioback.ws.test.*;
+import com.openclassrooms.biblioback.ws.test.*;
 import openclassrooms.conversions.BorrowingConversion;
 import openclassrooms.entities.BookEntity;
 import openclassrooms.entities.Status;
