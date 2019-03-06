@@ -4,6 +4,7 @@ import com.openclassrooms.entities.AppUser;
 import com.openclassrooms.entities.BookEntity;
 import com.openclassrooms.entities.Borrowing;
 import com.openclassrooms.entities.Status;
+import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;

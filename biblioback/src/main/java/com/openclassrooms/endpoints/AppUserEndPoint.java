@@ -1,10 +1,11 @@
 package com.openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.test.*;
+import com.openclassrooms.entities.AppUser;
 import com.openclassrooms.services.AppUserService;
 import com.openclassrooms.services.IAppUserService;
-import com.openclassrooms.entities.AppUser;
 import org.apache.log4j.Logger;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -22,10 +23,10 @@ public class AppUserEndPoint {
     @Autowired
     private IAppUserService appUserService;
 
-    @Autowired
-    public AppUserEndPoint(AppUserService appUserService){
-        this.appUserService = appUserService;
-    }
+    //@Autowired
+    //public AppUserEndPoint(AppUserService appUserService){
+    //    this.appUserService = appUserService;
+    //}
 
     private static final Logger log = Logger.getLogger(AppUserEndPoint.class);
     /**

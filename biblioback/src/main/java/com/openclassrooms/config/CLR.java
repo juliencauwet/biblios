@@ -1,11 +1,11 @@
 package com.openclassrooms.config;
 
 import com.openclassrooms.entities.*;
-import com.openclassrooms.services.AppUserService;
-import com.openclassrooms.services.BorrowingService;
-import com.openclassrooms.entities.*;
 import com.openclassrooms.repositories.AppRoleRepository;
+import com.openclassrooms.services.AppUserService;
 import com.openclassrooms.services.BookService;
+import com.openclassrooms.services.BorrowingService;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;

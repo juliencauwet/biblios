@@ -21,8 +21,8 @@ import java.util.List;
 //@TestPropertySource(locations = "classpath:application-test.properties")
 public class AppUserServiceTest {
 
-    @Autowired
-    AppUserService appUserService;
+    //@Autowired
+    //AppUserService appUserService;
 
 
     AppUser user = new AppUser("test@test.com", "test1");

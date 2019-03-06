@@ -27,20 +27,20 @@ import java.util.List;
 //@TestPropertySource(locations = "classpath:application-test.properties")
 public class BorrowingServiceTest {
 
-    @Autowired
-    BorrowingService service;
-
-    @Autowired
-    AppUserService appUserService;
-
-    @Autowired
-    AppRoleService appRoleService;
-
-    @Autowired
-    BookService bookService;
-
-    @Autowired
-    BorrowingRepository borrowingRepository;
+    //@Autowired
+    //BorrowingService service;
+//
+    //@Autowired
+    //AppUserService appUserService;
+//
+    //@Autowired
+    //AppRoleService appRoleService;
+//
+    //@Autowired
+    //BookService bookService;
+//
+    //@Autowired
+    //BorrowingRepository borrowingRepository;
 
     BookEntity b1 = new BookEntity("La Peste", "Camus", "Albert", 4);
     BookEntity b2 = new BookEntity("L'Ecume des jours", "Vian", "Boris", 1);

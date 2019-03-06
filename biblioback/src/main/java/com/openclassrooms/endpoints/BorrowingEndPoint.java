@@ -2,13 +2,14 @@ package com.openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.test.*;
 import com.openclassrooms.conversions.BorrowingConversion;
-import com.openclassrooms.services.IAppUserService;
-import com.openclassrooms.services.IBookService;
 import com.openclassrooms.entities.BookEntity;
 import com.openclassrooms.entities.Status;
+import com.openclassrooms.services.IAppUserService;
+import com.openclassrooms.services.IBookService;
 import com.openclassrooms.services.IBorrowingService;
 import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -31,6 +32,7 @@ public class BorrowingEndPoint {
 
     @Autowired
     private IBookService bookService;
+
     @Autowired
     private IAppUserService appUserService;
 
@@ -148,6 +150,7 @@ public class BorrowingEndPoint {
     public BorrowingReturnResponse returnBook(@RequestPayload BorrowingReturnRequest request) {
 
         BorrowingReturnResponse response = new BorrowingReturnResponse();
+
         com.openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
 
         borrowing.setStatus(Status.RETURNED);
@@ -228,7 +231,7 @@ public class BorrowingEndPoint {
         return response;
     }
 
-    public int waitingListPosition(com.openclassrooms.entities.Borrowing borrowing){
+    protected int waitingListPosition(com.openclassrooms.entities.Borrowing borrowing){
 
         logger.info("waitingListPositonMethod");
         List<com.openclassrooms.entities.Borrowing> borrowings = borrowingService.getBorrowingsByBook(borrowing.getBook());

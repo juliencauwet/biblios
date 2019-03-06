@@ -17,8 +17,8 @@ public class AppRoleConversion {
         return appRole;
     }
     //
-    public AppRole appRoleToAppRoleEntity(AppRole appRole){
-        AppRole appRoleEntity = appRoleService.getAppRoleById(appRole.getId());
+    public com.openclassrooms.entities.AppRole appRoleToAppRoleEntity(AppRole appRole){
+        com.openclassrooms.entities.AppRole appRoleEntity = appRoleService.getAppRoleById(appRole.getId());
         appRoleEntity.setId(appRole.getId());
         appRoleEntity.setName(appRole.getName());
         appRoleEntity.setUsers(appRole.getUsers());

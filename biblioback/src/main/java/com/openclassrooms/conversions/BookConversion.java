@@ -4,6 +4,7 @@ import com.openclassrooms.biblioback.ws.test.Book;
 import com.openclassrooms.entities.BookEntity;
 import com.openclassrooms.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 public class BookConversion {
 

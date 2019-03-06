@@ -1,7 +1,7 @@
 package com.openclassrooms.conversions;
 
 import com.openclassrooms.biblioback.ws.test.Borrowing;
-import com.openclassrooms.biblioback.ws.test.Status;
+import com.openclassrooms.entities.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,6 +14,7 @@ public class BorrowingConversion {
 
     //Constructeurs objets requis
     AppUserConversion appUserConversion = new AppUserConversion();
+
     BookConversion bookConversion = new BookConversion();
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -39,15 +40,15 @@ public class BorrowingConversion {
             borrowingWS.setDueReturnDate(toXmlGregorianCalendar(dateToGregorianCalendar(bor.getDueReturnDate())));
 
         switch (bor.getStatus()){
-            case WAITINGLIST: borrowingWS.setStatus(Status.WAITINGLIST);
+            case WAITINGLIST: borrowingWS.setStatus(com.openclassrooms.biblioback.ws.test.Status.WAITINGLIST);
             break;
-            case ONGOING: borrowingWS.setStatus(Status.ONGOING);
+            case ONGOING: borrowingWS.setStatus(com.openclassrooms.biblioback.ws.test.Status.ONGOING);
             break;
-            case NONE: borrowingWS.setStatus(Status.NONE);
+            case NONE: borrowingWS.setStatus(com.openclassrooms.biblioback.ws.test.Status.NONE);
             break;
-            case DENIED: borrowingWS.setStatus(Status.DENIED);
+            case DENIED: borrowingWS.setStatus(com.openclassrooms.biblioback.ws.test.Status.DENIED);
                 break;
-            default: borrowingWS.setStatus(Status.NONE);
+            default: borrowingWS.setStatus(com.openclassrooms.biblioback.ws.test.Status.NONE);
         }
         logger.info("statut ws: " + borrowingWS.getStatus());
 
@@ -75,15 +76,15 @@ public class BorrowingConversion {
             bor.setDueReturnDate(gregToDate(borWS.getDueReturnDate().toGregorianCalendar()));
 
         switch (borWS.getStatus()){
-            case WAITINGLIST: bor.setStatus(com.openclassrooms.entities.Status.WAITINGLIST);
+            case WAITINGLIST: bor.setStatus(Status.WAITINGLIST);
                 break;
-            case ONGOING: bor.setStatus(com.openclassrooms.entities.Status.ONGOING);
+            case ONGOING: bor.setStatus(Status.ONGOING);
                 break;
-            case NONE: bor.setStatus(com.openclassrooms.entities.Status.NONE);
+            case NONE: bor.setStatus(Status.NONE);
                 break;
-            case DENIED: bor.setStatus(com.openclassrooms.entities.Status.DENIED);
+            case DENIED: bor.setStatus(Status.DENIED);
                 break;
-            default: bor.setStatus(com.openclassrooms.entities.Status.NONE);
+            default: bor.setStatus(Status.NONE);
         }
 
         logger.info("statut: " + bor.getStatus());

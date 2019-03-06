@@ -1,12 +1,13 @@
 package com.openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.test.*;
-import com.openclassrooms.conversions.BorrowingConversion;
-import com.openclassrooms.services.IBookService;
 import com.openclassrooms.conversions.BookConversion;
+import com.openclassrooms.conversions.BorrowingConversion;
 import com.openclassrooms.entities.BookEntity;
+import com.openclassrooms.entities.Borrowing;
 import com.openclassrooms.entities.Status;
 import com.openclassrooms.services.BookService;
+import com.openclassrooms.services.IBookService;
 import com.openclassrooms.services.IBorrowingService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -103,8 +104,6 @@ public class BookEndPoint {
         response.setStateOfBorrowing(state);
         return response;
     }
-
-
 
     List<Book> convertBooks(List<BookEntity> bookEntities){
         List<Book> books = new ArrayList<>();
