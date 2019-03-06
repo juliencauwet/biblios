@@ -1,4 +1,4 @@
-package openclassrooms.actions;
+package com.openclassrooms.actions;
 
 import com.openclassrooms.biblioback.ws.test.AppUser;
 import com.openclassrooms.biblioback.ws.test.AppUserGetAllRequest;

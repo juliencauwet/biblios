@@ -33,8 +33,16 @@ services:
       - POSTGRES_DB=db_back
   biblioback:
     image: biblioback
-    container_name: backapp
+    container_name: biblioback
     ports:
-      - 21310:8080
+      - 1111:8080
     depends_on:
       - bibliodb
+#####################################
+#  biblioweb:
+#    image: biblioweb
+#    container_name: biblioweb
+#    ports:
+#      - 1112:8081
+#    depends_on:
+#      - biblioback

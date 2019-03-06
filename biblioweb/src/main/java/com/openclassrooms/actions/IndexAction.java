@@ -1,4 +1,4 @@
-package openclassrooms.actions;
+package com.openclassrooms.actions;
 
 import com.openclassrooms.biblioback.ws.test.TestPort;
 import com.openclassrooms.biblioback.ws.test.TestPortService;
@@ -6,9 +6,6 @@ import openclassrooms.config.PropSource;
 
 import com.opensymphony.xwork2.ActionSupport;
 import java.util.Date;
-
-
-
 import com.opensymphony.xwork2.conversion.annotations.Conversion;
 import com.opensymphony.xwork2.conversion.annotations.TypeConversion;
 import org.apache.log4j.Logger;

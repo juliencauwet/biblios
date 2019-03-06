@@ -1,4 +1,4 @@
-package openclassrooms.actions;
+package com.openclassrooms.actions;
 
 import com.openclassrooms.biblioback.ws.test.*;
 import openclassrooms.config.PropSource;

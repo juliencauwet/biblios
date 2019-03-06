@@ -1,4 +1,4 @@
-package openclassrooms.actions;
+package com.openclassrooms.actions;
 
 import com.opensymphony.xwork2.ActionSupport;
 
