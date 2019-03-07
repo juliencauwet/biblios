@@ -1,20 +1,28 @@
-version: '3.5'
+version: '2'
 services:
   bibliodb:
-    image: postgres:alpine
+    container_name: bibliodb
+    image: postgres
     ports:
-      - '2131:5432'
-    container_name: biblioback
-    environment:
-      POSTGRES_DB: db_back
-      POSTGRES_USER: back
-      POSTGRES_PASSWORD: back
+      - "5432:5432"
     volumes:
       - './sql:/docker-entrypoint-initdb.d'
-    restart: always
-    network_mode: bridge
-  #biblioback:
-    #image: biblioback
-    #depends_on:
-     # - bibliodb
-
+    environment:
+      - POSTGRES_PASSWORD=back
+      - POSTGRES_USER=back
+      - POSTGRES_DB=db_back
+  biblioback:
+    image: biblioback
+    container_name: biblioback
+    ports:
+      - 1111:8080
+    depends_on:
+      - bibliodb
+#####################################
+#  biblioweb:
+#    image: biblioweb
+#    container_name: biblioweb
+#    ports:
+#      - 1112:8081
+#    depends_on:
+#      - biblioback
