@@ -420,6 +420,7 @@
             <xs:enumeration value="ongoing" />
             <xs:enumeration value="none" />
             <xs:enumeration value="denied" />
+            <xs:enumeration value="returned" />
         </xs:restriction>
     </xs:simpleType>
 
