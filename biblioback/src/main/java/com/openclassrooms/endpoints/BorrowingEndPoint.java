@@ -165,6 +165,8 @@ public class BorrowingEndPoint {
                 //waiting list position
                 b.setWaitingListOrder(b.getWaitingListOrder() - 1);
                 //if position is 0, email to be sent to the borrower
+                if (b.getWaitingListOrder() == 0)
+                    borrowingService.sendEmailToNextBorrower(b);
             }
 
         }else {

@@ -11,6 +11,8 @@ services:
       - POSTGRES_PASSWORD=back
       - POSTGRES_USER=back
       - POSTGRES_DB=db_back
+    networks:
+      - back
   biblioback:
     image: biblioback
     container_name: biblioback
@@ -18,6 +20,9 @@ services:
       - 1111:8080
     depends_on:
       - bibliodb
+    networks:
+      - back
+      - front
 #####################################
 #  biblioweb:
 #    image: biblioweb
@@ -26,3 +31,5 @@ services:
 #      - 1112:8081
 #    depends_on:
 #      - biblioback
+#    networks
+#      - front

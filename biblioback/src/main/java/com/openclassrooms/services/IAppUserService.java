@@ -12,5 +12,6 @@ public interface IAppUserService {
 
     List<AppUser> getAllAppUsers();
     AppUser getAppUserById(int id);
+    void deletUser(AppUser user);
 
 }

@@ -2,11 +2,15 @@ package com.openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.borrowing.BorrowingAddResponse;
 import com.openclassrooms.biblioback.ws.test.BorrowingAddRequest;
+import com.openclassrooms.biblioback.ws.test.BorrowingReturnRequest;
+import com.openclassrooms.biblioback.ws.test.BorrowingReturnResponse;
+import com.openclassrooms.biblioback.ws.test.Status;
 import com.openclassrooms.conversions.BorrowingConversion;
 import com.openclassrooms.entities.AppUser;
 import com.openclassrooms.entities.BookEntity;
 import com.openclassrooms.entities.Borrowing;
 import com.openclassrooms.services.AppUserService;
+import com.openclassrooms.services.BookService;
 import com.openclassrooms.services.BorrowingService;
 import com.openclassrooms.services.IAppUserService;
 import org.junit.Assert;
@@ -33,11 +37,22 @@ public class BorrowingEndPointTest {
     private String strDate2 = "27/06/2018";
     private String strDate3 = "28/07/2018";
 
+    @Mock
+    BorrowingService borrowingService;
 
-    BorrowingService borrowingService = Mockito.mock(BorrowingService.class);
+    @Mock
+    BookService bookService;
 
     @Mock
     AppUserService appUserService;
+
+    @InjectMocks
+    BorrowingEndPoint endPoint;
+
+    @Before
+    public void setUp()throws Exception{
+        MockitoAnnotations.initMocks(this);
+    }
 
     BookEntity b1 = new BookEntity("La Peste", "Camus", "Albert", 4);
     BookEntity b2 = new BookEntity("L'Ecume des jours", "Vian", "Boris", 1);
@@ -49,8 +64,6 @@ public class BorrowingEndPointTest {
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
     private BorrowingConversion conversion = new BorrowingConversion();
-
-    BorrowingEndPoint endPoint = new BorrowingEndPoint(new BorrowingService());
 
     @Before
     public void init() throws ParseException {
@@ -85,9 +98,31 @@ public class BorrowingEndPointTest {
     @Test
     public void getBorrowings() {
     }
-
+/*
     @Test
-    public void returnBook() {
+    public void returnBook_IfWaitingList() {
+
+        BorrowingReturnRequest borrowingReturnRequest = new BorrowingReturnRequest();
+        BorrowingReturnResponse borrowingReturnResponse = new BorrowingReturnResponse();
+        borrowingReturnRequest.setId(1);
+
+        Borrowing borrowing1 = new Borrowing(new AppUser(), b3, new Date(), new Date(), new Date(), Status.WAITINGLIST);
+        Borrowing borrowing2 = new Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), Status.WAITINGLIST);
+        Borrowing borrowing3 = new Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), Status.WAITINGLIST);
+        borrowing1.setId(1);
+        borrowing1.setWaitingListOrder(1);
+        borrowing2.setWaitingListOrder(2);
+        borrowing3.setWaitingListOrder(3);
+        List <Borrowing> borrowings = Arrays.asList(borrowing1, borrowing2, borrowing3);
+
+        when(borrowingService.getById(1)).thenReturn(new Borrowing(b2));
+        when(borrowingService.getBorrowingsByBookAndStatus(b2, Status.WAITINGLIST)).thenReturn(borrowings);
+
+        endPoint.returnBook(borrowingReturnRequest);
+        //verify(bookService).updateBook(b2);
+        Assert.assertEquals(borrowing2.getWaitingListOrder(), 1);
+        Assert.assertEquals(borrowing3.getWaitingListOrder(), 2);
+        //Assert.assertTrue(borrowingReturnResponse.isConfirmation());
     }
 
     @Test
@@ -116,4 +151,5 @@ public class BorrowingEndPointTest {
         when(borrowingService.getBorrowingsByBook(b1)).thenReturn(borrowings);
         Assert.assertTrue(endPoint.waitingListPosition(borrowing) == 5);
     }
+      */
 }

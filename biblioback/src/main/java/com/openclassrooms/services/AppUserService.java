@@ -36,4 +36,9 @@ public class AppUserService implements IAppUserService {
     public AppUser getAppUserById(int id) {
         return appUserRepository.findById(id);
     }
+
+    @Override
+    public void deletUser(AppUser user) {
+        appUserRepository.delete(user);
+    }
 }
