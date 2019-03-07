@@ -2,6 +2,7 @@ package com.openclassrooms.config;
 
 import com.openclassrooms.entities.*;
 import com.openclassrooms.repositories.AppRoleRepository;
+import com.openclassrooms.repositories.PropertiesRepository;
 import com.openclassrooms.services.AppUserService;
 import com.openclassrooms.services.BookService;
 import com.openclassrooms.services.BorrowingService;
@@ -27,6 +28,8 @@ public class CLR implements CommandLineRunner{
     BorrowingService borrowingService;
     @Autowired
     AppRoleRepository appRoleRepository;
+    @Autowired
+    PropertiesRepository propertiesRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -100,6 +103,12 @@ public class CLR implements CommandLineRunner{
         borrowingService.newBorrowing(bor5);
 
         List<Borrowing> borrowings = borrowingService.getExpiredBorrowing();
+
+        BorrowingProperty property = new BorrowingProperty();
+        property.setLibraryId(1);
+        property.setBorrowingLength(10);
+        property.setBorrowingExtensionLength(5);
+        propertiesRepository.save(property);
 
 
         if (borrowings.size() == 0){

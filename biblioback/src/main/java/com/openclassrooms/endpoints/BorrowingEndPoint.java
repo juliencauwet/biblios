@@ -4,7 +4,9 @@ import com.openclassrooms.biblioback.ws.test.*;
 import com.openclassrooms.conversions.BookConversion;
 import com.openclassrooms.conversions.BorrowingConversion;
 import com.openclassrooms.entities.BookEntity;
+import com.openclassrooms.entities.BorrowingProperty;
 import com.openclassrooms.entities.Status;
+import com.openclassrooms.repositories.PropertiesRepository;
 import com.openclassrooms.services.IAppUserService;
 import com.openclassrooms.services.IBookService;
 import com.openclassrooms.services.IBorrowingService;
@@ -18,10 +20,7 @@ import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
 import org.springframework.ws.server.endpoint.annotation.ResponsePayload;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Endpoint
 public class BorrowingEndPoint {
@@ -37,7 +36,10 @@ public class BorrowingEndPoint {
     @Autowired
     private IAppUserService appUserService;
 
-    private BorrowingConversion borrowingConversion = new BorrowingConversion();
+    @Autowired
+    PropertiesRepository propertiesRepository;
+
+    BorrowingConversion borrowingConversion = new BorrowingConversion();
 
     private org.slf4j.Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -79,7 +81,7 @@ public class BorrowingEndPoint {
         BorrowingAddResponse response = new BorrowingAddResponse();
         com.openclassrooms.entities.AppUser appUser = appUserService.getAppUserById(request.getAppUserId());
         BookEntity book = bookService.getBookById(request.getBookId());
-        com.openclassrooms.entities.Borrowing borrowing = new com.openclassrooms.entities.Borrowing(book, appUser, request.getStartDate().toGregorianCalendar().getTime(),request.getDueReturnDate().toGregorianCalendar().getTime());
+        com.openclassrooms.entities.Borrowing borrowing = new com.openclassrooms.entities.Borrowing(book, appUser);
 
         logger.info("already borrowed ? " + borrowingService.alreadyBorrowed(appUser, book));
         if(borrowingService.alreadyBorrowed(appUser, book)) {
@@ -107,6 +109,7 @@ public class BorrowingEndPoint {
         } else {
             borrowing.setStatus(Status.ONGOING);
             borrowing.setStartDate(new Date());
+            borrowing.setDueReturnDate(setDRD(borrowing.getStartDate()));
             book.setNumber(book.getNumber() - 1);
             logger.info("borrowing successful");
         }
@@ -195,7 +198,7 @@ public class BorrowingEndPoint {
             response.setCodeResp(2);
         else {
             borrowing.setExtended(true);
-            borrowing.setDueReturnDate(request.getNewDueReturnDate().toGregorianCalendar().getTime());
+            borrowing.setDueReturnDate(setDRD(borrowing.getDueReturnDate()));
             response.setCodeResp(1);
             borrowingService.updateBorrowing(borrowing);
         }
@@ -232,6 +235,49 @@ public class BorrowingEndPoint {
         return response;
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingUpdateRequest")
+    @ResponsePayload
+    @Transactional
+    public BorrowingUpdateResponse updateBorrowing(@RequestPayload BorrowingUpdateRequest request){
+        BorrowingUpdateResponse response = new BorrowingUpdateResponse();
+        logger.info("dans update borrowing: " + request.getBorrowing());
+        borrowingService.updateBorrowing(borrowingConversion.toEntity(request.getBorrowing()));
+        logger.info("dans update borrowing 2");
+        response.setBorrowing(request.getBorrowing());
+        logger.info("dans update borrowing 3");
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "updatePropertiesRequest")
+    @ResponsePayload
+    public UpdatePropertiesResponse updateProperties(@RequestPayload UpdatePropertiesRequest request){
+        UpdatePropertiesResponse response = new UpdatePropertiesResponse();
+        BorrowingProperty property = propertiesRepository.getByLibraryId(request.getLibraryId());
+        property.setBorrowingExtensionLength(request.getExtensionLength());
+        property.setBorrowingLength(request.getBorrowingLength());
+        propertiesRepository.save(property);
+        response.setConfirmation(true);
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getBorrowingLengthRequest")
+    @ResponsePayload
+    public GetBorrowingLengthResponse getBorrowingLength(@RequestPayload GetBorrowingLengthRequest request){
+        GetBorrowingLengthResponse response = new GetBorrowingLengthResponse();
+        BorrowingProperty property = propertiesRepository.getByLibraryId(request.getLibraryId());
+        response.setBorrowingLength(property.getBorrowingLength());
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "getExtensionLengthRequest")
+    @ResponsePayload
+    public GetExtensionLengthResponse getExtensionLength(@RequestPayload GetExtensionLengthRequest request){
+        GetExtensionLengthResponse response = new GetExtensionLengthResponse();
+        BorrowingProperty property = propertiesRepository.getByLibraryId(request.getLibraryId());
+        response.setExtensionLength(property.getBorrowingLength());
+        return response;
+    }
+
     protected int waitingListPosition(com.openclassrooms.entities.Borrowing borrowing){
 
         logger.info("waitingListPositonMethod");
@@ -245,7 +291,14 @@ public class BorrowingEndPoint {
         return Collections.max(positions) + 1;
     }
 
-
+    public Date setDRD(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        BorrowingProperty property = propertiesRepository.getByLibraryId(1);
+        calendar.add(Calendar.DAY_OF_MONTH,7 * (property.getBorrowingLength()));
+        date = calendar.getTime();
+        return date;
+    }
 
 
 

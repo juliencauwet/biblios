@@ -29,6 +29,11 @@ public class Borrowing {
     public Borrowing() {
     }
 
+    public Borrowing(BookEntity book, AppUser appUser){
+        this.book = book;
+        this.appUser = appUser;
+    }
+
     public Borrowing(BookEntity book, AppUser user, Date startDate, Date dueReturnDate){
         this.book =book;
         this.appUser = user;

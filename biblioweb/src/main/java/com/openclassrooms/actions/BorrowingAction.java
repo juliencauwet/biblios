@@ -77,15 +77,8 @@ public class BorrowingAction extends ActionSupport {
         }
 
         BorrowingAddRequest request = new BorrowingAddRequest();
-        XMLGregorianCalendar xmlCalendar;
-        GregorianCalendar calendar = new GregorianCalendar();
-        calendar.setTime(startDate);
-        xmlCalendar = toXmlGregorianCalendar(calendar);
 
-        request.setStartDate(xmlCalendar);
         request.setAppUserId(appUser.getId());
-        request.setDueReturnDate(toXmlGregorianCalendar(setDRD(calendar)));
-
         request.setBookId(bookId);
 
         Borrowing borrowing = testPort.borrowingAdd(request).getBorrowing();

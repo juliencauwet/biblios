@@ -100,6 +100,7 @@ public class BookEndPoint {
         state.setBook(bookConversion.bookEntityToBook(book));
         state.setWaitingListNumber(borrowingService.getBorrowingsByBookAndStatus(book, Status.WAITINGLIST).size());
         //searches for the next return date and converts into XML
+
         state.setNextReturn(borrowingConversion.toXmlGregorianCalendar(borrowingConversion.dateToGregorianCalendar(borrowingService.nextReturnDate(book))));
         response.setStateOfBorrowing(state);
         return response;

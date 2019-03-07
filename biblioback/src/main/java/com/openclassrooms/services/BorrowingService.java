@@ -107,7 +107,7 @@ public class BorrowingService implements IBorrowingService {
         Date date = new Date();
         List<Borrowing> borrowings = borrowingRepository.findBorrowingsByBook(bookEntity);
         for (Borrowing b : borrowings){
-            if (date.before(b.getDueReturnDate()))
+            if (b.getDueReturnDate() != null && date.before(b.getDueReturnDate()))
                 date = b.getDueReturnDate();
         }
 
@@ -123,8 +123,6 @@ public class BorrowingService implements IBorrowingService {
         email.setTo("juliencauwet@yahooo.fr");
 
         sender.sendEmail(email);
-
-
     }
 
 }
