@@ -1,5 +1,6 @@
 package com.openclassrooms.services;
 
+import com.openclassrooms.beans.MailSender;
 import com.openclassrooms.entities.AppUser;
 import com.openclassrooms.entities.BookEntity;
 import com.openclassrooms.entities.Borrowing;
@@ -8,6 +9,7 @@ import com.openclassrooms.repositories.BorrowingRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -110,6 +112,19 @@ public class BorrowingService implements IBorrowingService {
         }
 
         return date;
+    }
+
+    @Override
+    public void sendEmailToNextBorrower(Borrowing borrowing) {
+        SimpleMailMessage email = new SimpleMailMessage();
+        MailSender sender = new MailSender();
+        email.setText("hello");
+        email.setSubject("test");
+        email.setTo("juliencauwet@yahooo.fr");
+
+        sender.sendEmail(email);
+
+
     }
 
 }
