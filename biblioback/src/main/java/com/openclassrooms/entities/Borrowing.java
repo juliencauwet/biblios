@@ -1,7 +1,6 @@
 package com.openclassrooms.entities;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Entity
@@ -17,7 +16,6 @@ public class Borrowing {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private BookEntity book;
 
-    @NotNull
     private Date startDate;
     private Date returnDate;
     private Date dueReturnDate;

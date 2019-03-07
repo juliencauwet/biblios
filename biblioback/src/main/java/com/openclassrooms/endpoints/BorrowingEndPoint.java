@@ -33,6 +33,7 @@ public class BorrowingEndPoint {
 
     @Autowired
     private IBookService bookService;
+
     @Autowired
     private IAppUserService appUserService;
 
@@ -105,6 +106,7 @@ public class BorrowingEndPoint {
 
         } else {
             borrowing.setStatus(Status.ONGOING);
+            borrowing.setStartDate(new Date());
             book.setNumber(book.getNumber() - 1);
             logger.info("borrowing successful");
         }
@@ -151,10 +153,25 @@ public class BorrowingEndPoint {
         BorrowingReturnResponse response = new BorrowingReturnResponse();
 
         com.openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
-        BookEntity bookEntity = borrowing.getBookEntity();
 
-        //remet le livre dans le stock
-        bookEntity.setNumber(bookEntity.getNumber() + 1);
+        borrowing.setStatus(Status.RETURNED);
+        BookEntity bookEntity = borrowing.getBookEntity();
+        List<com.openclassrooms.entities.Borrowing> borrowingsOnWaitingList = borrowingService.getBorrowingsByBookAndStatus(bookEntity, Status.WAITINGLIST);
+
+        //if some people are on waiting list
+        if (borrowingsOnWaitingList.size() > 0) {
+            //for each borrowing
+            for (com.openclassrooms.entities.Borrowing b: borrowingsOnWaitingList) {
+                //waiting list position
+                b.setWaitingListOrder(b.getWaitingListOrder() - 1);
+                //if position is 0, email to be sent to the borrower
+            }
+
+        }else {
+            //remet le livre dans le stock
+            bookEntity.setNumber(bookEntity.getNumber() + 1);
+        }
+
         bookService.updateBook(bookEntity);
 
         //sauve la date de retour
