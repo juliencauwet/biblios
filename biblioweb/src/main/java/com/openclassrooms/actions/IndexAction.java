@@ -37,8 +37,6 @@ public class IndexAction extends ActionSupport {
     }
 
     public String execute() {
-        log.info("Paramétrage des emprunts");
-        propSource.setProp("4", "4");
         return SUCCESS;
     }
 
