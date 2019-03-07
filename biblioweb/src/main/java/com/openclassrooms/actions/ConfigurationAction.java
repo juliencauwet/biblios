@@ -1,5 +1,6 @@
 package com.openclassrooms.actions;
 
+import com.openclassrooms.biblioback.ws.test.*;
 import com.openclassrooms.config.PropSource;
 import com.opensymphony.xwork2.ActionSupport;
 
@@ -7,21 +8,33 @@ import java.util.Properties;
 
 public class ConfigurationAction extends ActionSupport {
 
-    String extensionDuration;
-    String borrowingDuration;
+    private String extensionDuration;
+    private String borrowingDuration;
 
-
-    PropSource propSource = new PropSource();
-    Properties props = propSource.getProps();
+    private TestPortService service = new TestPortService();
+    private TestPort port = service.getTestPortSoap11();
 
     public String execute() {
-        setBorrowingDuration(props.getProperty("borrowing-duration"));
-        setExtensionDuration(props.getProperty("extension-duration"));
+        GetBorrowingLengthRequest borrowingLengthRequest = new GetBorrowingLengthRequest();
+        GetExtensionLengthRequest extensionLengthRequest = new GetExtensionLengthRequest();
+        borrowingLengthRequest.setLibraryId(1);
+        extensionLengthRequest.setLibraryId(1);
+
+        extensionDuration = Integer.toString(port.getExtensionLength(extensionLengthRequest).getExtensionLength());
+        borrowingDuration = Integer.toString(port.getBorrowingLength(borrowingLengthRequest).getBorrowingLength());
+
         return SUCCESS;
     }
 
     public String changeConfig() {
-        propSource.setProp(extensionDuration,borrowingDuration);
+
+        UpdatePropertiesRequest request = new UpdatePropertiesRequest();
+        request.setLibraryId(1);
+        request.setBorrowingLength(Integer.parseInt(borrowingDuration));
+        request.setExtensionLength(Integer.parseInt(extensionDuration));
+
+        port.updateProperties(request);
+
         return SUCCESS;
     }
 

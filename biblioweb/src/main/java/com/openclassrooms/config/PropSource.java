@@ -13,11 +13,9 @@ public class PropSource {
 
     private static final Logger log = LoggerFactory.getLogger(PropSource.class);
 
-
     Properties prop = new Properties();
     InputStream input = null;
     OutputStream output = null;
-
 
     public PropSource() {
 
