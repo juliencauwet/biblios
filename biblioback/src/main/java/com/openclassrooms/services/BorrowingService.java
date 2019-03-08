@@ -121,7 +121,13 @@ public class BorrowingService implements IBorrowingService {
     @Override
     public void sendEmailToNextBorrower(Borrowing borrowing) {
 
-        sender.sendMail("julien.app.test@gmail.com", "juliencauwet@yahoo.fr", "JavaMailSender", "Just testing");
+        String body = "";
+        body += "Bonjour M./Mme " + borrowing.getAppUser().getName() + ",\n";
+        body += "Veuillez s'il vous plait venir le chercher dans les prochaines 48h.\n";
+        body += "Merci et à bientôt! ";
+        body += "L'équipe de Biblioweb." ;
+
+        sender.sendMail("julien.app.test@gmail.com", borrowing.getAppUser().getEmail(), "Votre livre " + borrowing.getBook().getTitle()  + " est disponible!", body);
     }
 
     @Override
