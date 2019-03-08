@@ -25,4 +25,5 @@ public interface IBorrowingService {
     Boolean alreadyBorrowed(AppUser user, BookEntity book);
     Date nextReturnDate(BookEntity bookEntity);
     void sendEmailToNextBorrower(Borrowing borrowing);
+    void sendEmail(String text);
 }

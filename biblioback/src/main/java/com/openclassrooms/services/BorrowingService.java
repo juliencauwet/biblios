@@ -9,6 +9,7 @@ import com.openclassrooms.repositories.BorrowingRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
@@ -22,6 +23,10 @@ public class BorrowingService implements IBorrowingService {
 
     @Autowired
     BorrowingRepository borrowingRepository;
+
+    @Autowired
+    @Qualifier("MailSender")
+    MailSender sender;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -74,7 +79,6 @@ public class BorrowingService implements IBorrowingService {
         return borrowings;
     }
 
-    //TODO: filter borrowings
     @Override
     public List<Borrowing> filterBorrowingByStatus(Status status) {
         return borrowingRepository.findBorrowingsByStatus(status);
@@ -116,13 +120,15 @@ public class BorrowingService implements IBorrowingService {
 
     @Override
     public void sendEmailToNextBorrower(Borrowing borrowing) {
-        SimpleMailMessage email = new SimpleMailMessage();
-        MailSender sender = new MailSender();
-        email.setText("hello");
-        email.setSubject("test");
-        email.setTo("juliencauwet@yahooo.fr");
 
-        sender.sendEmail(email);
+        sender.sendMail("julien.app.test@gmail.com", "juliencauwet@yahoo.fr", "JavaMailSender", "Just testing");
+    }
+
+    @Override
+    public void sendEmail(String text) {
+
+
+        sender.sendMail("julien.app.test@gmail.com", "juliencauwet@yahoo.fr", "JavaMailSender", "Just testing");
     }
 
 }

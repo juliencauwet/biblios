@@ -45,8 +45,8 @@ public class BatchConfiguration {
     @Autowired
     JobLauncher jobLauncher;
 
-    TestPortService service = new TestPortService();
-    TestPort testPort = service.getTestPortSoap11();
+    private TestPortService service = new TestPortService();
+    private TestPort testPort = service.getTestPortSoap11();
 
     @Scheduled(fixedRate = 5000)
     public void reportCurrentTime() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {

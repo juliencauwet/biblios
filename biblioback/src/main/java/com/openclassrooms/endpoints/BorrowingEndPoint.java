@@ -278,6 +278,15 @@ public class BorrowingEndPoint {
         return response;
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "emailRequest")
+    @ResponsePayload
+    public EmailResponse sendEmail(@RequestPayload EmailRequest request){
+        EmailResponse response = new EmailResponse();
+        borrowingService.sendEmail(request.getText());
+        response.setConfirm(true);
+        return response;
+    }
+
     protected int waitingListPosition(com.openclassrooms.entities.Borrowing borrowing){
 
         logger.info("waitingListPositonMethod");
