@@ -54,7 +54,6 @@ public class BookAction extends ActionSupport{
         for (Book b :
                 books) {
             stateOfBorrowingRequest.setBookId(b.getId());
-            logger.info("livre: " + b.getTitle());
             states.add(testPort.stateOfBorrowing(stateOfBorrowingRequest).getStateOfBorrowing());
         }
 
@@ -64,7 +63,7 @@ public class BookAction extends ActionSupport{
     public String getAllBooks(){
         setBooks(testPort.bookGetAll(new BookGetAllRequest()).getBookGetAll());
         StateOfBorrowingRequest request = new StateOfBorrowingRequest();
-
+        states = new ArrayList<>();
         for(Book b :books){
             request.setBookId(b.getId());
             states.add(testPort.stateOfBorrowing(request).getStateOfBorrowing());
