@@ -45,12 +45,6 @@ public class BorrowingAction extends ActionSupport {
 
     public String getAllBorrowings(){
         setBorrowings(testPort.borrowingGetAll(new BorrowingGetAllRequest()).getBorrowingGetAll());
-        for (Borrowing b :
-                borrowings) {
-            log.info("livre: " + b.getBook().getTitle());
-            log.info("livre: " + b.getAppUser().getName());
-            log.info("livre: " + b.getWaitingListOrder());
-        }
         return SUCCESS;
     }
 

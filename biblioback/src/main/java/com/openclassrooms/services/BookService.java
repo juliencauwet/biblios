@@ -35,7 +35,7 @@ public class BookService implements IBookService {
    }
 
     public List<BookEntity> getBookByTitle(String title){
-       return bookRepository.findBookEntityByTitle(title);
+       return bookRepository.findBookEntityByTitleContainingIgnoreCase(title);
     }
 
 }

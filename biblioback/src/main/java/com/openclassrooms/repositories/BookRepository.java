@@ -9,7 +9,7 @@ import java.util.List;
 @Repository
 public interface BookRepository extends CrudRepository<BookEntity, Integer> {
 
-    List<BookEntity> findBookEntityByTitle(String title);
+    List<BookEntity> findBookEntityByTitleContainingIgnoreCase(String title);
 
     BookEntity findBookEntityById(int id);
 }
