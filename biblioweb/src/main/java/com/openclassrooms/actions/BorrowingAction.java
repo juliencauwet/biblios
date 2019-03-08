@@ -45,6 +45,12 @@ public class BorrowingAction extends ActionSupport {
 
     public String getAllBorrowings(){
         setBorrowings(testPort.borrowingGetAll(new BorrowingGetAllRequest()).getBorrowingGetAll());
+        for (Borrowing b :
+                borrowings) {
+            log.info("livre: " + b.getBook().getTitle());
+            log.info("livre: " + b.getAppUser().getName());
+            log.info("livre: " + b.getWaitingListOrder());
+        }
         return SUCCESS;
     }
 
@@ -84,12 +90,20 @@ public class BorrowingAction extends ActionSupport {
         Borrowing borrowing = testPort.borrowingAdd(request).getBorrowing();
         log.info("status: " + borrowing.getStatus());
 
-        if(borrowing.getStatus() == Status.DENIED)
-            setMessage("Vous avez déjà emprunté ce livre.");
-        else if (borrowing.getStatus() == Status.NONE)
-            setMessage("L'emprunt n'a pas pu être effectué car la liste d'attente est pleine.");
-        else
-            setMessage("L'emprunt a bien été enregistré. Veuillez s'il vous plait le retourner avant le " + borrowing.getDueReturnDate());
+        switch (borrowing.getStatus()){
+            case DENIED:
+                setMessage("Vous avez déjà emprunté ce livre.");
+            break;
+            case ONGOING:
+                setMessage("L'emprunt a bien été enregistré. Veuillez s'il vous plait le retourner avant le " + borrowing.getDueReturnDate());
+            break;
+            case NONE:
+                setMessage("L'emprunt n'a pas pu être effectué car la liste d'attente est pleine.");
+            break;
+            case WAITINGLIST:
+                setMessage("Le livre est réservé! Nous vous enverrons un email pour que vous puissiez le récupérer!");
+            break;
+        }
 
         return SUCCESS;
     }

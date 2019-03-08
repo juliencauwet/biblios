@@ -31,6 +31,7 @@ public class BorrowingConversion {
         borrowingWS.setId(bor.getId());
         borrowingWS.setAppUser(appUserConversion.appUserEntityToAppUser(bor.getAppUser()));
         borrowingWS.setBook(bookConversion.bookEntityToBook(bor.getBookEntity()));
+        borrowingWS.setWaitingListOrder(bor.getWaitingListOrder());
 
         if (bor.getStartDate()!= null)
             borrowingWS.setStartDate(toXmlGregorianCalendar(dateToGregorianCalendar(bor.getStartDate())));
@@ -67,6 +68,7 @@ public class BorrowingConversion {
         bor.setId(borWS.getId());
         bor.setAppUser(appUserConversion.appUserToAppUserEntity(borWS.getAppUser()));
         bor.setBookEntity(bookConversion.bookToBookEntity(borWS.getBook()));
+        bor.setWaitingListOrder(borWS.getWaitingListOrder());
 
         if (borWS.getStartDate() != null)
             bor.setStartDate(gregToDate(borWS.getStartDate().toGregorianCalendar()));
