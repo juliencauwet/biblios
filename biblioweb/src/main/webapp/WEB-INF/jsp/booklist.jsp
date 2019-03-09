@@ -49,8 +49,9 @@
                         <td><s:property value="book.number"/> </td>
 
                         <td><s:property value="waitingListNumber"/></td><!--nb à attendre -->
-                        <td><s:property value="nextReturn"/></td><!-- prochaine date de retour -->
-
+                        <s:if test="book.number < 1">
+                            <td><s:property value="nextReturn"/></td><!-- prochaine date de retour -->
+                        </s:if>
                     </tr>
                 </s:iterator>
             </table>

@@ -19,6 +19,7 @@ public interface IBorrowingService {
     List<Borrowing> getExpiredBorrowing();
     List<Borrowing> getAllBorrowings();
     List<Borrowing> filterBorrowingByStatus(Status status);
+    void deleteBorrowingById(int id);
     void deleteBorrowingListById(List<Integer> borrowingIds);
     List<Borrowing> getBorrowingsByBook(BookEntity book);
     List<Borrowing> getBorrowingsByBookAndStatus(BookEntity book, Status status);

@@ -361,6 +361,7 @@
 - Liste des emprunts non rendus à temps
    *
    -->
+
     <xs:element name="borrowingsDeleteByIdRequest" >
         <xs:complexType>
             <xs:sequence>
@@ -375,6 +376,22 @@
             <xs:sequence>
                 <xs:element name="borrowingDeleteById" type="xs:int"
                             minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteBorrowingRequest" >
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteBorrowingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="confirmation" type="xs:boolean"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>

@@ -85,6 +85,11 @@ public class BorrowingService implements IBorrowingService {
     }
 
     @Override
+    public void deleteBorrowingById(int id){
+        borrowingRepository.deleteBorrowingById(id);
+    }
+
+    @Override
     public void deleteBorrowingListById(List<Integer> borrowingIds) {
         for (int i: borrowingIds)
             borrowingRepository.deleteBorrowingById(i);
@@ -132,9 +137,9 @@ public class BorrowingService implements IBorrowingService {
 
     @Override
     public void sendEmail(String text) {
-
-
         sender.sendMail("julien.app.test@gmail.com", "juliencauwet@yahoo.fr", "JavaMailSender", "Just testing");
     }
+
+
 
 }

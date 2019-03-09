@@ -19,20 +19,16 @@
 <div class="container-fluid">
 
     <div class="row">
-        <div class="col-md-3">
-            <s:a action="currentBorrowings">Afficher tous les emprunts</s:a><br />
-            <br />
-        </div>
 
-        <div class="col-md-9">
-
+        <div class="col-md-12">
+            <h3>Emprunts en cours</h3>
             <table class="table">
                 <tr>
                     <th>n° emprunt</th>
                     <th>Utilisateur</th>
-                    <th>Nom du livre</th>
+                    <th>Titre</th>
                     <th>Date de commencement</th>
-                    <th>Date échéance de retour</th>
+                    <th>Retour avant</th>
                 </tr>
                 <s:iterator value="borrowings">
                     <tr>
@@ -55,6 +51,35 @@
                 </s:iterator>
             </table>
 
+            <!-- ############################################################################################ -->
+
+            <s:if test="bookings != null">
+            <br>
+<hr>
+            <br>
+
+            <h3>Emprunts réservés</h3>
+                <table class="table">
+                    <tr>
+                        <th>Prénom de l'auteur</th>
+                        <th>Nom de l'auteur</th>
+                        <th>Titre</th>
+                        <th>position dans liste d'attente</th>
+                        <th>prochain retour</th>
+                        <th></th>
+                    </tr>
+                <s:iterator value="bookings">
+                    <tr>
+                        <td><s:property value="book.authorFirstName"/></td>
+                        <td><s:property value="book.authorName"/></td>
+                        <td><s:property value="book.title" /> </td>
+                        <td><s:property value="waitingListNumber"/></td><!--nb à attendre -->
+                        <td><s:property value="nextReturn"/></td><!-- prochaine date de retour -->
+                        <td><s:a action="deleteBorrowing"><s:param name="bookId" value="book.id"/> Annuler </s:a> </td>
+                    </tr>
+                </s:iterator>
+            </table>
+            </s:if>
         </div>
 
 

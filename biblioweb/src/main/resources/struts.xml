@@ -51,6 +51,11 @@
             <result name="login">/WEB-INF/jsp/auth.jsp</result>
         </action>
 
+        <action name="deleteBorrowing" class="com.openclassrooms.actions.BorrowingAction" method="delete">
+            <result>/WEB-INF/jsp/borrowinglist.jsp</result>
+        </action>
+
+
         <action name="extendThisBorrowing" class="com.openclassrooms.actions.BorrowingAction" method="extend">
             <result>/WEB-INF/jsp/bookdetail.jsp</result>
         </action>

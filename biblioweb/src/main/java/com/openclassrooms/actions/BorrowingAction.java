@@ -3,6 +3,7 @@ package com.openclassrooms.actions;
 import com.openclassrooms.biblioback.ws.test.*;
 import com.openclassrooms.config.PropSource;
 import com.opensymphony.xwork2.ActionSupport;
+import freemarker.core.ReturnInstruction;
 import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,9 @@ public class BorrowingAction extends ActionSupport {
     private String message = "";
     private List<Borrowing> borrowings = null;
     private Borrowing borrowing;
+
+    private List<StateOfBorrowing> bookings = null;
+    private StateOfBorrowing booking;
 
     HttpSession session = ServletActionContext.getRequest().getSession(false);
     private int id;
@@ -61,12 +65,48 @@ public class BorrowingAction extends ActionSupport {
             addActionError("Veuillez vous identifier pour pouvoir consulter la liste de vos emprunts.");
             return LOGIN;
         }
+        List<Borrowing> allBorrowings = listAllBorrowingsfromUser();
+
+        splitBorrowings(allBorrowings);
+        return SUCCESS;
+    }
+
+    public String delete(){
+        DeleteBorrowingRequest request = new DeleteBorrowingRequest();
+        for (Borrowing b: listAllBorrowingsfromUser()
+             ) {
+            if (b.getBook().getId() == bookId){
+                request.setId(b.getId());
+                testPort.deleteBorrowing(request);
+            }
+
+        }
+
+        return SUCCESS;
+    }
+
+    public List<Borrowing> listAllBorrowingsfromUser(){
         BorrowingGetCurrentRequest request = new BorrowingGetCurrentRequest();
         AppUser appUser = (AppUser)session.getAttribute("appUser");
-
         request.setUserId(appUser.getId());
-        setBorrowings(testPort.borrowingGetCurrent(request).getBorrowingGetCurrent());
-        return SUCCESS;
+        return testPort.borrowingGetCurrent(request).getBorrowingGetCurrent();
+    }
+
+    public void splitBorrowings(List<Borrowing> allBorrowings){
+        borrowings = new ArrayList<>();
+        bookings = new ArrayList<>();
+        StateOfBorrowingRequest stateOfBorrowingRequest = new StateOfBorrowingRequest();
+
+        for (Borrowing b :
+                allBorrowings) {
+            if (b.getStatus() == Status.ONGOING)
+                borrowings.add(b);
+
+            if (b.getStatus() == Status.WAITINGLIST) {
+                stateOfBorrowingRequest.setBookId(b.getBook().getId());
+                bookings.add(testPort.stateOfBorrowing(stateOfBorrowingRequest).getStateOfBorrowing());
+            }
+        }
     }
 
     public String borrowThisBook() {
@@ -211,6 +251,14 @@ public class BorrowingAction extends ActionSupport {
 
     public void setStatus(Status status) {
         this.status = status;
+    }
+
+    public List<StateOfBorrowing> getBookings() {
+        return bookings;
+    }
+
+    public void setBookings(List<StateOfBorrowing> bookings) {
+        this.bookings = bookings;
     }
 
     public XMLGregorianCalendar toXmlGregorianCalendar(GregorianCalendar cal){

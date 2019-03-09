@@ -1,7 +1,6 @@
 package com.openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.test.*;
-import com.openclassrooms.conversions.BookConversion;
 import com.openclassrooms.conversions.BorrowingConversion;
 import com.openclassrooms.entities.BookEntity;
 import com.openclassrooms.entities.BorrowingProperty;
@@ -12,7 +11,6 @@ import com.openclassrooms.services.IBookService;
 import com.openclassrooms.services.IBorrowingService;
 import org.apache.log4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
@@ -220,6 +218,16 @@ public class BorrowingEndPoint {
             wsBors.add(b);
         }
         response.getBorrowingGetExpired().addAll(wsBors);
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteBorrowingRequest")
+    @ResponsePayload
+    @Transactional
+    public DeleteBorrowingResponse deleteBorrowing(@RequestPayload DeleteBorrowingRequest request){
+        DeleteBorrowingResponse response = new DeleteBorrowingResponse();
+        borrowingService.deleteBorrowingById(request.getId());
+        response.setConfirmation(true);
         return response;
     }
 

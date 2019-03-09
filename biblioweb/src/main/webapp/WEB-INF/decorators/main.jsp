@@ -70,28 +70,26 @@
 
             <div class="row">
                 <div id="allusers" class="col-md-3">
-                <ul>
-                    <li><s:a action="index">Page d'accueil</s:a></li>
-                    <li><s:a action="book">Liste des livres et leur disponibilité</s:a></li>
-                    <li><s:a action="currentBorrowings">Consulter vos emprunts</s:a></li>
-                    </br>
-                </ul>
+                    <ul>
+                        <li><h2>Espace Abonnés</h2></li>
+                        <li><s:a action="index">Page d'accueil</s:a></li>
+                        <li><s:a action="book">Liste des livres et leur disponibilité</s:a></li>
+                        <li><s:a action="currentBorrowings">Consulter vos emprunts</s:a></li>
+                    </ul>
                 </div>
 
-            <div id="admins" class="col-md-3">
-                <s:if test="#session.isAdmin">
-                    <h2>Espace Administrateurs</h2>
-                    <s:a action="admin">Enregistrement d'un ouvrage</s:a><br/>
-                    <s:a action="configuration">Configuration</s:a><br/>
-                    <s:a action="getAllAppUsers">Liste des utilisateurs</s:a><br/>
-                    <s:a action="allBorrowings">Voir tous les emprunts</s:a><br/>
-
-                    <s:if test="#session.appUser.isAdmin">
-                        <s:a action="inscription">Entrer un nouvel utilisateur</s:a>
+                <div id="admins" class="col-md-3">
+                    <s:if test="#session.isAdmin">
+                        <ul>
+                            <li><h2>Espace Administrateurs</h2></li>
+                            <li><s:a action="admin">Enregistrement d'un ouvrage</s:a></li>
+                            <li><s:a action="configuration">Configuration</s:a></li>
+                            <li><s:a action="getAllAppUsers">Liste des utilisateurs</s:a><li>
+                            <li><s:a action="allBorrowings">Voir tous les emprunts</s:a><li>
+                            <li><s:a action="inscription">Entrer un nouvel utilisateur</s:a><li>
+                        </ul>
                     </s:if>
-
-                </s:if>
-            </div>
+                </div>
             </div>
         </div>
         
