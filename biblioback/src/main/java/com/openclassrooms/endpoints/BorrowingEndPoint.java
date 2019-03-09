@@ -159,6 +159,10 @@ public class BorrowingEndPoint {
         com.openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
         BookEntity bookEntity = borrowing.getBookEntity();
 
+        if (borrowing.getStatus() == Status.WAITINGLIST) {
+            response.setConfirmation(false);
+            return response;
+        }
         //remet le livre dans le stock
         bookEntity.setNumber(bookEntity.getNumber() + 1);
         bookService.updateBook(bookEntity);
@@ -180,6 +184,10 @@ public class BorrowingEndPoint {
 
         if(borrowing.getExtended())
             response.setCodeResp(2);
+        else if (borrowing.getDueReturnDate().before(new Date()))
+            response.setCodeResp(3);
+        else if (borrowing.getStatus() == Status.WAITINGLIST)
+            response.setCodeResp(4);
         else {
             borrowing.setExtended(true);
             borrowing.setDueReturnDate(request.getNewDueReturnDate().toGregorianCalendar().getTime());
