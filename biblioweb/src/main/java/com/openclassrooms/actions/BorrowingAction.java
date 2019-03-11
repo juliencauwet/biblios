@@ -79,9 +79,7 @@ public class BorrowingAction extends ActionSupport {
                 request.setId(b.getId());
                 testPort.deleteBorrowing(request);
             }
-
         }
-
         return SUCCESS;
     }
 

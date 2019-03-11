@@ -9,6 +9,7 @@
         <option value="$PROJECT_DIR$/biblioback/pom.xml" />
         <option value="$PROJECT_DIR$/bibliobatch/pom.xml" />
         <option value="$PROJECT_DIR$/biblioweb/pom.xml" />
+        <option value="$PROJECT_DIR$/late-pickup-batch/pom.xml" />
       </list>
     </option>
   </component>
