@@ -147,7 +147,7 @@ public class BorrowingAction extends ActionSupport {
         if (testPort.borrowingReturn(request).isConfirmation())
             addActionMessage("Le retour du livre a bien été pris en compte.");
         else
-            addActionError("L'emprunt n'a pas pu être effectué.");
+            addActionError("L'enregistrement de retour a échoué");
 
         return SUCCESS;
 
@@ -164,7 +164,7 @@ public class BorrowingAction extends ActionSupport {
 
         //Envoie les variables à la requête pour recevoir le code réponse
         request.setBorrowingId(id);
-        request.setNewDueReturnDate(toXmlGregorianCalendar(setDRD(borrowing.getDueReturnDate().toGregorianCalendar())));
+        //request.setNewDueReturnDate(toXmlGregorianCalendar(setDRD(borrowing.getDueReturnDate().toGregorianCalendar())));
 
         int codeResp = testPort.borrowingExtend(request).getCodeResp();
 
