@@ -68,6 +68,11 @@
             <result>/WEB-INF/jsp/borrowingdetail.jsp</result>
         </action>
 
+        <action name="pickup" class="com.openclassrooms.actions.BorrowingAction" method="pickup">
+            <result>/WEB-INF/jsp/borrowingdetail.jsp</result>
+        </action>
+
+
         <!-- Actions relatives aux utilisateurs -->
 
 

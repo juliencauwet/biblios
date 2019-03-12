@@ -183,6 +183,13 @@ public class BorrowingAction extends ActionSupport {
         return SUCCESS;
     }
 
+    public String pickup(){
+        PickupRequest request = new PickupRequest();
+        request.setId(id);
+        setBorrowing(testPort.pickup(request).getBorrowing());
+        return SUCCESS;
+    }
+
 
 
     public int getId() {

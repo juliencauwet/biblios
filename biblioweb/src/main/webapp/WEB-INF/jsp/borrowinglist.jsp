@@ -39,7 +39,7 @@
                             <td><s:property value="startDate" /> </td>
                         </s:if>
                         <s:elseif test="waitingListOrder == 0">
-                            <td><p>disponible</p></td>
+                            <td><p>disponible</p><s:if test="#session.isAdmin"> <s:a action="pickup">récupérer<s:param value="id" name="id" /></s:a> </s:if></td>
                         </s:elseif>
                         <s:else>
                             <td><p>réservé: <s:property value="waitingListOrder"/> pers. en attente </p></td>

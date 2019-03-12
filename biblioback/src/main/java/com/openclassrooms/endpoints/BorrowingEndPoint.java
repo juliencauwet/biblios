@@ -216,6 +216,20 @@ public class BorrowingEndPoint {
         return response;
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "pickupRequest")
+    @ResponsePayload
+    public PickupResponse extendBorrowing(@RequestPayload PickupRequest request){
+        PickupResponse response = new PickupResponse();
+        com.openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
+
+        borrowing.setStatus(Status.ONGOING);
+        borrowing.setStartDate(new Date());
+        borrowing.setDueReturnDate(setDRD(borrowing.getStartDate()));
+        borrowingService.updateBorrowing(borrowing);
+        response.setBorrowing(borrowingConversion.toWS(borrowing));
+        return response;
+    }
+
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingGetExpiredRequest")
     @ResponsePayload
     public BorrowingGetExpiredResponse getExpiredBorrowings(@RequestPayload BorrowingGetExpiredRequest request){
