@@ -5,7 +5,8 @@ public enum Status {
     ONGOING(2),
     NONE(3),
     DENIED(4),
-    RETURNED(5);
+    RETURNED(5),
+    AVAILABLE(6);
 
 
     int value;

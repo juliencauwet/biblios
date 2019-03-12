@@ -97,10 +97,10 @@ public class BorrowingAction extends ActionSupport {
 
         for (Borrowing b :
                 allBorrowings) {
-            if (b.getStatus() == Status.ONGOING)
+            if (b.getStatus() == Status.ONGOING )
                 borrowings.add(b);
 
-            if (b.getStatus() == Status.WAITINGLIST) {
+            if (b.getStatus() == Status.WAITINGLIST || b.getStatus() == Status.AVAILABLE) {
                 stateOfBorrowingRequest.setBookId(b.getBook().getId());
                 bookings.add(testPort.stateOfBorrowing(stateOfBorrowingRequest).getStateOfBorrowing());
             }
@@ -168,11 +168,17 @@ public class BorrowingAction extends ActionSupport {
 
         int codeResp = testPort.borrowingExtend(request).getCodeResp();
 
-        if(codeResp == 1 ) {
-           borrowing = testPort.borrowingGet(getRequest).getBorrowing();
-           message = "L'emprunt a été prolongé avec succès au " + borrowing.getDueReturnDate();
-        }else if (codeResp == 2){
-           addActionError("Le prolongement de l'emprunt n'a pas pu être effectué. Une seule prolongation est autorisée");
+        switch (codeResp){
+            case 1:
+                borrowing = testPort.borrowingGet(getRequest).getBorrowing();
+                message = "L'emprunt a été prolongé avec succès au " + borrowing.getDueReturnDate();
+                break;
+            case 2:
+                addActionError("Le prolongement de l'emprunt n'a pas pu être effectué. Une seule prolongation est autorisée");
+                break;
+            case 3:
+                addActionError("Le prolongement de l'emprunt n'a pas pu être effectué. La date de retour prévue est dépassée.");
+                break;
         }
         return SUCCESS;
     }

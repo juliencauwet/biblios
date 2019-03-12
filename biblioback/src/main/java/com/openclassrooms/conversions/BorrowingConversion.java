@@ -48,7 +48,11 @@ public class BorrowingConversion {
             case NONE: borrowingWS.setStatus(com.openclassrooms.biblioback.ws.test.Status.NONE);
             break;
             case DENIED: borrowingWS.setStatus(com.openclassrooms.biblioback.ws.test.Status.DENIED);
-                break;
+            break;
+            case AVAILABLE: borrowingWS.setStatus(com.openclassrooms.biblioback.ws.test.Status.AVAILABLE);
+            break;
+            case RETURNED: borrowingWS.setStatus(com.openclassrooms.biblioback.ws.test.Status.RETURNED);
+            break;
             default: borrowingWS.setStatus(com.openclassrooms.biblioback.ws.test.Status.NONE);
         }
         logger.info("statut ws: " + borrowingWS.getStatus());
@@ -85,6 +89,10 @@ public class BorrowingConversion {
             case NONE: bor.setStatus(Status.NONE);
                 break;
             case DENIED: bor.setStatus(Status.DENIED);
+                break;
+            case RETURNED: bor.setStatus(Status.RETURNED);
+                break;
+            case AVAILABLE: bor.setStatus(Status.AVAILABLE);
                 break;
             default: bor.setStatus(Status.NONE);
         }

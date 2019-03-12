@@ -155,9 +155,14 @@ public class BorrowingEndPoint {
 
         com.openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
 
-        borrowing.setStatus(Status.RETURNED);
         BookEntity bookEntity = borrowing.getBookEntity();
         List<com.openclassrooms.entities.Borrowing> borrowingsOnWaitingList = borrowingService.getBorrowingsByBookAndStatus(bookEntity, Status.WAITINGLIST);
+
+        if (borrowing.getStatus() == Status.WAITINGLIST) {
+            response.setConfirmation(false);
+            return response;
+        }
+
 
         //if some people are on waiting list
         if (borrowingsOnWaitingList.size() > 0) {
@@ -166,8 +171,11 @@ public class BorrowingEndPoint {
                 //waiting list position
                 b.setWaitingListOrder(b.getWaitingListOrder() - 1);
                 //if position is 0, email to be sent to the borrower
-                if (b.getWaitingListOrder() == 0)
+                if (b.getWaitingListOrder() == 0) {
+                    b.setStatus(Status.AVAILABLE);
                     borrowingService.sendEmailToNextBorrower(b);
+                }
+                borrowingService.updateBorrowing(b);
             }
 
         }else {
@@ -179,6 +187,7 @@ public class BorrowingEndPoint {
 
         //sauve la date de retour
         borrowing.setReturnDate(new Date());
+        borrowing.setStatus(Status.RETURNED);
         borrowingService.updateBorrowing(borrowing);
 
         response.setConfirmation(true);
@@ -194,9 +203,13 @@ public class BorrowingEndPoint {
 
         if(borrowing.getExtended())
             response.setCodeResp(2);
+        else if (borrowing.getDueReturnDate().before(new Date()))
+            response.setCodeResp(3);
+        else if (borrowing.getStatus() == Status.WAITINGLIST)
+            response.setCodeResp(4);
         else {
             borrowing.setExtended(true);
-            borrowing.setDueReturnDate(setDRD(borrowing.getDueReturnDate()));
+            borrowing.setDueReturnDate(request.getNewDueReturnDate().toGregorianCalendar().getTime());
             response.setCodeResp(1);
             borrowingService.updateBorrowing(borrowing);
         }

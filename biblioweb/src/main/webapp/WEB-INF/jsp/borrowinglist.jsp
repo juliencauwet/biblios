@@ -38,6 +38,9 @@
                         <s:if test="startDate">
                             <td><s:property value="startDate" /> </td>
                         </s:if>
+                        <s:elseif test="waitingListOrder == 0">
+                            <td><p>disponible</p></td>
+                        </s:elseif>
                         <s:else>
                             <td><p>réservé: <s:property value="waitingListOrder"/> pers. en attente </p></td>
                         </s:else>
