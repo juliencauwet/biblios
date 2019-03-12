@@ -259,7 +259,6 @@
         <xs:complexType>
             <xs:sequence>
                 <xs:element name="borrowingId" type="xs:int" />
-                <xs:element name="newDueReturnDate" type="xs:date"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
@@ -469,6 +468,7 @@
             <xs:enumeration value="denied" />
             <xs:enumeration value="returned" />
             <xs:enumeration value="available" />
+            <xs:enumeration value="cancelled"/>
         </xs:restriction>
     </xs:simpleType>
 

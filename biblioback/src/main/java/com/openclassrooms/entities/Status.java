@@ -6,7 +6,8 @@ public enum Status {
     NONE(3),
     DENIED(4),
     RETURNED(5),
-    AVAILABLE(6);
+    AVAILABLE(6),
+    CANCELLED(7);
 
 
     int value;

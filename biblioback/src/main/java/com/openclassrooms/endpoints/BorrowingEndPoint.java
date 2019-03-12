@@ -158,24 +158,16 @@ public class BorrowingEndPoint {
         BookEntity bookEntity = borrowing.getBookEntity();
         List<com.openclassrooms.entities.Borrowing> borrowingsOnWaitingList = borrowingService.getBorrowingsByBookAndStatus(bookEntity, Status.WAITINGLIST);
 
-        if (borrowing.getStatus() == Status.WAITINGLIST) {
+        if (borrowing.getStatus() != Status.ONGOING) {
             response.setConfirmation(false);
             return response;
         }
-
-
         //if some people are on waiting list
         if (borrowingsOnWaitingList.size() > 0) {
             //for each borrowing
             for (com.openclassrooms.entities.Borrowing b: borrowingsOnWaitingList) {
                 //waiting list position
-                b.setWaitingListOrder(b.getWaitingListOrder() - 1);
-                //if position is 0, email to be sent to the borrower
-                if (b.getWaitingListOrder() == 0) {
-                    b.setStatus(Status.AVAILABLE);
-                    borrowingService.sendEmailToNextBorrower(b);
-                }
-                borrowingService.updateBorrowing(b);
+                forwardWaitingListOrder(b);
             }
 
         }else {
@@ -205,11 +197,11 @@ public class BorrowingEndPoint {
             response.setCodeResp(2);
         else if (borrowing.getDueReturnDate().before(new Date()))
             response.setCodeResp(3);
-        else if (borrowing.getStatus() == Status.WAITINGLIST)
+        else if (borrowing.getStatus() != Status.ONGOING)
             response.setCodeResp(4);
         else {
             borrowing.setExtended(true);
-            borrowing.setDueReturnDate(request.getNewDueReturnDate().toGregorianCalendar().getTime());
+            borrowing.setDueReturnDate(setDRDExtension(borrowing.getDueReturnDate()));
             response.setCodeResp(1);
             borrowingService.updateBorrowing(borrowing);
         }
@@ -218,7 +210,7 @@ public class BorrowingEndPoint {
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "pickupRequest")
     @ResponsePayload
-    public PickupResponse extendBorrowing(@RequestPayload PickupRequest request){
+    public PickupResponse pickup(@RequestPayload PickupRequest request){
         PickupResponse response = new PickupResponse();
         com.openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
 
@@ -239,7 +231,6 @@ public class BorrowingEndPoint {
         List<Borrowing> wsBors = new ArrayList<>();
         List<com.openclassrooms.entities.Borrowing> borrowings = borrowingService.getExpiredBorrowing();
 
-
         for(int i = 0; i < borrowings.size(); i++){
             Borrowing b = borrowingConversion.toWS(borrowings.get(i));
             wsBors.add(b);
@@ -251,11 +242,39 @@ public class BorrowingEndPoint {
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "deleteBorrowingRequest")
     @ResponsePayload
     @Transactional
-    public DeleteBorrowingResponse deleteBorrowing(@RequestPayload DeleteBorrowingRequest request){
+    public DeleteBorrowingResponse cancelBorrowing(@RequestPayload DeleteBorrowingRequest request){
         DeleteBorrowingResponse response = new DeleteBorrowingResponse();
-        borrowingService.deleteBorrowingById(request.getId());
+        com.openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
+
+        List<com.openclassrooms.entities.Borrowing> borrowingsOnWaitingList = borrowingService.getBorrowingsByBookAndStatus(borrowing.getBook(), Status.WAITINGLIST);
+
+        if (borrowing.getStatus() != Status.WAITINGLIST) {
+            response.setConfirmation(false);
+            return response;
+        }
+
+        for (com.openclassrooms.entities.Borrowing b: borrowingsOnWaitingList) {
+            //waiting list position
+            if (borrowing.getWaitingListOrder() < b.getWaitingListOrder()) {
+                forwardWaitingListOrder(b);
+            }
+        }
+        borrowing.setStatus(Status.CANCELLED);
+        borrowing.setWaitingListOrder(0);
+        borrowingService.updateBorrowing(borrowing);
+
         response.setConfirmation(true);
         return response;
+    }
+
+    public void forwardWaitingListOrder(com.openclassrooms.entities.Borrowing b){
+        b.setWaitingListOrder(b.getWaitingListOrder() - 1);
+        //if position is 0, email to be sent to the borrower
+        if (b.getWaitingListOrder() == 0) {
+            b.setStatus(Status.AVAILABLE);
+            borrowingService.sendEmailToNextBorrower(b);
+        }
+        borrowingService.updateBorrowing(b);
     }
 
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingsDeleteByIdRequest")
@@ -340,6 +359,15 @@ public class BorrowingEndPoint {
         calendar.setTime(date);
         BorrowingProperty property = propertiesRepository.getByLibraryId(1);
         calendar.add(Calendar.DAY_OF_MONTH,7 * (property.getBorrowingLength()));
+        date = calendar.getTime();
+        return date;
+    }
+
+    public Date setDRDExtension(Date date){
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        BorrowingProperty property = propertiesRepository.getByLibraryId(1);
+        calendar.add(Calendar.DAY_OF_MONTH,7 * (property.getBorrowingExtensionLength()));
         date = calendar.getTime();
         return date;
     }
