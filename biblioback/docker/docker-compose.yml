@@ -17,7 +17,7 @@ services:
     image: biblioback
     container_name: biblioback
     ports:
-      - 1111:8080
+      - 1111:1111
     depends_on:
       - bibliodb
     networks:

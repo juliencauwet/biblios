@@ -213,6 +213,8 @@ public class BorrowingEndPoint {
     public PickupResponse pickup(@RequestPayload PickupRequest request){
         PickupResponse response = new PickupResponse();
         com.openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
+        List<com.openclassrooms.entities.Borrowing> borrowingsOnWaitingList = borrowingService.getBorrowingsByBookAndStatus(borrowing.getBook(), Status.WAITINGLIST);
+
 
         borrowing.setStatus(Status.ONGOING);
         borrowing.setStartDate(new Date());

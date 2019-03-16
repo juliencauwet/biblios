@@ -14,6 +14,11 @@
         <version>2.0.2.RELEASE</version>
     </parent>
 
+    <properties>
+        <java.version>1.8</java.version>
+        <docker-maven-version>0.4.5</docker-maven-version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -133,12 +138,29 @@
 
     </dependencies>
 
-    <properties>
-        <java.version>1.8</java.version>
-    </properties>
-
     <build>
+        <finalName>biblioback</finalName>
+
         <plugins>
+            <plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>${docker-maven-version}</version>
+                <configuration>
+                    <imageName>biblioback</imageName>
+                    <baseImage>java</baseImage>
+                    <entryPoint>["java", "-jar", "/${project.build.finalName}.jar"]</entryPoint>
+                    <!-- copy the service's jar file from target into the root directory of the image -->
+                    <resources>
+                        <resource>
+                            <targetPath>/</targetPath>
+                            <directory>${project.build.directory}</directory>
+                            <include>${project.build.finalName}.jar</include>
+                        </resource>
+                    </resources>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
@@ -235,47 +257,7 @@
                 </configuration>
             </plugin>
 
-            <!-- Creation of the bin file (bat and sh) -->
-            <!-- A filter property file must be created in src/build/filters and given for each execution -->
-            <!--
 
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-resources-plugin</artifactId>
-
-
-
-                <executions>
-                    <execution>
-
-                        <id>createXmlUpdateBin</id>
-                        <phase>compile</phase>
-                        <goals>
-                            <goal>copy-resources</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/bin</outputDirectory>
-                            <overwrite>true</overwrite>
-                            <fileNameFiltering>true</fileNameFiltering>
-                            <useBuildFilters>true</useBuildFilters>
-                            <filters>
-                                <filter>${project.basedir}/src/build/filters/project.properties</filter>
-                            </filters>
-                            <resources>
-                                <resource>
-                                    <filtering>true</filtering>
-                                    <directory>${project.basedir}/src/main/bin</directory>
-                                    <includes>
-                                        <include>*.*</include>
-                                    </includes>
-                                </resource>
-                            </resources>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-
-            -->
         </plugins>
     </build>
 

@@ -6,7 +6,7 @@
     <groupId>com.openclassrooms</groupId>
     <artifactId>biblioweb</artifactId>
     <version>1.0-SNAPSHOT</version>
-    <packaging>jar</packaging>
+    <packaging>war</packaging>
     <name>biblioweb</name>
     <description>Struts 2 Starter</description>
 
@@ -14,6 +14,7 @@
         <struts2.version>2.5.16</struts2.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cxf.version>3.2.5  </cxf.version>
+        <docker.imageName>biblioweb</docker.imageName>
     </properties>
 
     <dependencies>
@@ -118,6 +119,38 @@
         </resources>
 
         <plugins>
+            <plugin>
+                <groupId>io.fabric8</groupId>
+                <artifactId>docker-maven-plugin</artifactId>
+                <version>0.23.0</version>
+                <configuration>
+                    <images>
+                        <image>
+                            <alias>${docker.imageName}</alias>
+                            <name>${docker.imageName}</name>
+                            <build>
+                                <dockerFileDir>${project.basedir}/</dockerFileDir>
+                                <assembly>
+                                    <inline>
+                                        <files>
+                                            <file>
+                                                <source>target/${project.build.finalName}.war</source>
+                                                <destName>${project.build.finalName}.war</destName>
+                                                <outputDirectory>.</outputDirectory>
+                                            </file>
+                                        </files>
+                                    </inline>
+                                </assembly>
+                            </build>
+                            <run>
+                                <ports>
+                                    <port>1112:1112</port>
+                                </ports>
+                            </run>
+                        </image>
+                    </images>
+                </configuration>
+            </plugin>
 
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

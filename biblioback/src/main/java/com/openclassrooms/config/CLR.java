@@ -2,16 +2,19 @@ package com.openclassrooms.config;
 
 import com.openclassrooms.entities.*;
 import com.openclassrooms.repositories.AppRoleRepository;
+import com.openclassrooms.repositories.EmailRepository;
 import com.openclassrooms.repositories.PropertiesRepository;
 import com.openclassrooms.services.AppUserService;
 import com.openclassrooms.services.BookService;
 import com.openclassrooms.services.BorrowingService;
+import org.apache.tomcat.jni.Local;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
@@ -30,6 +33,8 @@ public class CLR implements CommandLineRunner{
     AppRoleRepository appRoleRepository;
     @Autowired
     PropertiesRepository propertiesRepository;
+    @Autowired
+    EmailRepository emailRepository;
 
     @Override
     public void run(String... args) throws Exception {
@@ -60,7 +65,7 @@ public class CLR implements CommandLineRunner{
 
 
         AppUser u1 = new AppUser("Julien", "Cauwet", "juliencauwet@yahoo.fr", "12345", true, userAdmin);
-        AppUser u2 = new AppUser("Juan", "Olivero", "jjolivero83@gmail.com", "abcde", false, userOnly);
+        AppUser u2 = new AppUser("Martine", "Gerussi", "gerussi.martine@orange.fr", "abcde", false, userOnly);
         AppUser u3 = new AppUser("Manu", "Favre", "emfavvic@gmail.com", "vwxyz",false, userOnly);
         AppUser u4 = new AppUser("Laëtitia", "Cauwet", "laetis0609@yahoo.fr", "98765",false, userOnly);
         AppUser u5 = new AppUser("Cesare", "De Padua", "cesaredepadua@gmail.com", "23456", false, userOnly);
@@ -110,6 +115,15 @@ public class CLR implements CommandLineRunner{
         property.setBorrowingExtensionLength(5);
         propertiesRepository.save(property);
 
+        Email email1 = new Email(12, LocalDate.now(), "pickup");
+        Email email2 = new Email(13, LocalDate.now().minusDays(5), "pickup");
+        Email email3 = new Email(14, LocalDate.now().minusDays(1), "pickup");
+        Email email4 = new Email(15, LocalDate.now().minusDays(3), "other");
+
+        emailRepository.save(email1);
+        emailRepository.save(email2);
+        emailRepository.save(email3);
+        emailRepository.save(email4);
 
         if (borrowings.size() == 0){
             System.out.println("Il n'y a pas d'emprunts retardés");

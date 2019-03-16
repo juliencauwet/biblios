@@ -71,16 +71,25 @@
                         <th>prochain retour</th>
                         <th></th>
                     </tr>
-                <s:iterator value="bookings">
-                    <tr>
-                        <td><s:property value="book.authorFirstName"/></td>
-                        <td><s:property value="book.authorName"/></td>
-                        <td><s:property value="book.title" /> </td>
-                        <td><s:property value="waitingListNumber"/></td><!--nb à attendre -->
-                        <td><s:property value="nextReturn"/></td><!-- prochaine date de retour -->
-                        <td><s:a action="deleteBorrowing"><s:param name="bookId" value="book.id"/> Annuler </s:a> </td>
-                    </tr>
-                </s:iterator>
+
+
+                    <s:iterator value="bookings" var="bookingElt">
+                        <s:set var="bookingsKey" value="#bookingElt.key"/>
+                        <s:set var="bookingsValue" value="#bookingElt.value"/>
+
+                            <tr>
+                                <td><s:property value="#bookingsKey.book.authorFirstName"/></td>
+                                <td><s:property value="#bookingsKey.book.authorName"/></td>
+                                <td><s:property value="#bookingsKey.book.title"/></td>
+                                <td><s:property value="#bookingsValue.waitingListOrder"/></td>
+                                <td><s:property value="#bookingsKey.nextReturn"/></td>
+                            </tr>
+
+                    </s:iterator>
+
+
+
+
             </table>
             </s:if>
         </div>

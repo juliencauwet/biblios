@@ -1,11 +1,9 @@
 package com.openclassrooms.services;
 
 import com.openclassrooms.beans.MailSender;
-import com.openclassrooms.entities.AppUser;
-import com.openclassrooms.entities.BookEntity;
-import com.openclassrooms.entities.Borrowing;
-import com.openclassrooms.entities.Status;
+import com.openclassrooms.entities.*;
 import com.openclassrooms.repositories.BorrowingRepository;
+import com.openclassrooms.repositories.EmailRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +11,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -25,8 +24,11 @@ public class BorrowingService implements IBorrowingService {
     BorrowingRepository borrowingRepository;
 
     @Autowired
+    EmailRepository emailRepository;
+
+    @Autowired
     @Qualifier("MailSender")
-    MailSender sender;
+    private static MailSender sender;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -125,6 +127,7 @@ public class BorrowingService implements IBorrowingService {
 
     @Override
     public void sendEmailToNextBorrower(Borrowing borrowing) {
+        Email email = new Email();
 
         String body = "";
         body += "Bonjour M./Mme " + borrowing.getAppUser().getName() + ",\n";
@@ -132,7 +135,12 @@ public class BorrowingService implements IBorrowingService {
         body += "Merci et à bientôt! ";
         body += "L'équipe de Biblioweb." ;
 
-        sender.sendMail("julien.app.test@gmail.com", borrowing.getAppUser().getEmail(), "Votre livre " + borrowing.getBook().getTitle()  + " est disponible!", body);
+        email.setBorrowingId(borrowing.getId());
+        email.setSentDate(LocalDate.now());
+        email.setSubject("pickup");
+        emailRepository.save(email);
+
+        sender.sendMail("julien.app.test@gmail.com", borrowing.getAppUser().getEmail(), "pickup" + borrowing.getBook().getTitle()  + " est disponible!", body);
     }
 
     @Override
@@ -140,6 +148,33 @@ public class BorrowingService implements IBorrowingService {
         sender.sendMail("julien.app.test@gmail.com", "juliencauwet@yahoo.fr", "JavaMailSender", "Just testing");
     }
 
+    @Override
+    public void cancelIfLatePickup() {
+
+        List<Email> emails = emailRepository.findBySubject("pickup");
+        for (Email email : emails){
+            if(email.getSubject().equals("pickup") && email.getSentDate().isBefore(LocalDate.now().minusDays(2))){
+                Borrowing borrowing = borrowingRepository.findById(email.getBorrowingId());
+                List<com.openclassrooms.entities.Borrowing> borrowingsOnWaitingList = getBorrowingsByBookAndStatus(borrowing.getBook(), Status.AVAILABLE);
+                for (Borrowing b :
+                        borrowingsOnWaitingList) {
+                    forwardWaitingListOrder(b);
+                }
+                borrowing.setStatus(Status.DENIED);
+                borrowingRepository.save(borrowing);
+            }
+        }
+    }
+
+    public void forwardWaitingListOrder(com.openclassrooms.entities.Borrowing b){
+        b.setWaitingListOrder(b.getWaitingListOrder() - 1);
+        //if position is 0, email to be sent to the borrower
+        if (b.getWaitingListOrder() == 0) {
+            b.setStatus(Status.AVAILABLE);
+            sendEmailToNextBorrower(b);
+        }
+        updateBorrowing(b);
+    }
 
 
 }

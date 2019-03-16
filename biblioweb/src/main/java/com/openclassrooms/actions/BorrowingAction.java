@@ -3,7 +3,6 @@ package com.openclassrooms.actions;
 import com.openclassrooms.biblioback.ws.test.*;
 import com.openclassrooms.config.PropSource;
 import com.opensymphony.xwork2.ActionSupport;
-import freemarker.core.ReturnInstruction;
 import org.apache.struts2.ServletActionContext;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -31,7 +30,7 @@ public class BorrowingAction extends ActionSupport {
     private List<Borrowing> borrowings = null;
     private Borrowing borrowing;
 
-    private List<StateOfBorrowing> bookings = null;
+    private Map<StateOfBorrowing, Borrowing> bookings = null;
     private StateOfBorrowing booking;
 
     HttpSession session = ServletActionContext.getRequest().getSession(false);
@@ -92,7 +91,7 @@ public class BorrowingAction extends ActionSupport {
 
     public void splitBorrowings(List<Borrowing> allBorrowings){
         borrowings = new ArrayList<>();
-        bookings = new ArrayList<>();
+        bookings = new HashMap<>();
         StateOfBorrowingRequest stateOfBorrowingRequest = new StateOfBorrowingRequest();
 
         for (Borrowing b :
@@ -102,7 +101,7 @@ public class BorrowingAction extends ActionSupport {
 
             if (b.getStatus() == Status.WAITINGLIST || b.getStatus() == Status.AVAILABLE) {
                 stateOfBorrowingRequest.setBookId(b.getBook().getId());
-                bookings.add(testPort.stateOfBorrowing(stateOfBorrowingRequest).getStateOfBorrowing());
+                bookings.put(testPort.stateOfBorrowing(stateOfBorrowingRequest).getStateOfBorrowing(), b);
             }
         }
     }
@@ -264,11 +263,11 @@ public class BorrowingAction extends ActionSupport {
         this.status = status;
     }
 
-    public List<StateOfBorrowing> getBookings() {
+    public Map<StateOfBorrowing, Borrowing> getBookings() {
         return bookings;
     }
 
-    public void setBookings(List<StateOfBorrowing> bookings) {
+    public void setBookings(Map<StateOfBorrowing, Borrowing> bookings) {
         this.bookings = bookings;
     }
 

@@ -25,7 +25,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.scheduling.annotation.Scheduled;
 
-import java.util.Date;
 import java.util.List;
 
 
@@ -52,7 +51,8 @@ public class BatchConfiguration {
     public void reportCurrentTime() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         JobParameters param = new JobParametersBuilder().addString("JobID",
                 String.valueOf(System.currentTimeMillis())).toJobParameters();
-         jobLauncher.run(ExpiredBorrowingJob(jobBuilderFactory, stepBuilderFactory, itemReader(), processor(), new SimpleMailItemWriter()), param);
+        log.info("Entée dans le jobLaucher de reportCurrentTime");
+         jobLauncher.run(ExpiredBorrowingJob(jobBuilderFactory, stepBuilderFactory, itemReader(), new Processor(), new SimpleMailItemWriter()), param);
     }
 
     @Bean
@@ -67,14 +67,14 @@ public class BatchConfiguration {
                                    ItemProcessor<Borrowing, SimpleMailMessage> itemProcessor,
                                    ItemWriter<SimpleMailMessage> itemWriter
     ) {
-
+        log.info("avant configuration test");
         Step step = stepBuilderFactory.get("Expired-Borrowing-List")
                 .<Borrowing, SimpleMailMessage>chunk(100)
                 .reader(itemReader)
                 .processor(itemProcessor)
                 .writer(itemWriter)
                 .build();
-
+        log.info("step configuré");
         return jobBuilderFactory.get("send-Borrowing-List")
                 .incrementer(new RunIdIncrementer())
                 .start(step)
@@ -86,7 +86,7 @@ public class BatchConfiguration {
     public ListItemReader<Borrowing> itemReader() {
         List<Borrowing> borrowings = testPort.borrowingGetExpired(new BorrowingGetExpiredRequest()).getBorrowingGetExpired();
         for(Borrowing borrowing : borrowings) {
-            System.out.println(borrowing.getBook().getTitle());
+            System.out.println("dans le item reader pour le livre:" + borrowing.getBook().getTitle());
         }
         ListItemReader<Borrowing> reader = new ListItemReader<Borrowing>(borrowings);
 
