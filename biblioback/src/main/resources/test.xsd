@@ -428,6 +428,21 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="borrowingsExpiringSoonRequest" >
+        <xs:complexType>
+            <xs:sequence />
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingsExpiringSoonResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="expiringSoonBorrowings" type="tns:borrowing"
+                            minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <xs:element name="borrowingUpdateRequest" >
         <xs:complexType>
             <xs:sequence>

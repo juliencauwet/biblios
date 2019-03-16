@@ -166,6 +166,22 @@ public class BorrowingService implements IBorrowingService {
         }
     }
 
+    @Override
+    public List<Borrowing> expiringSoonBorrowings() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DAY_OF_MONTH, 5);
+        calendar.set(Calendar.HOUR, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        Date finalDay = calendar.getTime();
+        logger.info("processing expiringSoonBorrowings");
+        List<Borrowing> borrowings = borrowingRepository.findBorrowingsByDueReturnDateAndStatus(finalDay, Status.ONGOING);
+
+        return borrowings;
+    }
+
     public void forwardWaitingListOrder(com.openclassrooms.entities.Borrowing b){
         b.setWaitingListOrder(b.getWaitingListOrder() - 1);
         //if position is 0, email to be sent to the borrower
@@ -175,6 +191,8 @@ public class BorrowingService implements IBorrowingService {
         }
         updateBorrowing(b);
     }
+
+
 
 
 }

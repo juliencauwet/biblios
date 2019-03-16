@@ -343,6 +343,22 @@ public class BorrowingEndPoint {
         return response;
     }
 
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingsExpiringSoonRequest")
+    @ResponsePayload
+    public BorrowingsExpiringSoonResponse getExpiringSoonBorrowings(@RequestPayload BorrowingsExpiringSoonRequest request){
+        BorrowingsExpiringSoonResponse response = new BorrowingsExpiringSoonResponse();
+        List<com.openclassrooms.entities.Borrowing> borrowings = borrowingService.expiringSoonBorrowings();
+        List<Borrowing> WSborrowings = new ArrayList<>();
+        for (com.openclassrooms.entities.Borrowing b :
+                borrowings) {
+            WSborrowings.add(borrowingConversion.toWS(b));
+        }
+        response.getExpiringSoonBorrowings().addAll(WSborrowings);
+        return response;
+    }
+
+
+
     protected int waitingListPosition(com.openclassrooms.entities.Borrowing borrowing){
 
         logger.info("waitingListPositonMethod");

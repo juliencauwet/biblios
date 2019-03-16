@@ -28,4 +28,5 @@ public interface IBorrowingService {
     void sendEmailToNextBorrower(Borrowing borrowing);
     void sendEmail(String text);
     void cancelIfLatePickup();
+    List<Borrowing> expiringSoonBorrowings();
 }

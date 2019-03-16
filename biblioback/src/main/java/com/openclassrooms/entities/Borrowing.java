@@ -16,9 +16,15 @@ public class Borrowing {
     @ManyToOne(cascade = CascadeType.DETACH, fetch = FetchType.EAGER)
     private BookEntity book;
 
+    @Temporal(TemporalType.DATE)
     private Date startDate;
+
+    @Temporal(TemporalType.DATE)
     private Date returnDate;
+
+    @Temporal(TemporalType.DATE)
     private Date dueReturnDate;
+
     private Boolean isExtended = false;
 
     @Enumerated(value = EnumType.STRING)

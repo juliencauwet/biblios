@@ -76,14 +76,14 @@ public class CLR implements CommandLineRunner{
         appUserService.addUser(u4);
         appUserService.addUser(u5);
 
-        String strDate1 = "26/05/2018";
-        String strDate2 = "27/06/2018";
-        String strDate3 = "28/07/2018";
-        String strDate4 = "29/08/2018";
-        String strDate5 = "26/07/2018";
-        String strDate6 = "27/08/2018";
-        String strDate7 = "01/08/2018";
-        String strDate8 = "29/08/2018";
+        String strDate1 = "26/02/2019";
+        String strDate2 = "27/02/2019";
+        String strDate3 = "28/02/2019";
+        String strDate4 = "21/03/2019";
+        String strDate5 = "26/07/2019";
+        String strDate6 = "27/08/2019";
+        String strDate7 = "01/08/2019";
+        String strDate8 = "29/08/2019";
         SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         Date date1 = sdf.parse(strDate1);
@@ -97,9 +97,9 @@ public class CLR implements CommandLineRunner{
 
         Borrowing bor1 = new Borrowing(u1, b3, date1, date5, null, Status.ONGOING);
         Borrowing bor2 = new Borrowing(u4, b6, date2, date6, null, Status.ONGOING);
-        Borrowing bor3 = new Borrowing(u2, b2, date3, date5, date6, Status.ONGOING);
-        Borrowing bor4 = new Borrowing(u5, b1, date4, date7, date8, Status.ONGOING);
-        Borrowing bor5 = new Borrowing(u3, b4, date1, date2, null, Status.ONGOING);
+        Borrowing bor3 = new Borrowing(u2, b2, date3, date4, date6, Status.RETURNED);
+        Borrowing bor4 = new Borrowing(u5, b1, date2, date7, date8, Status.RETURNED);
+        Borrowing bor5 = new Borrowing(u3, b4, date1, date4, null, Status.ONGOING);
 
         borrowingService.newBorrowing(bor1);
         borrowingService.newBorrowing(bor2);
