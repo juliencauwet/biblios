@@ -32,7 +32,8 @@
     <div class="container-fluid">
        <s:if test="#session.appUser">
             <h3>Hello <s:property value="#session.firstName" /> </h3>
-            <s:a action="logout">Déconnexion</s:a>
+            <s:a action="logout">Déconnexion</s:a> <br>
+            <s:a action="profile">Compte utilisateur</s:a>
        </s:if>
         <s:else>
             <s:a action="authentification">Connexion</s:a>
@@ -48,7 +49,7 @@
             <h4>Bienvenue sur Biblioweb : Gestion de votre bibliothèque à distance!</h4>
             <hr />
         </div>
-
+        <div class="messages">
         <s:if test="hasActionErrors()">
             <div class = "errors">
                 <s:actionerror/>
@@ -60,28 +61,24 @@
                 <s:actionmessage/>
             </div>
         </s:if>
+        </div>
 
-
-        <div id="content" class="clearfix">
-            <div id="main">
-            	<decorator:body/>
-                <hr />
-            </div>
-
-            <div class="row">
-                <div id="allusers" class="col-md-3">
+        <div class="row">
+            <div class="col-sm-2">
+                <div id="allusers" >
                     <ul>
-                        <li><h2>Espace Abonnés</h2></li>
+                        <li><h3>Espace Abonnés</h3></li>
                         <li><s:a action="index">Page d'accueil</s:a></li>
                         <li><s:a action="book">Liste des livres et leur disponibilité</s:a></li>
                         <li><s:a action="currentBorrowings">Consulter vos emprunts</s:a></li>
                     </ul>
                 </div>
 
-                <div id="admins" class="col-md-3">
+                <div id="admins">
                     <s:if test="#session.isAdmin">
+                        <br>
                         <ul>
-                            <li><h2>Espace Administrateurs</h2></li>
+                            <li><h3>Espace Administrateurs</h3></li>
                             <li><s:a action="admin">Enregistrement d'un ouvrage</s:a></li>
                             <li><s:a action="configuration">Configuration</s:a></li>
                             <li><s:a action="getAllAppUsers">Liste des utilisateurs</s:a><li>
@@ -91,7 +88,22 @@
                     </s:if>
                 </div>
             </div>
+            <div class="col-sm-10">
+                <div id="content" class="clearfix">
+                    <div id="main">
+                        <decorator:body/>
+                        <hr />
+                    </div>
+
+
+                </div>
+            </div>
         </div>
+
+
+
+
+
         
         <div id="footer" class="clearfix">
 

@@ -17,6 +17,8 @@ public class AppUserAction extends ActionSupport{
        return SUCCESS;
     }
 
+
+
     public String getAllAppUsers(){
         setAppUsers(port.appUserGetAll(new AppUserGetAllRequest()).getGetAllAppUsers());
         return SUCCESS;

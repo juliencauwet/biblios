@@ -75,7 +75,9 @@
 
         <!-- Actions relatives aux utilisateurs -->
 
-
+        <action name="profile" class="com.openclassrooms.actions.AuthentificationAction">
+            <result>/WEB-INF/jsp/account.jsp</result>
+        </action>
 
         <action name="getAllAppUsers" class="com.openclassrooms.actions.AppUserAction" method="getAllAppUsers">
             <result>/WEB-INF/jsp/userlist.jsp</result>
@@ -99,6 +101,10 @@
         <action name="inscription" class="com.openclassrooms.actions.AuthentificationAction">
             <result>/WEB-INF/jsp/inscription.jsp</result>
 
+        </action>
+
+        <action name="editProfile" class="com.openclassrooms.actions.AuthentificationAction" method="editProfile">
+            <result>/WEB-INF/jsp/profile.jsp</result>
         </action>
 
         <action name="newAppUser" class="com.openclassrooms.actions.AuthentificationAction" method="newAppUser">

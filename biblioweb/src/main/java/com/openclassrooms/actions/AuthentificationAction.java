@@ -33,6 +33,11 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
         return SUCCESS;
     }
 
+    public String account(){
+
+        return SUCCESS;
+    }
+
     public String newAppUser(){
 
         if (!password.equals(password2)){
@@ -69,6 +74,13 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
             return INPUT;
         }
 
+    }
+
+    public String editProfile(){
+        log.info("hello");
+        //TODO:invoquer une requête pour définir l'email et si l'utilisateur veut etre alerté
+
+        return SUCCESS;
     }
 
     public String checkUserValidity(){

@@ -64,11 +64,11 @@ public class CLR implements CommandLineRunner{
         appRoleRepository.save(utillisateur);
 
 
-        AppUser u1 = new AppUser("Julien", "Cauwet", "juliencauwet@yahoo.fr", "12345", true, userAdmin);
-        AppUser u2 = new AppUser("Martine", "Gerussi", "gerussi.martine@orange.fr", "abcde", false, userOnly);
-        AppUser u3 = new AppUser("Manu", "Favre", "emfavvic@gmail.com", "vwxyz",false, userOnly);
-        AppUser u4 = new AppUser("Laëtitia", "Cauwet", "laetis0609@yahoo.fr", "98765",false, userOnly);
-        AppUser u5 = new AppUser("Cesare", "De Padua", "cesaredepadua@gmail.com", "23456", false, userOnly);
+        AppUser u1 = new AppUser("Julien", "Cauwet", "juliencauwet@yahoo.fr", "12345", true, userAdmin, true);
+        AppUser u2 = new AppUser("Martine", "Gerussi", "gerussi.martine@orange.fr", "abcde", false, userOnly, true);
+        AppUser u3 = new AppUser("Manu", "Favre", "emfavvic@gmail.com", "vwxyz",false, userOnly, true);
+        AppUser u4 = new AppUser("Laëtitia", "Cauwet", "laetis0609@yahoo.fr", "98765",false, userOnly, false);
+        AppUser u5 = new AppUser("Cesare", "De Padua", "cesaredepadua@gmail.com", "23456", false, userOnly, false);
 
         appUserService.addUser(u1);
         appUserService.addUser(u2);

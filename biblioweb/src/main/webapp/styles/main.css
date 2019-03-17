@@ -1,18 +1,23 @@
 body{
-    background: darkslateblue;
-    color: floralwhite;
+    margin: 1%;
+    padding: 1%;
+    background: floralwhite;
+    color: gray();
+    box-shadow: aqua;
 }
 
 a{
-    color: aqua;
+    color: darkblue;
 }
 
 h4, td{
-    color: floralwhite;
+    color: gray;
 }
 
 ul{
     list-style-type: none ;
+    margin-left:0;
+    padding-left:0;
 }
 
 

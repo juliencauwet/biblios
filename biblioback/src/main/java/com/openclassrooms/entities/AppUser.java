@@ -29,6 +29,7 @@ public class AppUser {
     @Size(min = 5)
     private String password;
     private Boolean isAdmin = false;
+    private Boolean alert;
 
     @OneToMany
     @JoinColumn(name = "borrowing_id")
@@ -40,13 +41,14 @@ public class AppUser {
             inverseJoinColumns = @JoinColumn(name = "app_role_id"))
     private List<AppRole> appRole;
 
-    public AppUser(String firstName, String name, String email, String password, Boolean isAdmin, List<AppRole> appRoles) {
+    public AppUser(String firstName, String name, String email, String password, Boolean isAdmin, List<AppRole> appRoles, Boolean alert) {
         this.firstName = firstName;
         this.name = name;
         this.email = email;
         this.password = password;
         this.isAdmin = isAdmin;
         this.appRole = appRoles;
+        this.alert = alert;
     }
 
 }

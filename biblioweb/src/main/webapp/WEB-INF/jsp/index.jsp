@@ -16,14 +16,13 @@
     <h4>Recherche d'un ouvrage par son titre</h4>
 
     <s:form class="form-group" action="findBookByTitle" method="post">
-
-        <s:textfield class="form-control" name="title" key="title" label="Titre de l'ouvrage" />
-        <br />
-        <s:submit class="form-control" value="Chercher" />
+        <table>
+            <tr> <s:textfield class="form-control" name="title" key="title" label="Titre" /></tr>
+            <tr> <s:submit class="form-control" value="Chercher" /></tr>
+        </table>
     </s:form>
 
     <div><s:property value="strNow"/> </div>
 
 </body>
 </html>
-	

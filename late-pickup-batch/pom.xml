@@ -6,7 +6,7 @@
 	<groupId>com.openclassrooms</groupId>
 	<artifactId>late-pickup-batch</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>late-pickup-batch</name>
+	<name>borrowings-expiring-soon</name>
 	<description>Demo project for Spring Boot</description>
 
 	<parent>
@@ -96,6 +96,7 @@
 
 	<build>
 		<plugins>
+
 			<!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -115,6 +116,7 @@
             </plugin>
             -->
 			<plugin>
+
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>3.0.2</version>
 				<configuration>

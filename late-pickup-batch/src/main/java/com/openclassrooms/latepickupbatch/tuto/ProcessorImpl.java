@@ -16,14 +16,14 @@ public class ProcessorImpl implements ItemProcessor<Borrowing, SimpleMailMessage
         String content = "Bonjour M./ Mme " + borrowing.getAppUser().getName() + ".\n" +
                 "Vous avez emprunté le livre de " + borrowing.getBook().getAuthorFirstName() + " " + borrowing.getBook().getAuthorName() +
                 ", qui s'intitule " + borrowing.getBook().getTitle() + ".\n" +
-                "Le livre aurait dû être restitué avant le " + borrowing.getDueReturnDate() + " mais il ne nous a pas été retourné à ce jour." +
-                "Nous vous prions de bien vouloir le rapporter dès que possible.\nCordialement, \n" +
+                "La date de retour limite de ce livre est le " + borrowing.getDueReturnDate() +
+                "Ceci est juste un rappel afin que vous puissiez nous retourner le livre dans les délais.\nCordialement, \n" +
                 "L'équipe de Biblioweb.";
 
         email.setTo(borrowing.getAppUser().getEmail());
-        email.setFrom("jaycecordon@gmail.com");
+        email.setFrom("julien.app.test@gmail.com");
         email.setText(content);
-        email.setSubject("Date de retour de livre expirée");
+        email.setSubject("Alerte échéance emprunt de " + borrowing.getBook().getTitle());
 
         log.info("Un email vient d'être édité pour " + borrowing.getAppUser().getFirstName() + " " + borrowing.getAppUser().getName());
         log.info("Message:");

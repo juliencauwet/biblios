@@ -1,9 +1,6 @@
 package com.openclassrooms.latepickupbatch.config;
 
-import com.openclassrooms.biblioback.ws.test.Borrowing;
-import com.openclassrooms.biblioback.ws.test.BorrowingGetExpiredRequest;
-import com.openclassrooms.biblioback.ws.test.TestPort;
-import com.openclassrooms.biblioback.ws.test.TestPortService;
+import com.openclassrooms.biblioback.ws.test.*;
 import com.openclassrooms.latepickupbatch.tuto.ProcessorImpl;
 import com.openclassrooms.latepickupbatch.tuto.ReaderImpl;
 import com.openclassrooms.latepickupbatch.tuto.Writer;
@@ -125,7 +122,7 @@ public class BatchConfiguration {
 
     @Bean
     public ListItemReader<Borrowing> itemReader() {
-        List<Borrowing> borrowings = testPort.borrowingGetExpired(new BorrowingGetExpiredRequest()).getBorrowingGetExpired();
+        List<Borrowing> borrowings = testPort.borrowingsExpiringSoon(new BorrowingsExpiringSoonRequest()).getExpiringSoonBorrowings();
         for(Borrowing borrowing : borrowings) {
             System.out.println(borrowing.getBook().getTitle());
         }
