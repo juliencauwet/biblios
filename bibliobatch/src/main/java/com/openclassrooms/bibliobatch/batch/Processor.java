@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class Processor implements ItemProcessor<Borrowing,SimpleMailMessage>{
 
-    private static final Logger log = LoggerFactory.getLogger(Processor.class);
+    //private static final Logger log = LoggerFactory.getLogger(Processor.class);
 
     @Override
     public SimpleMailMessage process(Borrowing borrowing) throws Exception {
@@ -27,9 +27,9 @@ public class Processor implements ItemProcessor<Borrowing,SimpleMailMessage>{
         email.setText(content);
         email.setSubject("Date de retour de livre expirée");
 
-        log.info("Un email vient d'être édité pour " + borrowing.getAppUser().getFirstName() + " " + borrowing.getAppUser().getName());
-        log.info("Message:");
-        log.info(content);
+        //log.info("Un email vient d'être édité pour " + borrowing.getAppUser().getFirstName() + " " + borrowing.getAppUser().getName());
+        //log.info("Message:");
+        //log.info(content);
 
         return email;
     }

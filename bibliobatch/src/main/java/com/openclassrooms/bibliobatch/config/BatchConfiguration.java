@@ -33,7 +33,7 @@ import java.util.List;
 @EnableBatchProcessing
 public class BatchConfiguration {
 
-    private static final Logger log = LoggerFactory.getLogger(BatchConfiguration.class);
+    //private static final Logger log = LoggerFactory.getLogger(BatchConfiguration.class);
 
     @Autowired
     JobBuilderFactory jobBuilderFactory;
@@ -51,7 +51,7 @@ public class BatchConfiguration {
     public void reportCurrentTime() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         JobParameters param = new JobParametersBuilder().addString("JobID",
                 String.valueOf(System.currentTimeMillis())).toJobParameters();
-        log.info("Entée dans le jobLaucher de reportCurrentTime");
+        //log.info("Entée dans le jobLaucher de reportCurrentTime");
          jobLauncher.run(ExpiredBorrowingJob(jobBuilderFactory, stepBuilderFactory, itemReader(), new Processor(), new SimpleMailItemWriter()), param);
     }
 
@@ -67,14 +67,14 @@ public class BatchConfiguration {
                                    ItemProcessor<Borrowing, SimpleMailMessage> itemProcessor,
                                    ItemWriter<SimpleMailMessage> itemWriter
     ) {
-        log.info("avant configuration test");
+        //log.info("avant configuration test");
         Step step = stepBuilderFactory.get("Expired-Borrowing-List")
                 .<Borrowing, SimpleMailMessage>chunk(100)
                 .reader(itemReader)
                 .processor(itemProcessor)
                 .writer(itemWriter)
                 .build();
-        log.info("step configuré");
+        //log.info("step configuré");
         return jobBuilderFactory.get("send-Borrowing-List")
                 .incrementer(new RunIdIncrementer())
                 .start(step)
@@ -85,6 +85,8 @@ public class BatchConfiguration {
     @Bean
     public ListItemReader<Borrowing> itemReader() {
         List<Borrowing> borrowings = testPort.borrowingGetExpired(new BorrowingGetExpiredRequest()).getBorrowingGetExpired();
+        System.out.println("dans item reader");
+
         for(Borrowing borrowing : borrowings) {
             System.out.println("dans le item reader pour le livre:" + borrowing.getBook().getTitle());
         }
