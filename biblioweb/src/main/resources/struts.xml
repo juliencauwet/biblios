@@ -5,9 +5,11 @@
 
 <struts>
 
+
     <constant name="struts.enable.DynamicMethodInvocation" value="false"/>
 
     <package name="myPackage" extends="struts-default">
+
 
         <default-action-ref name="index" />
 
@@ -75,7 +77,7 @@
 
         <!-- Actions relatives aux utilisateurs -->
 
-        <action name="profile" class="com.openclassrooms.actions.AuthentificationAction">
+        <action name="profile" class="com.openclassrooms.actions.AuthentificationAction" method="account">
             <result>/WEB-INF/jsp/account.jsp</result>
         </action>
 
@@ -103,8 +105,8 @@
 
         </action>
 
-        <action name="editProfile" class="com.openclassrooms.actions.AuthentificationAction" method="editProfile">
-            <result>/WEB-INF/jsp/profile.jsp</result>
+        <action name="updateProfile" class="com.openclassrooms.actions.AuthentificationAction" method="updateProfile">
+            <result>/WEB-INF/jsp/account.jsp</result>
         </action>
 
         <action name="newAppUser" class="com.openclassrooms.actions.AuthentificationAction" method="newAppUser">

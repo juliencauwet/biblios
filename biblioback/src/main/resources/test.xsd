@@ -43,6 +43,22 @@
         </xs:complexType>
     </xs:element>
 
+    <xs:element name="appUserUpdateRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="tns:appUser"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="appUserUpdateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="tns:appUser"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
     <!--
 - Entrée nouvel utilisateur
 	*	Boolean confirmation
@@ -101,6 +117,7 @@
             <xs:element name="name" type="xs:string"/>
             <xs:element name="isAdmin" type="xs:boolean"/>
             <xs:element name="isEmployee" type="xs:boolean"/>
+            <xs:element name="alert" type="xs:boolean" />
         </xs:sequence>
     </xs:complexType>
 

@@ -1,13 +1,8 @@
 package com.openclassrooms.bibliobatch.model;
 
 import com.openclassrooms.biblioback.ws.test.Borrowing;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
 
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Date;
 
 

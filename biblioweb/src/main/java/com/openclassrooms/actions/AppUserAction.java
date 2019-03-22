@@ -11,6 +11,8 @@ public class AppUserAction extends ActionSupport{
     TestPort port = service.getTestPortSoap11();
     List<AppUser> appUsers = null;
 
+
+
     @Override
     public String execute() throws Exception {
 
@@ -31,4 +33,8 @@ public class AppUserAction extends ActionSupport{
     public void setAppUsers(List<AppUser> appUsers) {
         this.appUsers = appUsers;
     }
+
+
+
+
 }

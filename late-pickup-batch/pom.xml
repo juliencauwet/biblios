@@ -127,7 +127,7 @@
 							<!--
                             <classpathPrefix>lib/</classpathPrefix>
                             -->
-							<mainClass>com.openclassrooms.bibliobatch.BibliobatchApplication</mainClass>
+							<mainClass>com.openclassrooms.latepickupbatch.LatePickupBatchApplication</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

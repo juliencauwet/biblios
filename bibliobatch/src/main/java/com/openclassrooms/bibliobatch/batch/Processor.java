@@ -1,8 +1,6 @@
 package com.openclassrooms.bibliobatch.batch;
 
 import com.openclassrooms.biblioback.ws.test.Borrowing;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.stereotype.Component;

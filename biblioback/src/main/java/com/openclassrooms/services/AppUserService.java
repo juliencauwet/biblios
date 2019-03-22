@@ -41,4 +41,9 @@ public class AppUserService implements IAppUserService {
     public void deletUser(AppUser user) {
         appUserRepository.delete(user);
     }
+
+    @Override
+    public AppUser updateUser(AppUser user) {
+        return appUserRepository.save(user);
+    }
 }

@@ -2,12 +2,14 @@ package com.openclassrooms.actions;
 
 import com.openclassrooms.biblioback.ws.test.*;
 import com.opensymphony.xwork2.ActionSupport;
+import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.dispatcher.SessionMap;
 import org.apache.struts2.interceptor.SessionAware;
 import org.mindrot.jbcrypt.BCrypt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import javax.servlet.http.HttpSession;
 import java.util.Map;
 
 public class AuthentificationAction extends ActionSupport implements SessionAware{
@@ -17,15 +19,18 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
     TestPortService service = new TestPortService();
     TestPort testPort = service.getTestPortSoap11();
 
-    String firstName;
-    String name;
-    String email;
-    String password;
-    String password2;
-    String hashedPassword;
-    AppUser appUser;
-    Boolean isAdmin;
-    Boolean isEmployee;
+    private String firstName;
+    private String name;
+    private String email;
+    private String password;
+    private String password2;
+    private String hashedPassword;
+    private Boolean isAdmin;
+    private Boolean isEmployee;
+    private Boolean alert;
+
+    HttpSession session = ServletActionContext.getRequest().getSession(false);
+    private AppUser appUser = (AppUser)session.getAttribute("appUser");
 
     private SessionMap<String, Object> sessionMap;
 
@@ -34,7 +39,6 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
     }
 
     public String account(){
-
         return SUCCESS;
     }
 
@@ -76,10 +80,14 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
 
     }
 
-    public String editProfile(){
+    public String updateProfile(){
         log.info("hello");
-        //TODO:invoquer une requête pour définir l'email et si l'utilisateur veut etre alerté
-
+        AppUserUpdateRequest request = new AppUserUpdateRequest();
+        appUser = (AppUser) session.getAttribute("appUser");
+        appUser.setAlert(alert);
+        request.setUser(appUser);
+        appUser =testPort.appUserUpdate(request).getUser();
+        log.info("alert: " + appUser.isAlert());
         return SUCCESS;
     }
 
@@ -187,6 +195,14 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
 
     public void setEmployee(Boolean employee) {
         isEmployee = employee;
+    }
+
+    public Boolean getAlert() {
+        return alert;
+    }
+
+    public void setAlert(Boolean alert) {
+        this.alert = alert;
     }
 
     @Override

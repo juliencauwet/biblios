@@ -1,6 +1,7 @@
 package com.openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.test.*;
+import com.openclassrooms.conversions.AppUserConversion;
 import com.openclassrooms.entities.AppUser;
 import com.openclassrooms.services.AppUserService;
 import com.openclassrooms.services.IAppUserService;
@@ -8,6 +9,7 @@ import org.apache.log4j.Logger;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ws.server.endpoint.annotation.Endpoint;
 import org.springframework.ws.server.endpoint.annotation.PayloadRoot;
 import org.springframework.ws.server.endpoint.annotation.RequestPayload;
@@ -22,6 +24,8 @@ public class AppUserEndPoint {
 
     @Autowired
     private IAppUserService appUserService;
+
+    AppUserConversion conversion = new AppUserConversion();
 
     @Autowired
     public AppUserEndPoint(AppUserService appUserService){
@@ -93,6 +97,18 @@ public class AppUserEndPoint {
 
         response.getGetAllAppUsers().addAll(WSAppUsers);
 
+        return response;
+    }
+
+    @PayloadRoot(namespace = NAMESPACE_URI, localPart = "appUserUpdateRequest")
+    @ResponsePayload
+    @Transactional
+    public AppUserUpdateResponse updateAppUser(@RequestPayload AppUserUpdateRequest request){
+        AppUserUpdateResponse response = new AppUserUpdateResponse();
+        AppUser appUser = new AppUser();
+        BeanUtils.copyProperties(request.getUser(), appUser);
+        appUserService.updateUser(appUser);
+        response.setUser(conversion.appUserEntityToAppUser(appUserService.updateUser(appUser)));
         return response;
     }
 

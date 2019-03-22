@@ -17,19 +17,27 @@ services:
     image: biblioback
     container_name: biblioback
     ports:
-      - 1111:1111
+      - 1111:21310
     depends_on:
       - bibliodb
     networks:
       - back
-      - front
-#####################################
+
+#  bibliobatch:
+#    image: bibliobatch
+#    container_name: bibliobatch
+#    ports:
+#      - 1113:8081
+#
 #  biblioweb:
 #    image: biblioweb
 #    container_name: biblioweb
 #    ports:
-#      - 1112:8081
+#      - 1112:8080
 #    depends_on:
 #      - biblioback
-#    networks
-#      - front
+
+
+networks:
+  back:
+  front:

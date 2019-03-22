@@ -4,6 +4,7 @@ WORKDIR /app
 VOLUME ["/app"]
 COPY /target/bibliobatch-0.0.1-SNAPSHOT.jar /app
 ADD /target/bibliobatch-0.0.1-SNAPSHOT.jar app.jar
+
 ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","app.jar"]
 #COPY target/bibliobatch-0.0.1-SNAPSHOT.jar app.jar
 #ENTRYPOINT ["java","-Djava.security.egd=file:/dev/./urandom","-jar","/app.jar"]

@@ -1,0 +1,1257 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><wsdl:definitions xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:sch="http://test.ws.biblioback.openclassrooms.com" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://test.ws.biblioback.openclassrooms.com" targetNamespace="http://test.ws.biblioback.openclassrooms.com">
+  <wsdl:types>
+    <xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://test.ws.biblioback.openclassrooms.com">
+
+
+    <xs:element name="appUserGetByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="appUserGetByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="appUserGet" type="tns:appUser"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--
+     - Vérification id et mdp
+	*	AppUser user
+	**	String name
+		String password
+     -->
+
+    <xs:element name="appUserValidityCheckRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="appUserValidityCheckResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="tns:appUser"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="appUserUpdateRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="tns:appUser"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="appUserUpdateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="user" type="tns:appUser"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--
+- Entrée nouvel utilisateur
+	*	Boolean confirmation
+	**	String firstName
+	    String name
+		String email
+		String password
+		Boolean isAdmin
+		-->
+
+    <xs:element name="appUserAddRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="email" type="xs:string"/>
+                <xs:element name="password" type="xs:string"/>
+                <xs:element name="firstName" type="xs:string"/>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="isAdmin" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="appUserAddResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="confirmation" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- -->
+
+    <xs:element name="appUserGetAllRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="appUserGetAllResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="getAllAppUsers" type="tns:appUser"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!-- définition appUser-->
+
+    <xs:complexType name="appUser">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="email" type="xs:string"/>
+            <xs:element name="password" type="xs:string"/>
+            <xs:element name="firstName" type="xs:string"/>
+            <xs:element name="name" type="xs:string"/>
+            <xs:element name="isAdmin" type="xs:boolean"/>
+            <xs:element name="isEmployee" type="xs:boolean"/>
+            <xs:element name="alert" type="xs:boolean"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!--
+     - Recherche d’un ouvrage par titre et nombre d’exemplaires dispos
+	*	List<Book> books
+	**	String title
+     -->
+
+    <xs:element name="bookGetRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="title" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="bookGetResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="bookGet" type="tns:book"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--
+    - Recherche d’un ouvrage par id et nombre d’exemplaires dispos
+	*	Book book
+	**	int id
+    -->
+
+    <xs:element name="bookGetByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="bookGetByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="bookGet" type="tns:book"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--
+     - Entrée d’un nouvel ouvrage et nombre exemplaires
+	*	Boolean confirmation
+	**	String title
+		String authorName
+		String authorFirstName
+		String number
+		-->
+
+    <xs:element name="bookAddRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="title" type="xs:string"/>
+                <xs:element name="authorFirstName" type="xs:string"/>
+                <xs:element name="authorName" type="xs:string"/>
+                <xs:element name="number" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="bookAddResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="confirmation" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+
+
+
+    <xs:element name="bookGetAllRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="bookGetAllResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="bookGetAll" type="tns:book"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="book">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="authorName" type="xs:string"/>
+            <xs:element name="authorFirstName" type="xs:string"/>
+            <xs:element name="title" type="xs:string"/>
+            <xs:element name="number" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <!-- -->
+
+    <xs:element name="borrowingGetRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingGetResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="borrowing" type="tns:borrowing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--
+- Enregistrement d’un nouvel emprunt
+	*	int caseCode
+	**	int bookId
+		Date startDate
+		-->
+
+    <xs:element name="borrowingAddRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="appUserId" type="xs:int"/>
+                <xs:element name="bookId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingAddResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="borrowing" type="tns:borrowing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--
+- Prolongation (modification d’un emprunt)
+   *	int codeError
+   **	int borrowingId
+   -->
+
+    <xs:element name="borrowingExtendRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="borrowingId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingExtendResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="codeResp" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--
+- Retour de prêt (modification emprunt)
+   *	Boolean confirmation
+   **	intBorrowingId
+   -->
+    <xs:element name="borrowingReturnRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingReturnResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="confirmation" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--
+- Liste des emprunts en cours de tous les utilisateurs
+  *	List<Borrowing> borrowings
+  **	no parameter
+ -->
+
+    <xs:element name="borrowingGetAllRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingGetAllResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="borrowingGetAll" type="tns:borrowing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+
+    <!--
+- Liste des emprunts en cours de l'utilisateur connecté
+   *	List<Borrowing> borrowings
+   **	no parameter
+  -->
+
+    <xs:element name="borrowingGetCurrentRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingGetCurrentResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="borrowingGetCurrent" type="tns:borrowing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingGetExpiredRequest">
+        <xs:complexType>
+            <xs:sequence>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingGetExpiredResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="borrowingGetExpired" type="tns:borrowing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <!--
+- Liste des emprunts prolongés
+   * 	List<Borrowing> borrowings
+   **	Boolean IsExtended
+- Liste des emprunts non rendus à temps
+   *
+   -->
+
+    <xs:element name="borrowingsDeleteByIdRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="borrowingDeleteById" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingsDeleteByIdResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="borrowingDeleteById" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteBorrowingRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="deleteBorrowingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="confirmation" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingsConfirmationRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingsConfirmationResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="confirmation" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingsGetPanierRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="userId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingsGetPanierResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="panier" type="tns:borrowing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingsExpiringSoonRequest">
+        <xs:complexType>
+            <xs:sequence/>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingsExpiringSoonResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element maxOccurs="unbounded" minOccurs="0" name="expiringSoonBorrowings" type="tns:borrowing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingUpdateRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="borrowing" type="tns:borrowing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="borrowingUpdateResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="borrowing" type="tns:borrowing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="pickupRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="id" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="pickupResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="borrowing" type="tns:borrowing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:simpleType final="restriction" name="status">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="waitinglist"/>
+            <xs:enumeration value="ongoing"/>
+            <xs:enumeration value="none"/>
+            <xs:enumeration value="denied"/>
+            <xs:enumeration value="returned"/>
+            <xs:enumeration value="available"/>
+            <xs:enumeration value="cancelled"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="borrowing">
+        <xs:sequence>
+            <xs:element name="id" type="xs:int"/>
+            <xs:element name="book" type="tns:book"/>
+            <xs:element name="appUser" type="tns:appUser"/>
+            <xs:element name="startDate" type="xs:date"/>
+            <xs:element name="returnDate" type="xs:date"/>
+            <xs:element name="dueReturnDate" type="xs:date"/>
+            <xs:element name="status" type="tns:status"/>
+            <xs:element name="waitingListOrder" type="xs:int"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="stateOfBorrowingRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="bookId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="stateOfBorrowingResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="stateOfBorrowing" type="tns:stateOfBorrowing"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:complexType name="stateOfBorrowing">
+        <xs:sequence>
+            <xs:element name="book" type="tns:book"/>
+            <xs:element name="waitingListNumber" type="xs:int"/>
+            <xs:element name="nextReturn" type="xs:date"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:element name="updatePropertiesRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="libraryId" type="xs:int"/>
+                <xs:element name="borrowingLength" type="xs:int"/>
+                <xs:element name="extensionLength" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="updatePropertiesResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="confirmation" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getBorrowingLengthRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="libraryId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getBorrowingLengthResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="borrowingLength" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getExtensionLengthRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="libraryId" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="getExtensionLengthResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="extensionLength" type="xs:int"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="emailRequest">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="text" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="emailResponse">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="confirm" type="xs:boolean"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="borrowingAddRequest">
+    <wsdl:part element="tns:borrowingAddRequest" name="borrowingAddRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookAddResponse">
+    <wsdl:part element="tns:bookAddResponse" name="bookAddResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetExpiredRequest">
+    <wsdl:part element="tns:borrowingGetExpiredRequest" name="borrowingGetExpiredRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingsConfirmationResponse">
+    <wsdl:part element="tns:borrowingsConfirmationResponse" name="borrowingsConfirmationResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserAddResponse">
+    <wsdl:part element="tns:appUserAddResponse" name="appUserAddResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserValidityCheckResponse">
+    <wsdl:part element="tns:appUserValidityCheckResponse" name="appUserValidityCheckResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetExpiredResponse">
+    <wsdl:part element="tns:borrowingGetExpiredResponse" name="borrowingGetExpiredResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingAddResponse">
+    <wsdl:part element="tns:borrowingAddResponse" name="borrowingAddResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookGetAllRequest">
+    <wsdl:part element="tns:bookGetAllRequest" name="bookGetAllRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="stateOfBorrowingRequest">
+    <wsdl:part element="tns:stateOfBorrowingRequest" name="stateOfBorrowingRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserGetAllResponse">
+    <wsdl:part element="tns:appUserGetAllResponse" name="appUserGetAllResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingUpdateResponse">
+    <wsdl:part element="tns:borrowingUpdateResponse" name="borrowingUpdateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getBorrowingLengthResponse">
+    <wsdl:part element="tns:getBorrowingLengthResponse" name="getBorrowingLengthResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookGetResponse">
+    <wsdl:part element="tns:bookGetResponse" name="bookGetResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="emailRequest">
+    <wsdl:part element="tns:emailRequest" name="emailRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookGetAllResponse">
+    <wsdl:part element="tns:bookGetAllResponse" name="bookGetAllResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updatePropertiesResponse">
+    <wsdl:part element="tns:updatePropertiesResponse" name="updatePropertiesResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserGetByIdResponse">
+    <wsdl:part element="tns:appUserGetByIdResponse" name="appUserGetByIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookGetByIdRequest">
+    <wsdl:part element="tns:bookGetByIdRequest" name="bookGetByIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getExtensionLengthRequest">
+    <wsdl:part element="tns:getExtensionLengthRequest" name="getExtensionLengthRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingsExpiringSoonResponse">
+    <wsdl:part element="tns:borrowingsExpiringSoonResponse" name="borrowingsExpiringSoonResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingsConfirmationRequest">
+    <wsdl:part element="tns:borrowingsConfirmationRequest" name="borrowingsConfirmationRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserAddRequest">
+    <wsdl:part element="tns:appUserAddRequest" name="appUserAddRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingReturnResponse">
+    <wsdl:part element="tns:borrowingReturnResponse" name="borrowingReturnResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingsExpiringSoonRequest">
+    <wsdl:part element="tns:borrowingsExpiringSoonRequest" name="borrowingsExpiringSoonRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="stateOfBorrowingResponse">
+    <wsdl:part element="tns:stateOfBorrowingResponse" name="stateOfBorrowingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pickupRequest">
+    <wsdl:part element="tns:pickupRequest" name="pickupRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingExtendRequest">
+    <wsdl:part element="tns:borrowingExtendRequest" name="borrowingExtendRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getBorrowingLengthRequest">
+    <wsdl:part element="tns:getBorrowingLengthRequest" name="getBorrowingLengthRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetAllResponse">
+    <wsdl:part element="tns:borrowingGetAllResponse" name="borrowingGetAllResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getExtensionLengthResponse">
+    <wsdl:part element="tns:getExtensionLengthResponse" name="getExtensionLengthResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetRequest">
+    <wsdl:part element="tns:borrowingGetRequest" name="borrowingGetRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingsDeleteByIdRequest">
+    <wsdl:part element="tns:borrowingsDeleteByIdRequest" name="borrowingsDeleteByIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetResponse">
+    <wsdl:part element="tns:borrowingGetResponse" name="borrowingGetResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetCurrentRequest">
+    <wsdl:part element="tns:borrowingGetCurrentRequest" name="borrowingGetCurrentRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetAllRequest">
+    <wsdl:part element="tns:borrowingGetAllRequest" name="borrowingGetAllRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookAddRequest">
+    <wsdl:part element="tns:bookAddRequest" name="bookAddRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserValidityCheckRequest">
+    <wsdl:part element="tns:appUserValidityCheckRequest" name="appUserValidityCheckRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteBorrowingRequest">
+    <wsdl:part element="tns:deleteBorrowingRequest" name="deleteBorrowingRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserGetByIdRequest">
+    <wsdl:part element="tns:appUserGetByIdRequest" name="appUserGetByIdRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserUpdateResponse">
+    <wsdl:part element="tns:appUserUpdateResponse" name="appUserUpdateResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="pickupResponse">
+    <wsdl:part element="tns:pickupResponse" name="pickupResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingUpdateRequest">
+    <wsdl:part element="tns:borrowingUpdateRequest" name="borrowingUpdateRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingsDeleteByIdResponse">
+    <wsdl:part element="tns:borrowingsDeleteByIdResponse" name="borrowingsDeleteByIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingGetCurrentResponse">
+    <wsdl:part element="tns:borrowingGetCurrentResponse" name="borrowingGetCurrentResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingReturnRequest">
+    <wsdl:part element="tns:borrowingReturnRequest" name="borrowingReturnRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookGetByIdResponse">
+    <wsdl:part element="tns:bookGetByIdResponse" name="bookGetByIdResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingsGetPanierRequest">
+    <wsdl:part element="tns:borrowingsGetPanierRequest" name="borrowingsGetPanierRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="emailResponse">
+    <wsdl:part element="tns:emailResponse" name="emailResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserGetAllRequest">
+    <wsdl:part element="tns:appUserGetAllRequest" name="appUserGetAllRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="appUserUpdateRequest">
+    <wsdl:part element="tns:appUserUpdateRequest" name="appUserUpdateRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingExtendResponse">
+    <wsdl:part element="tns:borrowingExtendResponse" name="borrowingExtendResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="borrowingsGetPanierResponse">
+    <wsdl:part element="tns:borrowingsGetPanierResponse" name="borrowingsGetPanierResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="updatePropertiesRequest">
+    <wsdl:part element="tns:updatePropertiesRequest" name="updatePropertiesRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="bookGetRequest">
+    <wsdl:part element="tns:bookGetRequest" name="bookGetRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="deleteBorrowingResponse">
+    <wsdl:part element="tns:deleteBorrowingResponse" name="deleteBorrowingResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="TestPort">
+    <wsdl:operation name="borrowingAdd">
+      <wsdl:input message="tns:borrowingAddRequest" name="borrowingAddRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:borrowingAddResponse" name="borrowingAddResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookAdd">
+      <wsdl:input message="tns:bookAddRequest" name="bookAddRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:bookAddResponse" name="bookAddResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGetExpired">
+      <wsdl:input message="tns:borrowingGetExpiredRequest" name="borrowingGetExpiredRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:borrowingGetExpiredResponse" name="borrowingGetExpiredResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingsConfirmation">
+      <wsdl:input message="tns:borrowingsConfirmationRequest" name="borrowingsConfirmationRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:borrowingsConfirmationResponse" name="borrowingsConfirmationResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserAdd">
+      <wsdl:input message="tns:appUserAddRequest" name="appUserAddRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:appUserAddResponse" name="appUserAddResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserValidityCheck">
+      <wsdl:input message="tns:appUserValidityCheckRequest" name="appUserValidityCheckRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:appUserValidityCheckResponse" name="appUserValidityCheckResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookGetAll">
+      <wsdl:input message="tns:bookGetAllRequest" name="bookGetAllRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:bookGetAllResponse" name="bookGetAllResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="stateOfBorrowing">
+      <wsdl:input message="tns:stateOfBorrowingRequest" name="stateOfBorrowingRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:stateOfBorrowingResponse" name="stateOfBorrowingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserGetAll">
+      <wsdl:input message="tns:appUserGetAllRequest" name="appUserGetAllRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:appUserGetAllResponse" name="appUserGetAllResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingUpdate">
+      <wsdl:input message="tns:borrowingUpdateRequest" name="borrowingUpdateRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:borrowingUpdateResponse" name="borrowingUpdateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBorrowingLength">
+      <wsdl:input message="tns:getBorrowingLengthRequest" name="getBorrowingLengthRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getBorrowingLengthResponse" name="getBorrowingLengthResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookGet">
+      <wsdl:input message="tns:bookGetRequest" name="bookGetRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:bookGetResponse" name="bookGetResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="email">
+      <wsdl:input message="tns:emailRequest" name="emailRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:emailResponse" name="emailResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateProperties">
+      <wsdl:input message="tns:updatePropertiesRequest" name="updatePropertiesRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:updatePropertiesResponse" name="updatePropertiesResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserGetById">
+      <wsdl:input message="tns:appUserGetByIdRequest" name="appUserGetByIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:appUserGetByIdResponse" name="appUserGetByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookGetById">
+      <wsdl:input message="tns:bookGetByIdRequest" name="bookGetByIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:bookGetByIdResponse" name="bookGetByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getExtensionLength">
+      <wsdl:input message="tns:getExtensionLengthRequest" name="getExtensionLengthRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:getExtensionLengthResponse" name="getExtensionLengthResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingsExpiringSoon">
+      <wsdl:input message="tns:borrowingsExpiringSoonRequest" name="borrowingsExpiringSoonRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:borrowingsExpiringSoonResponse" name="borrowingsExpiringSoonResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingReturn">
+      <wsdl:input message="tns:borrowingReturnRequest" name="borrowingReturnRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:borrowingReturnResponse" name="borrowingReturnResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pickup">
+      <wsdl:input message="tns:pickupRequest" name="pickupRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:pickupResponse" name="pickupResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingExtend">
+      <wsdl:input message="tns:borrowingExtendRequest" name="borrowingExtendRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:borrowingExtendResponse" name="borrowingExtendResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGetAll">
+      <wsdl:input message="tns:borrowingGetAllRequest" name="borrowingGetAllRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:borrowingGetAllResponse" name="borrowingGetAllResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGet">
+      <wsdl:input message="tns:borrowingGetRequest" name="borrowingGetRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:borrowingGetResponse" name="borrowingGetResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingsDeleteById">
+      <wsdl:input message="tns:borrowingsDeleteByIdRequest" name="borrowingsDeleteByIdRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:borrowingsDeleteByIdResponse" name="borrowingsDeleteByIdResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGetCurrent">
+      <wsdl:input message="tns:borrowingGetCurrentRequest" name="borrowingGetCurrentRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:borrowingGetCurrentResponse" name="borrowingGetCurrentResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteBorrowing">
+      <wsdl:input message="tns:deleteBorrowingRequest" name="deleteBorrowingRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:deleteBorrowingResponse" name="deleteBorrowingResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserUpdate">
+      <wsdl:input message="tns:appUserUpdateRequest" name="appUserUpdateRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:appUserUpdateResponse" name="appUserUpdateResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingsGetPanier">
+      <wsdl:input message="tns:borrowingsGetPanierRequest" name="borrowingsGetPanierRequest">
+    </wsdl:input>
+      <wsdl:output message="tns:borrowingsGetPanierResponse" name="borrowingsGetPanierResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="TestPortSoap11" type="tns:TestPort">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="borrowingAdd">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingAddRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingAddResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookAdd">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="bookAddRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="bookAddResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGetExpired">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingGetExpiredRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingGetExpiredResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingsConfirmation">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingsConfirmationRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingsConfirmationResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserAdd">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="appUserAddRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="appUserAddResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserValidityCheck">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="appUserValidityCheckRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="appUserValidityCheckResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookGetAll">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="bookGetAllRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="bookGetAllResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="stateOfBorrowing">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="stateOfBorrowingRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="stateOfBorrowingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserGetAll">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="appUserGetAllRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="appUserGetAllResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingUpdate">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingUpdateRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingUpdateResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBorrowingLength">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getBorrowingLengthRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getBorrowingLengthResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookGet">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="bookGetRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="bookGetResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="email">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="emailRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="emailResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateProperties">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="updatePropertiesRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="updatePropertiesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserGetById">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="appUserGetByIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="appUserGetByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="bookGetById">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="bookGetByIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="bookGetByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getExtensionLength">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="getExtensionLengthRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getExtensionLengthResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingsExpiringSoon">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingsExpiringSoonRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingsExpiringSoonResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingReturn">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingReturnRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingReturnResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="pickup">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="pickupRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="pickupResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingExtend">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingExtendRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingExtendResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGetAll">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingGetAllRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingGetAllResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGet">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingGetRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingGetResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingsDeleteById">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingsDeleteByIdRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingsDeleteByIdResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingGetCurrent">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingGetCurrentRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingGetCurrentResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="deleteBorrowing">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="deleteBorrowingRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="deleteBorrowingResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="appUserUpdate">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="appUserUpdateRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="appUserUpdateResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowingsGetPanier">
+      <soap:operation soapAction=""/>
+      <wsdl:input name="borrowingsGetPanierRequest">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="borrowingsGetPanierResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="TestPortService">
+    <wsdl:port binding="tns:TestPortSoap11" name="TestPortSoap11">
+      <soap:address location="http://localhost:21310/ws"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

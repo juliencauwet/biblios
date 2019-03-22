@@ -18,6 +18,7 @@ public class AppUserConversion {
         appUser.setName(appUserEntity.getName());
         appUser.setEmail(appUserEntity.getEmail());
         appUser.setPassword(appUser.getPassword());
+        appUser.setAlert(appUserEntity.getAlert());
         return appUser;
     }
 //
@@ -28,6 +29,7 @@ public class AppUserConversion {
         appUserEntity.setFirstName(appUser.getFirstName());
         appUserEntity.setEmail(appUser.getEmail());
         appUserEntity.setPassword(appUser.getPassword());
+        appUserEntity.setAlert(appUser.isAlert());
         return appUserEntity;
     }
 

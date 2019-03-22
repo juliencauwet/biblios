@@ -52,7 +52,7 @@ public class BatchConfiguration {
         JobParameters param = new JobParametersBuilder().addString("JobID",
                 String.valueOf(System.currentTimeMillis())).toJobParameters();
         //log.info("Entée dans le jobLaucher de reportCurrentTime");
-         jobLauncher.run(ExpiredBorrowingJob(jobBuilderFactory, stepBuilderFactory, itemReader(), new Processor(), new SimpleMailItemWriter()), param);
+         jobLauncher.run(ExpiredBorrowingJob(jobBuilderFactory, stepBuilderFactory, itemReader(), processor(), new SimpleMailItemWriter()), param);
     }
 
     @Bean
@@ -94,5 +94,7 @@ public class BatchConfiguration {
 
         return reader;
     }
+
+
 
 }

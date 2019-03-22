@@ -15,6 +15,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <cxf.version>3.2.5  </cxf.version>
         <docker.imageName>biblioweb</docker.imageName>
+
     </properties>
 
     <dependencies>
@@ -151,10 +152,23 @@
                     </images>
                 </configuration>
             </plugin>
-
+<!--
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
+                <configuration>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+-->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>3.2.2</version>
                 <configuration>
                     <archive>
                         <manifest>
@@ -178,38 +192,14 @@
                         <configuration>
                             <bindingDirectory>/src/main/java</bindingDirectory>
                             <wsdlUrls>
-                                <wsdlUrl>http://localhost:21310/ws/test.wsdl</wsdlUrl>
+                                <wsdlUrl>http://localhost:1111/ws/test.wsdl</wsdlUrl>
+                                <!-- <wsdlUrl>http://biblioback:21310/ws/test.wsdl</wsdlUrl> -->
                             </wsdlUrls>
                         </configuration>
                     </execution>
                 </executions>
             </plugin>
 
-            <!--
-                <plugin>
-                    <groupId>org.apache.cxf</groupId>
-                    <artifactId>cxf-codegen-plugin</artifactId>
-                    <version>${cxf.version}</version>
-                    <executions>
-                        <execution>
-                            <id>generate-sources</id>
-                            <phase>generate-sources</phase>
-                            <configuration>
-                                <sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
-                                <wsdlOptions>
-                                    <wsdlOption>
-                                        <wsdl>${basedir}/src/main/resources/wsdl/book.wsdl</wsdl>
-                                    </wsdlOption>
-                                </wsdlOptions>
-                            </configuration>
-                            <goals>
-                                <goal>wsdl2java</goal>
-                            </goals>
-                        </execution>
-                    </executions>
-                </plugin>
-
-                -->
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>3.6.1</version>
@@ -235,6 +225,14 @@
                     <descriptors>
                         <descriptor>assembly/assembly.xml</descriptor>
                     </descriptors>
+                    <archive>
+                        <manifest>
+                            <addClasspath>true</addClasspath>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
                 </configuration>
             </plugin>
             <plugin>
