@@ -125,7 +125,7 @@ public class BatchConfiguration {
         //List<Borrowing> borrowings = testPort.borrowingsExpiringSoon(new BorrowingsExpiringSoonRequest()).getExpiringSoonBorrowings();
         List<Borrowing> borrowings =testPort.borrowingGetAll(new BorrowingGetAllRequest()).getBorrowingGetAll();
         for(Borrowing borrowing : borrowings) {
-            System.out.println(borrowing.getBook().getTitle());
+            System.out.println("titre: " + borrowing.getBook().getTitle());
         }
         ListItemReader<Borrowing> reader = new ListItemReader<Borrowing>(borrowings);
 
