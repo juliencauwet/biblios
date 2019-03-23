@@ -110,27 +110,6 @@
 	<build>
 		<plugins>
 
-			<!--
-
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-dependency-plugin</artifactId>
-				<executions>
-					<execution>
-						<id>copy-dependencies</id>
-						<phase>package</phase>
-						<goals>
-							<goal>copy-dependencies</goal>
-						</goals>
-						<configuration>
-							<outputDirectory>${project.build.directory}/lib</outputDirectory>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-
-			-->
-
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -216,30 +195,6 @@
 				</executions>
 			</plugin>
 
-			<!--
-			<plugin>
-				<groupId>org.apache.cxf</groupId>
-				<artifactId>cxf-codegen-plugin</artifactId>
-				<version>${cxf.version}</version>
-				<executions>
-					<execution>
-						<id>generate-sources</id>
-						<phase>generate-sources</phase>
-						<configuration>
-							<sourceRoot>${project.build.directory}/generated/cxf</sourceRoot>
-							<wsdlOptions>
-								<wsdlOption>
-									<wsdl>http://localhost:21310/ws/test.wsdl</wsdl>
-								</wsdlOption>
-							</wsdlOptions>
-						</configuration>
-						<goals>
-							<goal>wsdl2java</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
--->
 
 			<plugin>
                 <groupId>org.codehaus.mojo</groupId>
@@ -262,28 +217,6 @@
                 </executions>
             </plugin>
 
-
-<!--
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>jaxws-maven-plugin</artifactId>
-				<version>2.5</version>
-				<executions>
-					<execution>
-						<goals>
-							<goal>wsimport</goal>
-						</goals>
-
-						<configuration>
-							<bindingDirectory>/src/main/java/wsimport</bindingDirectory>
-							<wsdlUrls>
-								<wsdlUrl>http://localhost:21310/ws/test.wsdl</wsdlUrl>
-							</wsdlUrls>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
-			-->
             <!--
             <plugin>
                 <groupId>com.spotify</groupId>
