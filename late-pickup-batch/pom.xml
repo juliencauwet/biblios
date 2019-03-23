@@ -95,43 +95,14 @@
 	</dependencies>
 
 	<build>
+		<finalName>late-pickup-batch</finalName>
 		<plugins>
-
-			<!--
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-dependency-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>copy-dependencies</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>copy-dependencies</goal>
-                        </goals>
-                        <configuration>
-                            <outputDirectory>${project.build.directory}/lib</outputDirectory>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            -->
 			<plugin>
-
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>3.0.2</version>
-				<configuration>
-					<finalName>${project.artifactId}-${project.version}</finalName>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<!--
-                            <classpathPrefix>lib/</classpathPrefix>
-                            -->
-							<mainClass>com.openclassrooms.latepickupbatch.LatePickupBatchApplication</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
+
+
 			<!--
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -248,7 +219,7 @@
 						<configuration>
 							<bindingDirectory>/src/main/java</bindingDirectory>
 							<wsdlUrls>
-								<wsdlUrl>http://localhost:21310/ws/test.wsdl</wsdlUrl>
+								<wsdlUrl>http://192.168.1.132:1111/ws/test.wsdl</wsdlUrl>
 							</wsdlUrls>
 						</configuration>
 					</execution>
