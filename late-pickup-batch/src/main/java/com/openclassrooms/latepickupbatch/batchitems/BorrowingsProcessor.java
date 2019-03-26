@@ -1,14 +1,10 @@
-package com.openclassrooms.latepickupbatch.tuto;
+package com.openclassrooms.latepickupbatch.batchitems;
 
 import com.openclassrooms.biblioback.ws.test.Borrowing;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.batch.item.ItemProcessor;
 import org.springframework.mail.SimpleMailMessage;
 
-public class ProcessorImpl implements ItemProcessor<Borrowing, SimpleMailMessage> {
-
-    private static final Logger log = LoggerFactory.getLogger(ProcessorImpl .class);
+public class BorrowingsProcessor implements ItemProcessor<Borrowing, SimpleMailMessage> {
 
     @Override
     public SimpleMailMessage process(Borrowing borrowing) throws Exception {
@@ -25,9 +21,9 @@ public class ProcessorImpl implements ItemProcessor<Borrowing, SimpleMailMessage
         email.setText(content);
         email.setSubject("Alerte échéance emprunt de " + borrowing.getBook().getTitle());
 
-        log.info("Un email vient d'être édité pour " + borrowing.getAppUser().getFirstName() + " " + borrowing.getAppUser().getName());
-        log.info("Message:");
-        log.info(content + " ");
+        System.out.println("Un email vient d'être édité pour " + borrowing.getAppUser().getFirstName() + " " + borrowing.getAppUser().getName());
+        System.out.println("Message:");
+        System.out.println(content);
 
         return email;
     }

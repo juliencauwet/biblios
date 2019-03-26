@@ -110,6 +110,7 @@
 	<build>
 		<plugins>
 
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -209,8 +210,12 @@
                         <configuration>
                             <bindingDirectory>/src/main/java</bindingDirectory>
 							<wsdlUrls>
-                                <wsdlUrl>http://192.168.1.132:1111/ws/test.wsdl</wsdlUrl>
-                            </wsdlUrls>
+                                <!--
+								<wsdlUrl>http://192.168.1.132:1111/ws/test.wsdl</wsdlUrl>
+								-->
+								<wsdlUrl>http://localhost:1111/ws/test.wsdl</wsdlUrl>
+
+		 					</wsdlUrls>
 
                         </configuration>
                     </execution>

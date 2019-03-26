@@ -1,9 +1,6 @@
 package com.openclassrooms.bibliobatch.config;
 
-import com.openclassrooms.biblioback.ws.test.Borrowing;
-import com.openclassrooms.biblioback.ws.test.BorrowingGetExpiredRequest;
-import com.openclassrooms.biblioback.ws.test.TestPort;
-import com.openclassrooms.biblioback.ws.test.TestPortService;
+import com.openclassrooms.biblioback.ws.test.*;
 import com.openclassrooms.bibliobatch.batch.Processor;
 import com.openclassrooms.bibliobatch.batch.SimpleMailItemWriter;
 import org.slf4j.Logger;
@@ -33,7 +30,7 @@ import java.util.List;
 @EnableBatchProcessing
 public class BatchConfiguration {
 
-    //private static final Logger log = LoggerFactory.getLogger(BatchConfiguration.class);
+     private static final Logger log = LoggerFactory.getLogger(BatchConfiguration.class);
 
     @Autowired
     JobBuilderFactory jobBuilderFactory;
@@ -51,7 +48,7 @@ public class BatchConfiguration {
     public void reportCurrentTime() throws JobParametersInvalidException, JobExecutionAlreadyRunningException, JobRestartException, JobInstanceAlreadyCompleteException {
         JobParameters param = new JobParametersBuilder().addString("JobID",
                 String.valueOf(System.currentTimeMillis())).toJobParameters();
-        //log.info("Entée dans le jobLaucher de reportCurrentTime");
+            log.info("Entée dans le jobLaucher de reportCurrentTime");
          jobLauncher.run(ExpiredBorrowingJob(jobBuilderFactory, stepBuilderFactory, itemReader(), processor(), new SimpleMailItemWriter()), param);
     }
 
@@ -70,7 +67,7 @@ public class BatchConfiguration {
         //log.info("avant configuration test");
         Step step = stepBuilderFactory.get("Expired-Borrowing-List")
                 .<Borrowing, SimpleMailMessage>chunk(100)
-                .reader(itemReader)
+                .reader(itemReader())
                 .processor(itemProcessor)
                 .writer(itemWriter)
                 .build();
@@ -84,7 +81,8 @@ public class BatchConfiguration {
 
     @Bean
     public ListItemReader<Borrowing> itemReader() {
-        List<Borrowing> borrowings = testPort.borrowingGetExpired(new BorrowingGetExpiredRequest()).getBorrowingGetExpired();
+        //List<Borrowing> borrowings = testPort.borrowingGetExpired(new BorrowingGetExpiredRequest()).getBorrowingGetExpired();
+        List<Borrowing> borrowings = testPort.borrowingGetAll(new BorrowingGetAllRequest()).getBorrowingGetAll();
         System.out.println("dans item reader");
 
         for(Borrowing borrowing : borrowings) {
