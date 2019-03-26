@@ -27,7 +27,7 @@ public class ProcessorImpl implements ItemProcessor<Borrowing, SimpleMailMessage
 
         log.info("Un email vient d'être édité pour " + borrowing.getAppUser().getFirstName() + " " + borrowing.getAppUser().getName());
         log.info("Message:");
-        log.info(content);
+        log.info(content + " ");
 
         return email;
     }
