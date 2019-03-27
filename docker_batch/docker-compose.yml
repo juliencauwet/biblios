@@ -1,0 +1,13 @@
+version: '2'
+services:
+  bibliobatch:
+    image: bibliobatch
+    container_name: bibliobatch
+    ports:
+      - 1113:8081
+
+  late-pickup-batch:
+    image: late-pickup-batch
+    container_name: late-pickup-batch
+    ports:
+      - 1112:8080

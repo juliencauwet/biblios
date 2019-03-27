@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.scheduling.annotation.Scheduled;
 
 import java.util.Date;
@@ -26,69 +27,72 @@ import java.util.List;
 public class BatchScheduler {
 
 
-    @Configuration
-    @EnableBatchProcessing
-    public class ChunksConfig {
+    @Autowired
+    private JobBuilderFactory jobs;
 
-        @Autowired
-        private JobBuilderFactory jobs;
+    @Autowired
+    private StepBuilderFactory steps;
 
-        @Autowired
-        private StepBuilderFactory steps;
+    @Autowired
+    private JobLauncher jobLauncher;
 
-        @Autowired
-        private JobLauncher jobLauncher;
+    private JavaMailSender javaMailSender;
 
-        @Bean
-        public ItemReader<Borrowing> itemReader() {
-            return new BorrowingsReader();
-        }
+    @Bean
+    public ItemReader<Borrowing> itemReader() {
+        return new BorrowingsReader();
+    }
 
-        @Bean
-        public ItemProcessor<Borrowing, SimpleMailMessage> itemProcessor() {
-            return new BorrowingsProcessor();
-        }
+    @Bean
+    public ItemProcessor<Borrowing, SimpleMailMessage> itemProcessor() {
+        return new BorrowingsProcessor();
+    }
 
-        @Bean
-        public ItemWriter<SimpleMailMessage> itemWriter() {
-            return new BorrowingsWriter();
-        }
+    @Bean
+    public ItemWriter<SimpleMailMessage> itemWriter() {
+        return new BorrowingsWriter(javaMailSender);
+    }
 
 
-        @Scheduled(fixedRate = 60000)
-        public void deleteLate() throws Exception {
+    @Scheduled(fixedRate = 60000)
+    public void deleteLate() throws Exception {
 
-            System.out.println(" Job was at :"+ new Date());
+        System.out.println(" Job was at :" + new Date());
 
-            JobParameters param = new JobParametersBuilder().addString("Job Id",
-                    String.valueOf(System.currentTimeMillis())).toJobParameters();
+        JobParameters param = new JobParametersBuilder().addString("Job Id",
+                String.valueOf(System.currentTimeMillis())).toJobParameters();
 
-            JobExecution execution = jobLauncher.run(job(), param);
+        JobExecution execution = jobLauncher.run(job(), param);
 
-            System.out.println("Job finished with status :" + execution.getStatus());
-        }
+        System.out.println("Job finished with status :" + execution.getStatus());
+    }
 
-        @Bean
-        protected Step processLines(ItemReader<Borrowing> reader,
-                                    ItemProcessor<Borrowing, SimpleMailMessage> processor, ItemWriter<SimpleMailMessage> writer) {
-            return steps.get("processLines").<Borrowing, SimpleMailMessage> chunk(2)
-                    .reader(reader)
-                    .processor(processor)
-                    .writer(writer)
-                    .build();
-        }
+    @Bean
+    protected Step processLines(ItemReader<Borrowing> reader,
+                                ItemProcessor<Borrowing, SimpleMailMessage> processor, ItemWriter<SimpleMailMessage> writer) {
+        return steps.get("processLines").<Borrowing, SimpleMailMessage>chunk(2)
+                .reader(reader)
+                .processor(processor)
+                .writer(writer)
+                .build();
+    }
 
-        @Bean
-        public Job job() {
-            return jobs
-                    .get("chunksJob")
-                    .start(processLines(itemReader(), itemProcessor(), itemWriter()))
-                    .build();
-        }
+    @Bean
+    public Job job() {
+        return jobs
+                .get("chunksJob")
+                .start(processLines(itemReader(), itemProcessor(), itemWriter()))
+                .build();
+    }
 
+    @Autowired
+    public void setJavaMailSender(JavaMailSender javaMailSender){
+        this.javaMailSender = javaMailSender;
     }
 
 }
+
+
 
 
 
