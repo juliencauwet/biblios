@@ -96,7 +96,7 @@ public class BorrowingEndPointTest {
     @Test
     public void getBorrowings() {
     }
-/*
+
     @Test
     public void returnBook_IfWaitingList() {
 
@@ -104,9 +104,9 @@ public class BorrowingEndPointTest {
         BorrowingReturnResponse borrowingReturnResponse = new BorrowingReturnResponse();
         borrowingReturnRequest.setId(1);
 
-        Borrowing borrowing1 = new Borrowing(new AppUser(), b3, new Date(), new Date(), new Date(), Status.WAITINGLIST);
-        Borrowing borrowing2 = new Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), Status.WAITINGLIST);
-        Borrowing borrowing3 = new Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), Status.WAITINGLIST);
+        Borrowing borrowing1 = new Borrowing(new AppUser(), b3, new Date(), new Date(), new Date(), com.openclassrooms.entities.Status.WAITINGLIST);
+        Borrowing borrowing2 = new Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), com.openclassrooms.entities.Status.WAITINGLIST);
+        Borrowing borrowing3 = new Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), com.openclassrooms.entities.Status.WAITINGLIST);
         borrowing1.setId(1);
         borrowing1.setWaitingListOrder(1);
         borrowing2.setWaitingListOrder(2);
@@ -114,7 +114,7 @@ public class BorrowingEndPointTest {
         List <Borrowing> borrowings = Arrays.asList(borrowing1, borrowing2, borrowing3);
 
         when(borrowingService.getById(1)).thenReturn(new Borrowing(b2));
-        when(borrowingService.getBorrowingsByBookAndStatus(b2, Status.WAITINGLIST)).thenReturn(borrowings);
+        when(borrowingService.getBorrowingsByBookAndStatus(b2, com.openclassrooms.entities.Status.WAITINGLIST )).thenReturn(borrowings);
 
         endPoint.returnBook(borrowingReturnRequest);
         //verify(bookService).updateBook(b2);
@@ -149,5 +149,5 @@ public class BorrowingEndPointTest {
         when(borrowingService.getBorrowingsByBook(b1)).thenReturn(borrowings);
         Assert.assertTrue(endPoint.waitingListPosition(borrowing) == 5);
     }
-      */
+
 }
