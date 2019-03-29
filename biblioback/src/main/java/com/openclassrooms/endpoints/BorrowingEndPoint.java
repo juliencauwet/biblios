@@ -368,7 +368,7 @@ public class BorrowingEndPoint {
 
 
 
-    protected int waitingListPosition(com.openclassrooms.entities.Borrowing borrowing){
+    public int waitingListPosition(com.openclassrooms.entities.Borrowing borrowing){
 
         logger.info("waitingListPositonMethod");
         List<com.openclassrooms.entities.Borrowing> borrowings = borrowingService.getBorrowingsByBook(borrowing.getBook());

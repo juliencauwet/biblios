@@ -1,10 +1,11 @@
-package com.openclassrooms.endpoints;
+package openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.test.*;
-import com.openclassrooms.biblioback.ws.test.Borrowing;
 import com.openclassrooms.conversions.BorrowingConversion;
-import com.openclassrooms.entities.*;
+import com.openclassrooms.endpoints.BorrowingEndPoint;
 import com.openclassrooms.entities.AppUser;
+import com.openclassrooms.entities.BookEntity;
+import com.openclassrooms.entities.BorrowingProperty;
 import com.openclassrooms.entities.Status;
 import com.openclassrooms.repositories.PropertiesRepository;
 import com.openclassrooms.services.AppUserService;
@@ -21,7 +22,9 @@ import org.mockito.junit.MockitoJUnitRunner;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Date;
+import java.util.List;
 
 import static org.mockito.Mockito.*;
 
@@ -40,7 +43,7 @@ public class BorrowingEndPointTest {
     private AppUser appUserTest;
     private BookEntity bookTest;
     private com.openclassrooms.entities.Borrowing borrowingTest;
-    private com.openclassrooms.biblioback.ws.test.Borrowing borrowingWSTest;
+    private Borrowing borrowingWSTest;
 
     @Mock
     BorrowingService borrowingService;
@@ -159,7 +162,7 @@ public class BorrowingEndPointTest {
     @Test
     public void getBorrowingById() {
         BorrowingGetRequest request = new BorrowingGetRequest();
-        com.openclassrooms.biblioback.ws.test.Borrowing b = new com.openclassrooms.biblioback.ws.test.Borrowing();
+        Borrowing b = new Borrowing();
         Borrowing borrowing = new Borrowing();
         request.setId(1);
         endPoint.getBorrowingById(request);
@@ -173,9 +176,8 @@ public class BorrowingEndPointTest {
     @Test
     public void getBorrowings() {
         BorrowingGetCurrentRequest request = new BorrowingGetCurrentRequest();
-        BorrowingGetCurrentResponse response = new BorrowingGetCurrentResponse();
         request.setUserId(7);
-        com.openclassrooms.biblioback.ws.test.Borrowing b = new com.openclassrooms.biblioback.ws.test.Borrowing();
+        Borrowing b = new Borrowing();
         when(borrowingService.getByAppUserId(7)).thenReturn(
                 Arrays.asList(
                         new com.openclassrooms.entities.Borrowing(),
@@ -206,7 +208,6 @@ public class BorrowingEndPointTest {
     public void returnBook_IfOnGoing() {
 
         BorrowingReturnRequest borrowingReturnRequest = new BorrowingReturnRequest();
-        BorrowingReturnResponse borrowingReturnResponse = new BorrowingReturnResponse();
         com.openclassrooms.entities.Borrowing borrowing = new com.openclassrooms.entities.Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), Status.ONGOING);
         borrowingReturnRequest.setId(1);
         when(borrowingService.getById(1)).thenReturn(borrowing);
@@ -220,10 +221,9 @@ public class BorrowingEndPointTest {
     public void returnBook_IfWaitingList() {
 
         BorrowingReturnRequest borrowingReturnRequest = new BorrowingReturnRequest();
-        BorrowingReturnResponse borrowingReturnResponse = new BorrowingReturnResponse();
         com.openclassrooms.entities.Borrowing borrowing = new com.openclassrooms.entities.Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), Status.ONGOING);
-        com.openclassrooms.entities.Borrowing borrowing1 = new com.openclassrooms.entities.Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), com.openclassrooms.entities.Status.WAITINGLIST);
-        com.openclassrooms.entities.Borrowing borrowing2 = new com.openclassrooms.entities.Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), com.openclassrooms.entities.Status.WAITINGLIST);
+        com.openclassrooms.entities.Borrowing borrowing1 = new com.openclassrooms.entities.Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), Status.WAITINGLIST);
+        com.openclassrooms.entities.Borrowing borrowing2 = new com.openclassrooms.entities.Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), Status.WAITINGLIST);
         List<com.openclassrooms.entities.Borrowing> borrowings = Arrays.asList(
                 borrowing1,
                 borrowing2
@@ -241,7 +241,7 @@ public class BorrowingEndPointTest {
      */
     @Test
     public void forwardWaitingListOrderIfGreaterThan2(){
-        com.openclassrooms.entities.Borrowing borrowing3 = new com.openclassrooms.entities.Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), com.openclassrooms.entities.Status.WAITINGLIST);
+        com.openclassrooms.entities.Borrowing borrowing3 = new com.openclassrooms.entities.Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), Status.WAITINGLIST);
         borrowing3.setWaitingListOrder(3);
         endPoint.forwardWaitingListOrder(borrowing3);
         Assert.assertEquals(2, borrowing3.getWaitingListOrder());
@@ -253,7 +253,7 @@ public class BorrowingEndPointTest {
      */
     @Test
     public void forwardWaitingListOrderIfEquals1(){
-        com.openclassrooms.entities.Borrowing borrowing = new com.openclassrooms.entities.Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), com.openclassrooms.entities.Status.WAITINGLIST);
+        com.openclassrooms.entities.Borrowing borrowing = new com.openclassrooms.entities.Borrowing(new AppUser(), b2, new Date(), new Date(), new Date(), Status.WAITINGLIST);
         borrowing.setWaitingListOrder(1);
         endPoint.forwardWaitingListOrder(borrowing);
         Assert.assertEquals(0, borrowing.getWaitingListOrder());

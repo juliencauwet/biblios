@@ -108,7 +108,7 @@ public class BookEndPoint {
 
 
 
-    List<Book> convertBooks(List<BookEntity> bookEntities){
+    public List<Book> convertBooks(List<BookEntity> bookEntities){
         List<Book> books = new ArrayList<>();
 
         for(int i = 0; i < bookEntities.size(); i++){
