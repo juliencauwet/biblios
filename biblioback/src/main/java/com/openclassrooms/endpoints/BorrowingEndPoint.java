@@ -147,17 +147,25 @@ public class BorrowingEndPoint {
         return response;
     }
 
+    /**
+     * returns the book in the stock and notify next borrower
+     * @param request
+     * @return
+     */
     @PayloadRoot(namespace = NAMESPACE_URI, localPart = "borrowingReturnRequest")
     @ResponsePayload
     public BorrowingReturnResponse returnBook(@RequestPayload BorrowingReturnRequest request) {
 
         BorrowingReturnResponse response = new BorrowingReturnResponse();
 
+        //fetch the matching borrowing
         com.openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
-
+        //fetch the book
         BookEntity bookEntity = borrowing.getBookEntity();
+        //fetch the list of borrowings of this book in waiting list
         List<com.openclassrooms.entities.Borrowing> borrowingsOnWaitingList = borrowingService.getBorrowingsByBookAndStatus(bookEntity, Status.WAITINGLIST);
 
+        //if the borrowing is not ongoing, not possible
         if (borrowing.getStatus() != Status.ONGOING) {
             response.setConfirmation(false);
             return response;
@@ -268,6 +276,7 @@ public class BorrowingEndPoint {
         response.setConfirmation(true);
         return response;
     }
+
 
     public void forwardWaitingListOrder(com.openclassrooms.entities.Borrowing b){
         b.setWaitingListOrder(b.getWaitingListOrder() - 1);
