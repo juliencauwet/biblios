@@ -1,9 +1,6 @@
 package com.openclassrooms.latepickupbatch.batchitems;
 
-import com.openclassrooms.biblioback.ws.test.Borrowing;
-import com.openclassrooms.biblioback.ws.test.BorrowingGetAllRequest;
-import com.openclassrooms.biblioback.ws.test.TestPort;
-import com.openclassrooms.biblioback.ws.test.TestPortService;
+import com.openclassrooms.biblioback.ws.test.*;
 import org.springframework.batch.core.ExitStatus;
 import org.springframework.batch.core.StepExecution;
 import org.springframework.batch.core.StepExecutionListener;
@@ -26,8 +23,7 @@ public class BorrowingsReader implements ItemReader<Borrowing> , StepExecutionLi
 
     @Override
     public void beforeStep(StepExecution stepExecution) {
-        //List<Borrowing> borrowings = testPort.borrowingsExpiringSoon(new BorrowingsExpiringSoonRequest()).getExpiringSoonBorrowings();
-        borrowings = testPort.borrowingGetAll(new BorrowingGetAllRequest()).getBorrowingGetAll();
+        borrowings = testPort.borrowingsExpiringSoon(new BorrowingsExpiringSoonRequest()).getExpiringSoonBorrowings();
         System.out.println("Borrowing Reader initialized.");
     }
 
@@ -40,16 +36,6 @@ public class BorrowingsReader implements ItemReader<Borrowing> , StepExecutionLi
 
             System.out.println("size after: " + borrowings.size());
             System.out.println("borroeing n° " + borrowing.getId());
-
-            //Borrowing borrowing = new Borrowing();
-            //System.out.println("In read");
-            ////List<Borrowing> borrowings =testPort.borrowingGetAll(new BorrowingGetAllRequest()).getBorrowingGetAll();
-            //for(Borrowing borrowing : borrowings) {
-            //    System.out.println("titre: " + borrowing.getBook().getTitle());
-            //    System.out.println("auteur: " + borrowing.getBook().getAuthorFirstName());
-            //}
-            //ListItemReader<Borrowing> reader = new ListItemReader<Borrowing>(borrowings);
-
 
             return borrowing;
         }

@@ -83,7 +83,9 @@ public class BorrowingService implements IBorrowingService {
 
     @Override
     public List<Borrowing> filterBorrowingByStatus(Status status) {
-        return borrowingRepository.findBorrowingsByStatus(status);
+        List<Borrowing> borrowings = new ArrayList<>();
+        borrowingRepository.findBorrowingsByStatus(status).forEach(borrowings::add);
+        return borrowings;
     }
 
     @Override

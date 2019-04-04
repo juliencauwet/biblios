@@ -31,7 +31,7 @@ public class AppUser {
     private Boolean isAdmin = false;
     private Boolean alert;
 
-    @OneToMany
+    @OneToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinColumn(name = "borrowing_id")
     private Set<Borrowing> borrowings = new HashSet<>();
 

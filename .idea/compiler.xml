@@ -9,21 +9,21 @@
         <module name="biblioback" />
         <module name="bibliobatch" />
         <module name="biblioweb" />
-        <module name="late-pickup-batch" />
+        <module name="expiring-soon-batch" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="biblioback" target="1.8" />
       <module name="bibliobatch" target="1.8" />
       <module name="biblioweb" target="1.7" />
-      <module name="late-pickup-batch" target="1.8" />
+      <module name="expiring-soon-batch" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="biblioback" options="-parameters" />
       <module name="bibliobatch" options="-parameters" />
-      <module name="late-pickup-batch" options="-parameters" />
+      <module name="expiring-soon-batch" options="-parameters" />
     </option>
   </component>
 </project>

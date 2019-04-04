@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
 import java.util.Date;
 import java.util.List;
 
-@Repository
+
 public interface BorrowingRepository extends CrudRepository<Borrowing,Integer>{
 
     Borrowing findById(int id);

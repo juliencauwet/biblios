@@ -23,21 +23,5 @@ services:
     networks:
       - back
 
-#  bibliobatch:
-#    image: bibliobatch
-#    container_name: bibliobatch
-#    ports:
-#      - 1113:8081
-#
-#  biblioweb:
-#    image: biblioweb
-#    container_name: biblioweb
-#    ports:
-#      - 1112:8080
-#    depends_on:
-#      - biblioback
-
-
 networks:
   back:
-  front:

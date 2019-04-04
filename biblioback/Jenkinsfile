@@ -30,8 +30,8 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh "docker stop LPDM-UserMS || true && docker rm LPDM-UserMS || true"
-                sh "docker pull vyjorg/lpdm-user:latest"
-                sh "docker run -d --name LPDM-UserMS -p 28082:28082 --restart always --memory-swappiness=0 vyjorg/lpdm-user:latest"
+                sh "docker pull jaycecordon/biblioback:latest"
+                sh "docker run -d --name biblioback -p 28082:28082 --restart always --memory-swappiness=0 jaycecordon/biblioback:latest"
             }
         }
     }

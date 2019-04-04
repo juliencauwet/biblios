@@ -1,4 +1,4 @@
-package openclassrooms.endpoints;
+package com.openclassrooms.endpoints;
 
 import com.openclassrooms.biblioback.ws.test.*;
 import com.openclassrooms.conversions.BorrowingConversion;

@@ -54,7 +54,7 @@ public class BatchScheduler {
     }
 
 
-    @Scheduled(fixedRate = 60000)
+    @Scheduled(fixedRate =24 * 60 * 60 * 1000)// runs every day
     public void deleteLate() throws Exception {
 
         System.out.println(" Job was at :" + new Date());

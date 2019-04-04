@@ -1,4 +1,4 @@
-package openclassrooms.beans;
+package com.openclassrooms.beans;
 
 import org.junit.Test;
 
