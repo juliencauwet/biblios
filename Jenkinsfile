@@ -29,7 +29,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh "docker stop LPDM-UserMS || true && docker rm LPDM-UserMS || true"
+                sh "docker stop biblioback || true && docker rm biblioback || true"
                 sh "docker pull jaycecordon/biblioback:latest"
                 sh "docker run -d --name biblioback -p 28082:28082 --restart always --memory-swappiness=0 jaycecordon/biblioback:latest"
             }
