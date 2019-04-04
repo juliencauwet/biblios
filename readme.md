@@ -6,4 +6,4 @@ lancer ensuite la commande java -jar biblioweb.jar depuis le dossier dézippé
 
 dézipper ensuite bibliobatch et lancer le batch à l'aide de la commande ./batch.sh
 
-test jenkins3
+test jenkins4
