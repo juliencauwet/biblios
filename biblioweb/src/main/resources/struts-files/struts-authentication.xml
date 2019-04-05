@@ -6,20 +6,20 @@
 <struts>
 
     <package name="authentication"  extends="struts-default">
-        <!-- Actions relatives à l'authentification -->
+
+        <!---------------------- AUTHENTICATION ---------------------->
 
         <action name="authentification" class="com.openclassrooms.actions.AuthentificationAction">
             <result>/WEB-INF/jsp/auth.jsp</result>
         </action>
 
+        <!---------------------- INSCRIPTION ---------------------->
+
         <action name="inscription" class="com.openclassrooms.actions.AuthentificationAction">
             <result>/WEB-INF/jsp/inscription.jsp</result>
-
         </action>
 
-        <action name="updateProfile" class="com.openclassrooms.actions.AuthentificationAction" method="updateProfile">
-            <result>/WEB-INF/jsp/account.jsp</result>
-        </action>
+        <!---------------------- LOG IN ---------------------->
 
         <action name="login" class="com.openclassrooms.actions.AuthentificationAction" method="checkUserValidity">
             <result>/WEB-INF/jsp/index.jsp</result>
@@ -27,11 +27,11 @@
             <result name="error">/WEB-INF/jsp/auth.jsp</result>
         </action>
 
+        <!---------------------- LOG OUT ---------------------->
+
         <action name="logout" class="com.openclassrooms.actions.AuthentificationAction"  method="logout">
             <result>/WEB-INF/jsp/index.jsp</result>
         </action>
-
-
 
     </package>
 </struts>

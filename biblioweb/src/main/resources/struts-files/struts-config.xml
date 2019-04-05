@@ -5,17 +5,19 @@
 
 <struts>
 
-    <package name="config"  extends="struts-default">
+    <package name="config" extends="struts-default">
 
+        <!---------------------- CONFIGURATION PAGE ---------------------->
 
-<!-- Actions relatives àla configuration -->
-<action name="configuration" class="com.openclassrooms.actions.ConfigurationAction">
-    <result>/WEB-INF/jsp/config.jsp</result>
-</action>
+        <action name="configuration" class="com.openclassrooms.actions.ConfigurationAction">
+            <result>/WEB-INF/jsp/config.jsp</result>
+        </action>
 
-<action name="changeConfig" class="com.openclassrooms.actions.ConfigurationAction" method="changeConfig">
-<result>/WEB-INF/jsp/config.jsp</result>
-</action>
+        <!---------------------- CHANGE CONFIGURATION ---------------------->
+
+        <action name="changeConfig" class="com.openclassrooms.actions.ConfigurationAction" method="changeConfig">
+            <result>/WEB-INF/jsp/config.jsp</result>
+        </action>
 
     </package>
 </struts>

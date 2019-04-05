@@ -7,7 +7,7 @@
 
     <package name="users"  extends="struts-default">
 
-        <!-- Actions relatives aux utilisateurs -->
+        <!---------------------- NEW APPUSER ---------------------->
 
         <action name="newAppUser" class="com.openclassrooms.actions.AuthentificationAction" method="newAppUser">
             <result>/WEB-INF/jsp/inscription.jsp</result>
@@ -15,19 +15,26 @@
             <result name="error">/WEB-INF/jsp/inscription.jsp</result>
         </action>
 
+        <!---------------------- USER PROFILE PAGE ---------------------->
+
         <action name="profile" class="com.openclassrooms.actions.AuthentificationAction" method="account">
             <result>/WEB-INF/jsp/account.jsp</result>
         </action>
 
-        <action name="getAllAppUsers" class="com.openclassrooms.actions.AppUserAction" method="getAllAppUsers">
-            <result>/WEB-INF/jsp/userlist.jsp</result>
+        <!---------------------- UPDATE PROFILE ---------------------->
+
+        <action name="updateProfile" class="com.openclassrooms.actions.AuthentificationAction" method="updateProfile">
+            <result>/WEB-INF/jsp/account.jsp</result>
         </action>
+
+        <!---------------------- GET ALL USERS ---------------------->
 
         <action name="getAllAppUsers" class="com.openclassrooms.actions.AppUserAction" method="getAllAppUsers">
             <result>/WEB-INF/jsp/userlist.jsp</result>
         </action>
 
-        <!-- Actions relatives aux administrateurs -->
+        <!---------------------- ADMIN PROFILE ---------------------->
+
         <action name="admin" class="com.openclassrooms.actions.AdminAction">
             <result>/WEB-INF/jsp/admin.jsp</result>
         </action>
