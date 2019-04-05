@@ -15,7 +15,7 @@
 <div data-layout-fragment="content" style="padding-top: 10px;">
     <div class="row">
 
-           <!-- <div class="panel panel-info">
+            <div class="panel panel-info">
                 <div class="panel-heading"><b>Mon compte</b></div>
                 <div class="panel-body shadow-box-8">
                     <table class="table table-hover">
@@ -30,7 +30,7 @@
                         </tbody>
                     </table>
                 </div>
-            </div> -->
+            </div>
     </div>
     <div class="row">
 

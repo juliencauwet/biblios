@@ -7,26 +7,26 @@
 
     <package name="books"  extends="struts-default">
 
-        <!---------------------- GET ALL BOOKS ---------------------->
+        <!--######################## GET ALL BOOKS ########################-->
 
         <action name="book" class="com.openclassrooms.actions.BookAction" method="getAllBooks">
             <result>/WEB-INF/jsp/booklist.jsp</result>
         </action>
 
-        <!---------------------- ADD BOOK ---------------------->
+        <!--######################## ADD BOOK ########################-->
 
         <action name="addBook" class="com.openclassrooms.actions.BookAction" method="addBook">
             <result>/WEB-INF/jsp/index.jsp</result>
             <result name="error">/WEB-INF/jsp/error.jsp</result>
         </action>
 
-        <!---------------------- GET BOOK BY ID ---------------------->
+        <!--######################## GET BOOK BY ID ########################-->
 
         <action name="getBookById" class="com.openclassrooms.actions.BookAction" method="getBookById">
             <result>/WEB-INF/jsp/bookdetail.jsp</result>
         </action>
 
-        <!---------------------- FIND BOOK BY TITLE ---------------------->
+        <!--######################## FIND BOOK BY TITLE ########################-->
 
         <action name="findBookByTitle" class="com.openclassrooms.actions.BookAction" method="getBookByTitle">
             <result>/WEB-INF/jsp/booklist.jsp</result>

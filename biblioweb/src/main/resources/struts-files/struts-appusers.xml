@@ -7,7 +7,7 @@
 
     <package name="users"  extends="struts-default">
 
-        <!---------------------- NEW APPUSER ---------------------->
+        <!--######################## NEW APPUSER ########################-->
 
         <action name="newAppUser" class="com.openclassrooms.actions.AuthentificationAction" method="newAppUser">
             <result>/WEB-INF/jsp/inscription.jsp</result>
@@ -15,25 +15,25 @@
             <result name="error">/WEB-INF/jsp/inscription.jsp</result>
         </action>
 
-        <!---------------------- USER PROFILE PAGE ---------------------->
+        <!--######################## USER PROFILE PAGE ########################-->
 
         <action name="profile" class="com.openclassrooms.actions.AuthentificationAction" method="account">
             <result>/WEB-INF/jsp/account.jsp</result>
         </action>
 
-        <!---------------------- UPDATE PROFILE ---------------------->
+        <!--######################## UPDATE PROFILE ########################-->
 
         <action name="updateProfile" class="com.openclassrooms.actions.AuthentificationAction" method="updateProfile">
             <result>/WEB-INF/jsp/account.jsp</result>
         </action>
 
-        <!---------------------- GET ALL USERS ---------------------->
+        <!--######################## GET ALL USERS ########################-->
 
         <action name="getAllAppUsers" class="com.openclassrooms.actions.AppUserAction" method="getAllAppUsers">
             <result>/WEB-INF/jsp/userlist.jsp</result>
         </action>
 
-        <!---------------------- ADMIN PROFILE ---------------------->
+        <!--######################## ADMIN PROFILE ########################-->
 
         <action name="admin" class="com.openclassrooms.actions.AdminAction">
             <result>/WEB-INF/jsp/admin.jsp</result>

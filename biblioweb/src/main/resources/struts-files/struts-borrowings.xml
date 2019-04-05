@@ -7,52 +7,52 @@
 
     <package name="borrowings"  extends="struts-default">
 
-        <!---------------------- BORROW THIS BOOK ---------------------->
+        <!--######################## BORROW THIS BOOK ########################-->
 
         <action name="borrowThisBook" class="com.openclassrooms.actions.BorrowingAction" method="borrowThisBook">
             <result>/WEB-INF/jsp/bookdetail.jsp</result>
             <result name="login">/WEB-INF/jsp/auth.jsp</result>
         </action>
 
-        <!---------------------- GET CURRENT BORROWINGS ---------------------->
+        <!--######################## GET CURRENT BORROWINGS ########################-->
 
         <action name="currentBorrowings" class="com.openclassrooms.actions.BorrowingAction" method="getCurrentBorrowings">
             <result>/WEB-INF/jsp/borrowinglist.jsp</result>
             <result name="login">/WEB-INF/jsp/auth.jsp</result>
         </action>
 
-        <!---------------------- GET ALL BORROWINGS ---------------------->
+        <!--######################## GET ALL BORROWINGS ########################-->
 
         <action name="allBorrowings" class="com.openclassrooms.actions.BorrowingAction" method="getAllBorrowings">
             <result>/WEB-INF/jsp/borrowinglist.jsp</result>
             <result name="login">/WEB-INF/jsp/auth.jsp</result>
         </action>
 
-        <!---------------------- DELETE ---------------------->
+        <!--######################## DELETE ########################-->
 
         <action name="deleteBorrowing" class="com.openclassrooms.actions.BorrowingAction" method="delete">
             <result>/WEB-INF/jsp/borrowinglist.jsp</result>
         </action>
 
-        <!---------------------- EXTEND BORROWING ---------------------->
+        <!--######################## EXTEND BORROWING ########################-->
 
         <action name="extendThisBorrowing" class="com.openclassrooms.actions.BorrowingAction" method="extend">
             <result>/WEB-INF/jsp/bookdetail.jsp</result>
         </action>
 
-        <!---------------------- BORROWING DETAILS ---------------------->
+        <!--######################## BORROWING DETAILS ########################-->
 
         <action name="borrowingDetail" class="com.openclassrooms.actions.BorrowingAction"  method="getBorrowingById">
             <result>/WEB-INF/jsp/borrowingdetail.jsp</result>
         </action>
 
-        <!---------------------- RETURN BORROWING ---------------------->
+        <!--######################## RETURN BORROWING ########################-->
 
         <action name="returnBorrowing" class="com.openclassrooms.actions.BorrowingAction" method="returnThisBook">
             <result>/WEB-INF/jsp/borrowingdetail.jsp</result>
         </action>
 
-        <!---------------------- PICK UP BORROWING ---------------------->
+        <!--######################## PICK UP BORROWING ########################-->
 
         <action name="pickup" class="com.openclassrooms.actions.BorrowingAction" method="pickup">
             <result>/WEB-INF/jsp/borrowingdetail.jsp</result>
