@@ -1,0 +1,16 @@
+version: '2'
+services:
+  biblioweb:
+    container_name: biblioweb
+    image: jaycecordon/biblioweb:1.0-SNAPSHOT
+    ports:
+      - "1112:8080"
+
+#  bibliobatch:
+#    image: bibliobatch
+#    container_name: bibliobatch
+#    ports:
+#      - "1112:8081"
+#
+#  expiring-soon-batch:
+#    image: expiring-soon-batch

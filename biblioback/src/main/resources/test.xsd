@@ -77,6 +77,8 @@
                 <xs:element name="firstName" type="xs:string"/>
                 <xs:element name="name" type="xs:string"/>
                 <xs:element name="isAdmin" type="xs:boolean"/>
+                <xs:element name="isEmployee" type="xs:boolean"/>
+                <xs:element name="alert" type="xs:boolean" />
             </xs:sequence>
         </xs:complexType>
     </xs:element>

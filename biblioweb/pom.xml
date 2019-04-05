@@ -109,14 +109,11 @@
 
         <finalName>biblioweb</finalName>
 
-
-
         <resources>
             <resource>
                 <directory>src/main/resources</directory>
                 <filtering>true</filtering>
             </resource>
-
         </resources>
 
         <plugins>
@@ -168,8 +165,8 @@
                         <configuration>
                             <bindingDirectory>/src/main/java</bindingDirectory>
                             <wsdlUrls>
-                                <wsdlUrl>http://192.168.1.132:1111/ws/test.wsdl</wsdlUrl>
-                                <!-- <wsdlUrl>http://biblioback:21310/ws/test.wsdl</wsdlUrl> -->
+                                <!-- <wsdlUrl>http://192.168.1.132:1111/ws/test.wsdl</wsdlUrl> -->
+                                <wsdlUrl>http://biblioback:21310/ws/test.wsdl</wsdlUrl>
                             </wsdlUrls>
                         </configuration>
                     </execution>

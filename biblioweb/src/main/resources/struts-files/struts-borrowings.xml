@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+    <package name="borrowings"  extends="struts-default">
+
+        <!-- Actions relatives aux emprunts -->
+
+        <action name="borrowThisBook" class="com.openclassrooms.actions.BorrowingAction" method="borrowThisBook">
+            <result>/WEB-INF/jsp/bookdetail.jsp</result>
+            <result name="login">/WEB-INF/jsp/auth.jsp</result>
+        </action>
+
+        <action name="currentBorrowings" class="com.openclassrooms.actions.BorrowingAction" method="getCurrentBorrowings">
+            <result>/WEB-INF/jsp/borrowinglist.jsp</result>
+            <result name="login">/WEB-INF/jsp/auth.jsp</result>
+        </action>
+
+        <action name="allBorrowings" class="com.openclassrooms.actions.BorrowingAction" method="getAllBorrowings">
+            <result>/WEB-INF/jsp/borrowinglist.jsp</result>
+            <result name="login">/WEB-INF/jsp/auth.jsp</result>
+        </action>
+
+        <action name="deleteBorrowing" class="com.openclassrooms.actions.BorrowingAction" method="delete">
+            <result>/WEB-INF/jsp/borrowinglist.jsp</result>
+        </action>
+
+
+        <action name="extendThisBorrowing" class="com.openclassrooms.actions.BorrowingAction" method="extend">
+            <result>/WEB-INF/jsp/bookdetail.jsp</result>
+        </action>
+
+        <action name="borrowingDetail" class="com.openclassrooms.actions.BorrowingAction"  method="getBorrowingById">
+            <result>/WEB-INF/jsp/borrowingdetail.jsp</result>
+        </action>
+
+        <action name="returnBorrowing" class="com.openclassrooms.actions.BorrowingAction" method="returnThisBook">
+            <result>/WEB-INF/jsp/borrowingdetail.jsp</result>
+        </action>
+
+        <action name="pickup" class="com.openclassrooms.actions.BorrowingAction" method="pickup">
+            <result>/WEB-INF/jsp/borrowingdetail.jsp</result>
+        </action>
+
+
+    </package>
+
+</struts>

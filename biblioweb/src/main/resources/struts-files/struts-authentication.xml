@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+        "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN"
+        "http://struts.apache.org/dtds/struts-2.5.dtd">
+
+<struts>
+
+    <package name="authentication"  extends="struts-default">
+        <!-- Actions relatives à l'authentification -->
+
+        <action name="authentification" class="com.openclassrooms.actions.AuthentificationAction">
+            <result>/WEB-INF/jsp/auth.jsp</result>
+        </action>
+
+        <action name="inscription" class="com.openclassrooms.actions.AuthentificationAction">
+            <result>/WEB-INF/jsp/inscription.jsp</result>
+
+        </action>
+
+        <action name="updateProfile" class="com.openclassrooms.actions.AuthentificationAction" method="updateProfile">
+            <result>/WEB-INF/jsp/account.jsp</result>
+        </action>
+
+        <action name="login" class="com.openclassrooms.actions.AuthentificationAction" method="checkUserValidity">
+            <result>/WEB-INF/jsp/index.jsp</result>
+            <result name="input">/WEB-INF/jsp/auth.jsp</result>
+            <result name="error">/WEB-INF/jsp/auth.jsp</result>
+        </action>
+
+        <action name="logout" class="com.openclassrooms.actions.AuthentificationAction"  method="logout">
+            <result>/WEB-INF/jsp/index.jsp</result>
+        </action>
+
+
+
+    </package>
+</struts>

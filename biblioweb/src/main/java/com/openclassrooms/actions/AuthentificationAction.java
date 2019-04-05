@@ -57,16 +57,16 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
         request.setPassword(password);
 
         if(testPort.appUserAdd(request).isConfirmation()) {
-            AppUserValidityCheckRequest validityCheckRequest= new AppUserValidityCheckRequest();
-            validityCheckRequest.setEmail(email);
-            validityCheckRequest.setPassword(password);
-            setAppUser(testPort.appUserValidityCheck(validityCheckRequest).getUser());
+            AppUser user = new AppUser();
+            user.setFirstName(firstName);
+            user.setName(name);
+            user.setEmail(email);
+            setAppUser(user);
 
             sessionMap.put("appUser", appUser);
-            sessionMap.put("email", appUser.getEmail());
+            sessionMap.put("email", email);
             sessionMap.put("firstName",firstName);
             sessionMap.put("isAdmin", isAdmin);
-            sessionMap.put("isEmployee", appUser.isIsEmployee());
 
             addActionMessage("Utilisateur enregistré avec succès");
 
