@@ -1,12 +1,27 @@
 package com.openclassrooms.beans;
 
+import org.junit.Before;
 import org.junit.Test;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import org.mockito.junit.MockitoJUnitRunner;
+import org.springframework.mail.javamail.JavaMailSender;
 
+@RunWith(MockitoJUnitRunner.class)
 public class MailSenderTest {
 
-    @Autowired
-    MailSender sender;
+    @Mock
+    JavaMailSender javaMailSender;
+
+    @InjectMocks
+    MailSender mailSender;
+
+    @Before
+    public void setUp(){
+        MockitoAnnotations.initMocks(this);
+    }
 
     @Test
     public void sendEmail() {
@@ -15,6 +30,8 @@ public class MailSenderTest {
         String subject = "test";
         String body = "test";
 
-        sender.sendMail(from, to, subject, body);
+        mailSender.sendMail(from, to, subject, body);
+
+
     }
 }
