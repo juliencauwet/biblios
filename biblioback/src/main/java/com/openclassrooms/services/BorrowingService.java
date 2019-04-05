@@ -28,7 +28,7 @@ public class BorrowingService implements IBorrowingService {
 
     @Autowired
     @Qualifier("MailSender")
-    private static MailSender sender;
+    private MailSender sender;
 
     Logger logger = LoggerFactory.getLogger(this.getClass());
 
