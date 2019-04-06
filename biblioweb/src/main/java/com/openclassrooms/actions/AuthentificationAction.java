@@ -55,6 +55,9 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
         request.setName(name);
         request.setEmail(email);
         request.setPassword(password);
+        request.setIsAdmin(false);
+        request.setAlert(true);
+
 
         if(testPort.appUserAdd(request).isConfirmation()) {
             AppUser user = new AppUser();
@@ -208,7 +211,6 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
     @Override
     public void setSession(Map<String, Object> map) {
         sessionMap=(SessionMap)map;
-
     }
 
     private String toHashPassword(String password) {

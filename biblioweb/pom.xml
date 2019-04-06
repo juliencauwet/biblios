@@ -13,7 +13,7 @@
     <properties>
         <struts2.version>2.5.16</struts2.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <cxf.version>3.2.5  </cxf.version>
+        <cxf.version>3.2.5</cxf.version>
         <docker.imageName>biblioweb</docker.imageName>
         <dockerfile-maven-version>1.3.6</dockerfile-maven-version>
     </properties>
@@ -75,7 +75,6 @@
         </dependency>
 
 
-
         <!-- Jakarta Commons -->
         <dependency>
             <groupId>commons-fileupload</groupId>
@@ -118,26 +117,27 @@
 
         <plugins>
             <plugin>
-            <groupId>com.spotify</groupId>
-            <artifactId>dockerfile-maven-plugin</artifactId>
-            <version>${dockerfile-maven-version}</version>
-            <executions>
-                <execution>
-                    <id>biblioweb</id>
-                    <goals>
-                        <goal>build</goal>
-                        <goal>push</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <configuration>
-                <repository>jaycecordon/biblioweb</repository>
-                <tag>${project.version}</tag>
-                <buildArgs>
-                    <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
-                </buildArgs>
-            </configuration>
-        </plugin>
+                <groupId>com.spotify</groupId>
+                <artifactId>dockerfile-maven-plugin</artifactId>
+                <version>${dockerfile-maven-version}</version>
+                <executions>
+                    <execution>
+                        <id>biblioweb</id>
+                        <goals>
+                            <goal>build</goal>
+                            <goal>push</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <repository>jaycecordon/biblioweb</repository>
+                    <tag>${project.version}</tag>
+                    <buildArgs>
+                        <JAR_FILE>${project.build.finalName}.jar</JAR_FILE>
+                    </buildArgs>
+                </configuration>
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-war-plugin</artifactId>
@@ -165,8 +165,8 @@
                         <configuration>
                             <bindingDirectory>/src/main/java</bindingDirectory>
                             <wsdlUrls>
-                                <!-- <wsdlUrl>http://192.168.1.132:1111/ws/test.wsdl</wsdlUrl> -->
-                                <wsdlUrl>http://biblioback:21310/ws/test.wsdl</wsdlUrl>
+                                <wsdlUrl>http://192.168.1.132:1111/ws/test.wsdl</wsdlUrl>
+                                <!--<wsdlUrl>http://localhost:21310/ws/test.wsdl</wsdlUrl>-->
                             </wsdlUrls>
                         </configuration>
                     </execution>

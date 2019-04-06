@@ -48,6 +48,8 @@ public class AppUserEndPoint {
             appUser.setName(request.getName());
             appUser.setPassword(request.getPassword());
             appUser.setEmail(request.getEmail());
+            appUser.setAlert(request.isAlert());
+            appUser.setIsAdmin(request.isIsAdmin());
             appUserService.addUser(appUser);
             response.setConfirmation(true);
         }catch (Exception e ){
@@ -91,8 +93,7 @@ public class AppUserEndPoint {
 
         for (int i = 0; i < appUsers.size(); i++){
             com.openclassrooms.biblioback.ws.test.AppUser appUser = new com.openclassrooms.biblioback.ws.test.AppUser();
-            BeanUtils.copyProperties(appUsers.get(i),appUser);
-            WSAppUsers.add(appUser);
+            WSAppUsers.add(conversion.appUserEntityToAppUser(appUsers.get(i)));
         }
 
         response.getGetAllAppUsers().addAll(WSAppUsers);

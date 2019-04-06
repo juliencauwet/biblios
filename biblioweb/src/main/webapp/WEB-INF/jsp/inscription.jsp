@@ -50,10 +50,6 @@
                         <td><s:password class="form-control" key="password2" label="Confirmation" required="true"/></td>
                     </tr>
 
-                    <tr align="center">
-                        <td><s:checkbox class="form-control" /></td>
-                    </tr>
-
                     <tr>
                         <td colspan="2"><p>&nbsp;</p></td>
                     </tr>
