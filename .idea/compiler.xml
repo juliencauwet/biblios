@@ -9,6 +9,11 @@
         <module name="biblioback" />
         <module name="bibliobatch" />
         <module name="biblioweb" />
+      </profile>
+      <profile name="Annotation profile for borrowings-expiring-soon" enabled="true">
+        <sourceOutputDir name="../late-pickup-batch/target/generated-sources/annotations" />
+        <sourceTestOutputDir name="../late-pickup-batch/target/generated-test-sources/test-annotations" />
+        <outputRelativeToContentRoot value="true" />
         <module name="expiring-soon-batch" />
       </profile>
     </annotationProcessing>

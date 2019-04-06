@@ -14,7 +14,7 @@ services:
     networks:
       - back
   biblioback:
-    image: biblioback
+    image: jaycecordon/biblioback:0.0.1-SNAPSHOT
     container_name: biblioback
     ports:
       - 1111:21310
