@@ -1,0 +1,7 @@
+version: '2'
+services:
+  expiring-soon-batch:
+    container_name: expiring-soon-batch
+    image: jaycecordon/expiring-soon-batch:0.0.1-SNAPSHOT
+    ports:
+      - "1114:8080"

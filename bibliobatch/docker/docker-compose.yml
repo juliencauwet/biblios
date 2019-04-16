@@ -1,0 +1,7 @@
+version: '2'
+services:
+  bibliobatch:
+    container_name: bibliobatch
+    image: jaycecordon/bibliobatch:0.0.1-SNAPSHOT
+    ports:
+      - "1113:8080"
