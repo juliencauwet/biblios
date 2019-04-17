@@ -96,7 +96,7 @@ public class BorrowingServiceTest {
 
     @Test
     public void getAllBorrowings() {
-        Assert.assertEquals(5, service.getAllBorrowings().size());
+        Assert.assertEquals(11, service.getAllBorrowings().size());
     }
 
     @Test
