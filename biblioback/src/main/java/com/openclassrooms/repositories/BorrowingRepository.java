@@ -20,6 +20,6 @@ public interface BorrowingRepository extends CrudRepository<Borrowing,Integer>{
     void deleteBorrowingById(int id);
     List<Borrowing> findBorrowingsByBook(BookEntity book);
     List<Borrowing> findBorrowingsByBookAndStatus(BookEntity book, Status status);
-    List<Borrowing> findBorrowingsByBookAndAppUserAndReturnDateIsNull(BookEntity book, AppUser user);
+    List<Borrowing> findBorrowingsByBookAndAppUserAndStatusAndReturnDateIsNull(BookEntity book, AppUser user, Status status);
     List<Borrowing> findBorrowingsByDueReturnDateAndStatus(Date dueReturnDate, Status status);
 }

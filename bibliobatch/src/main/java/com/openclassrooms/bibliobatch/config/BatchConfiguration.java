@@ -81,8 +81,7 @@ public class BatchConfiguration {
 
     @Bean
     public ListItemReader<Borrowing> itemReader() {
-        //List<Borrowing> borrowings = testPort.borrowingGetExpired(new BorrowingGetExpiredRequest()).getBorrowingGetExpired();
-        List<Borrowing> borrowings = testPort.borrowingGetAll(new BorrowingGetAllRequest()).getBorrowingGetAll();
+        List<Borrowing> borrowings = testPort.borrowingGetExpired(new BorrowingGetExpiredRequest()).getBorrowingGetExpired();
         System.out.println("dans item reader");
 
         for(Borrowing borrowing : borrowings) {

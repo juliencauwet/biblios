@@ -83,8 +83,8 @@ public class BorrowingEndPoint {
         BookEntity book = bookService.getBookById(request.getBookId());
         com.openclassrooms.entities.Borrowing borrowing = new com.openclassrooms.entities.Borrowing(book, appUser);
 
-        logger.info("already borrowed ? " + borrowingService.alreadyBorrowed(appUser, book));
-        if(borrowingService.alreadyBorrowed(appUser, book)) {
+        logger.info("already borrowed ? " + borrowingService.alreadyBorrowed(appUser, book, Status.ONGOING));
+        if(borrowingService.alreadyBorrowed(appUser, book, Status.ONGOING)) {
             borrowing.setStatus(Status.DENIED);
             response.setBorrowing(borrowingConversion.toWS(borrowing));
             return response;

@@ -110,9 +110,9 @@ public class BorrowingService implements IBorrowingService {
     }
 
     @Override
-    public Boolean alreadyBorrowed(AppUser user, BookEntity book) {
-        logger.info("alreadyBorrowed Method:" + (borrowingRepository.findBorrowingsByBookAndAppUserAndReturnDateIsNull(book,user)).size());
-        return borrowingRepository.findBorrowingsByBookAndAppUserAndReturnDateIsNull(book,user).size() > 0;
+    public Boolean alreadyBorrowed(AppUser user, BookEntity book, Status status) {
+        logger.info("alreadyBorrowed Method:" + (borrowingRepository.findBorrowingsByBookAndAppUserAndStatusAndReturnDateIsNull(book,user, status)).size());
+        return borrowingRepository.findBorrowingsByBookAndAppUserAndStatusAndReturnDateIsNull(book,user, status).size() > 0;
     }
 
     @Override

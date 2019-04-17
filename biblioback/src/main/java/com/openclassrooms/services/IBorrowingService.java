@@ -23,7 +23,7 @@ public interface IBorrowingService {
     void deleteBorrowingListById(List<Integer> borrowingIds);
     List<Borrowing> getBorrowingsByBook(BookEntity book);
     List<Borrowing> getBorrowingsByBookAndStatus(BookEntity book, Status status);
-    Boolean alreadyBorrowed(AppUser user, BookEntity book);
+    Boolean alreadyBorrowed(AppUser user, BookEntity book, Status status);
     Date nextReturnDate(BookEntity bookEntity);
     void sendEmailToNextBorrower(Borrowing borrowing);
     void sendEmail(String text);

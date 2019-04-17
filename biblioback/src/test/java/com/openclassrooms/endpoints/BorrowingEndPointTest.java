@@ -107,7 +107,7 @@ public class BorrowingEndPointTest {
 
         when(appUserService.getAppUserById(7)).thenReturn(appUserTest);
         when(bookService.getBookById(2)).thenReturn(book);
-        when(borrowingService.alreadyBorrowed(appUserTest, book)).thenReturn(true);
+        when(borrowingService.alreadyBorrowed(appUserTest, book, Status.ONGOING)).thenReturn(true);
         when(borrowingConversion.toWS(any())).thenReturn(borrowingWSTest);
         endPoint.addBorrowing(request);
         verify(borrowingConversion).toWS(any());
@@ -127,7 +127,7 @@ public class BorrowingEndPointTest {
 
         when(appUserService.getAppUserById(7)).thenReturn(appUserTest);
         when(bookService.getBookById(2)).thenReturn(book);
-        when(borrowingService.alreadyBorrowed(appUserTest, book)).thenReturn(false);
+        when(borrowingService.alreadyBorrowed(appUserTest, book, Status.ONGOING)).thenReturn(false);
         when(borrowingConversion.toWS(any())).thenReturn(borrowingWSTest);
         when(borrowingService.getBorrowingsByBookAndStatus(book, Status.WAITINGLIST)).thenReturn(borrowingsOnWaitingList);
         when(borrowingService.getBorrowingsByBookAndStatus(book, Status.ONGOING)).thenReturn(borrowingsOngoing);
@@ -150,7 +150,7 @@ public class BorrowingEndPointTest {
 
         when(appUserService.getAppUserById(7)).thenReturn(appUserTest);
         when(bookService.getBookById(2)).thenReturn(book);
-        when(borrowingService.alreadyBorrowed(appUserTest, book)).thenReturn(false);
+        when(borrowingService.alreadyBorrowed(appUserTest, book, Status.ONGOING)).thenReturn(false);
         when(borrowingConversion.toWS(any())).thenReturn(borrowingWSTest);
         when(propertiesRepository.getByLibraryId(1)).thenReturn(property);
         endPoint.addBorrowing(request);

@@ -22,9 +22,9 @@
                         <thead>Mes informations</thead>
                         <tbody>
                         <ul>
-                            <li>  Prénom : <s:property value="#session.appUser.firstName" /> </li>
-                            <li>  Nom : <s:property value="#session.appUser.name" /> </li>
-                            <li>  @ : <s:property value="#session.appUser.email" />   </li>
+                            <li style="color: black">  Prénom : <s:property value="#session.appUser.firstName" /> </li>
+                            <li style="color: black">  Nom : <s:property value="#session.appUser.name" /> </li>
+                            <li style="color: black">  @ : <s:property value="#session.appUser.email" />   </li>
                         </ul>
 
                         </tbody>
@@ -38,7 +38,7 @@
 
                 <s:checkbox name="alert" fieldValue="true" value="true" label="Merci de m'alerter quand mon emprunt se rapproche de la date limite" />
 
-                <button class="btn btn-primary"> <s:submit class="form-control btn btn-primary" value="Valider" /> </button
+                <button class="btn btn-primary"> <s:submit class="form-control btn btn-primary" value="Valider" /> </button>
 
             </s:form>
 
