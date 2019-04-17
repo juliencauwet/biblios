@@ -34,9 +34,6 @@ public class BorrowingsReader implements ItemReader<Borrowing> , StepExecutionLi
         while (borrowings.size() > 0) {
             borrowing = borrowings.remove(0);
 
-            System.out.println("size after: " + borrowings.size());
-            System.out.println("borroeing n° " + borrowing.getId());
-
             return borrowing;
         }
         return null;
@@ -44,7 +41,6 @@ public class BorrowingsReader implements ItemReader<Borrowing> , StepExecutionLi
 
     @Override
     public ExitStatus afterStep(StepExecution stepExecution) {
-        System.out.println("afterStep: " + borrowing);
         return null;
     }
 }

@@ -12,7 +12,7 @@ public class BorrowingsProcessor implements ItemProcessor<Borrowing, SimpleMailM
         String content = "Bonjour M./ Mme " + borrowing.getAppUser().getName() + ".\n" +
                 "Vous avez emprunté le livre de " + borrowing.getBook().getAuthorFirstName() + " " + borrowing.getBook().getAuthorName() +
                 ", qui s'intitule " + borrowing.getBook().getTitle() + ".\n" +
-                "La date de retour limite de ce livre est le " + borrowing.getDueReturnDate() +
+                "La date de retour limite de ce livre est le " + borrowing.getDueReturnDate() + ".\n" +
                 "Ceci est juste un rappel afin que vous puissiez nous retourner le livre dans les délais.\nCordialement, \n" +
                 "L'équipe de Biblioweb.";
 

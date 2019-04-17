@@ -12,6 +12,7 @@ import javax.xml.datatype.DatatypeFactory;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class BorrowingAction extends ActionSupport {
 
@@ -46,7 +47,14 @@ public class BorrowingAction extends ActionSupport {
     }
 
     public String getAllBorrowings(){
-        setBorrowings(testPort.borrowingGetAll(new BorrowingGetAllRequest()).getBorrowingGetAll());
+        List<Borrowing> allBorrowings = testPort.borrowingGetAll(new BorrowingGetAllRequest()).getBorrowingGetAll();
+        List<Borrowing> borrowings = new ArrayList<>();
+        for (Borrowing b: allBorrowings
+             ) {
+           if(b.getStatus() == Status.WAITINGLIST || b.getStatus() == Status.AVAILABLE || b.getStatus().equals(Status.ONGOING))
+                borrowings.add(b);
+        }
+        setBorrowings(borrowings);
         return SUCCESS;
     }
 
