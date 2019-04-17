@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class BorrowingService implements IBorrowingService {
@@ -179,12 +180,9 @@ public class BorrowingService implements IBorrowingService {
         calendar.set(Calendar.MILLISECOND, 0);
         Date finalDay = calendar.getTime();
         logger.info("processing expiringSoonBorrowings");
+        //List<Article> filteredArticleList= articleList.stream().filter(article -> article.getDesArt().contains("test")).collect(Collectors.toList());
         List<Borrowing> borrowings = borrowingRepository.findBorrowingsByDueReturnDateAndStatus(finalDay, Status.ONGOING);
-        for (Borrowing b :
-                borrowings) {
-            if (!b.getAppUser().getAlert())
-                borrowings.remove(b);
-        }
+        borrowings = borrowings.stream().filter(borrowing -> borrowing.getAppUser().getAlert()).collect(Collectors.toList());
         return borrowings;
     }
 

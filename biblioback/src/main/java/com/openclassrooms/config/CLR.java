@@ -64,11 +64,12 @@ public class CLR implements CommandLineRunner{
         appRoleRepository.save(utillisateur);
 
 
-        AppUser u1 = new AppUser("Julien", "Cauwet", "juliencauwet@yahoo.fr", "12345", true, userAdmin, true);
+        AppUser u1 = new AppUser("Julien", "Cauwet", "juliencauwet@yahoo.fr", "12345", true, userAdmin, false);
         AppUser u2 = new AppUser("Martine", "Gerussi", "gerussi.martine@orange.fr", "abcde", false, userOnly, true);
         AppUser u3 = new AppUser("Manu", "Favre", "emfavvic@gmail.com", "vwxyz",false, userOnly, true);
         AppUser u4 = new AppUser("Laëtitia", "Cauwet", "laetis0609@yahoo.fr", "98765",false, userOnly, false);
         AppUser u5 = new AppUser("Cesare", "De Padua", "cesaredepadua@gmail.com", "23456", false, userOnly, false);
+
 
         appUserService.addUser(u1);
         appUserService.addUser(u2);
@@ -105,6 +106,7 @@ public class CLR implements CommandLineRunner{
         Borrowing bor8 = new Borrowing(u1, b4, date1, date5, null, Status.ONGOING);
         Borrowing bor9 = new Borrowing(u1, b5, date1, date5, null, Status.ONGOING);
         Borrowing bor10 = new Borrowing(u1, b6, date1, date5, null, Status.ONGOING);
+        Borrowing bor11 = new Borrowing(u3, b2, date1, date5, null, Status.ONGOING);
 
 
         borrowingService.newBorrowing(bor1);
@@ -117,6 +119,7 @@ public class CLR implements CommandLineRunner{
         borrowingService.newBorrowing(bor8);
         borrowingService.newBorrowing(bor10);
         borrowingService.newBorrowing(bor9);
+        borrowingService.newBorrowing(bor11);
 
         List<Borrowing> borrowings = borrowingService.getExpiredBorrowing();
 
