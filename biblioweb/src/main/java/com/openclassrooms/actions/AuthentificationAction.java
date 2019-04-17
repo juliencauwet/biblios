@@ -58,12 +58,10 @@ public class AuthentificationAction extends ActionSupport implements SessionAwar
         request.setIsAdmin(false);
         request.setAlert(true);
 
+        AppUser user = testPort.appUserAdd(request).getAppUser();
 
-        if(testPort.appUserAdd(request).isConfirmation()) {
-            AppUser user = new AppUser();
-            user.setFirstName(firstName);
-            user.setName(name);
-            user.setEmail(email);
+        if(user != null) {
+
             setAppUser(user);
 
             sessionMap.put("appUser", appUser);

@@ -15,8 +15,8 @@ public class AppUserService implements IAppUserService {
     private AppUserRepository appUserRepository;
 
     @Override
-    public void addUser(AppUser user) {
-        appUserRepository.save(user);
+    public AppUser addUser(AppUser user) {
+        return appUserRepository.save(user);
     }
 
 

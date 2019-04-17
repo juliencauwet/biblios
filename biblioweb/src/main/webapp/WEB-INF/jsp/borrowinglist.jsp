@@ -83,6 +83,7 @@
                                 <td><s:property value="#bookingsKey.book.title"/></td>
                                 <td><s:property value="#bookingsValue.waitingListOrder"/></td>
                                 <td><s:property value="#bookingsKey.nextReturn"/></td>
+                                <td><s:a action="deleteBorrowing"><s:param name="bookId" value="#bookingsKey.book.id"/> Annuler </s:a> </td>
                             </tr>
 
                     </s:iterator>

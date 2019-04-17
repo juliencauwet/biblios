@@ -31,7 +31,6 @@ public class BorrowingAction extends ActionSupport {
     private Borrowing borrowing;
 
     private Map<StateOfBorrowing, Borrowing> bookings = null;
-    private StateOfBorrowing booking;
 
     HttpSession session = ServletActionContext.getRequest().getSession(false);
     private int id;

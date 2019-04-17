@@ -41,7 +41,7 @@ public class AppUserEndPoint {
     @ResponsePayload
     public AppUserAddResponse addAppUser(@RequestPayload AppUserAddRequest request){
         AppUserAddResponse response = new AppUserAddResponse();
-
+        com.openclassrooms.biblioback.ws.test.AppUser user = new com.openclassrooms.biblioback.ws.test.AppUser();
         try {
             AppUser appUser = new AppUser();
             appUser.setFirstName(request.getFirstName());
@@ -51,10 +51,11 @@ public class AppUserEndPoint {
             appUser.setAlert(request.isAlert());
             appUser.setIsAdmin(request.isIsAdmin());
             appUserService.addUser(appUser);
-            response.setConfirmation(true);
+            BeanUtils.copyProperties(appUser, user);
+            response.setAppUser(user);
         }catch (Exception e ){
             log.info("L'utilisateur n'a pas pu être enregistré");
-            response.setConfirmation(false);
+            response.setAppUser(null);
         }
        return response;
     }

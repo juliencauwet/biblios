@@ -4,6 +4,11 @@ Le projet est composé de 4 applications et d'une base de données:
 * un batch qui envoie des emails de notifications aux personnes n'ayant pas retourné l'emprunt avant la date limite.
 * un batch qui envoie des emails aux emprunteurs dont la date limite de fin d'emprunt est proche.
 
+Il est possible de lancer les 4 applications :
+
+soit en tapant depuis le dossier source biblios : ./launch.sh ( en ayant rendu préalablement le fichier exécutable (chmod +x launch.sh))
+
+soit individuellement:
 
 #### 1. Build le webservice afin de créér l'image Docker:
 Depuis le dossier source (biblios), saisir en ligne de commande:
@@ -39,11 +44,11 @@ Déployer le batch dans un container
   * _cd docker_
   * _docker-compose up_
 
-  <b>Le batch est alors déployé 
+  <b>Le batch est alors déployé </b>
   
 #### 7. Build le second batch et créer l'image docker:
 se rendre dans le dossier expiring-soon-batch
-  * _cd ../../expiring-soon-batch
+  * _cd ../../expiring-soon-batch_
   * _mvn clean install_  
   
 #### 8. Déployer 

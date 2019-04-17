@@ -225,7 +225,6 @@ public class BorrowingEndPoint {
         com.openclassrooms.entities.Borrowing borrowing = borrowingService.getById(request.getId());
         List<com.openclassrooms.entities.Borrowing> borrowingsOnWaitingList = borrowingService.getBorrowingsByBookAndStatus(borrowing.getBook(), Status.WAITINGLIST);
 
-
         borrowing.setStatus(Status.ONGOING);
         borrowing.setStartDate(new Date());
         borrowing.setDueReturnDate(setDRD(borrowing.getStartDate()));
@@ -273,6 +272,8 @@ public class BorrowingEndPoint {
         }
         borrowing.setStatus(Status.CANCELLED);
         borrowing.setWaitingListOrder(0);
+
+
         borrowingService.updateBorrowing(borrowing);
 
         response.setConfirmation(true);

@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IAppUserService {
 
-    void addUser(AppUser user);
+    AppUser addUser(AppUser user);
 
     AppUser checkUser(String email);
 

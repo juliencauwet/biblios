@@ -1,12 +1,12 @@
 #!/bin/bash
 
-docker system prune -y
+docker system prune -f
 
 cd biblioback
 mvn clean install
 cd docker
 docker-compose  down
-docker-compose up -d
+docker-compose up -d --remove-orphans
 sleep 30
 cd ../../biblioweb/
 mvn clean install

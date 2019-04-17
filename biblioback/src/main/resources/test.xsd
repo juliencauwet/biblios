@@ -86,7 +86,7 @@
     <xs:element name="appUserAddResponse">
         <xs:complexType>
             <xs:sequence>
-                <xs:element name="confirmation" type="xs:boolean"/>
+                <xs:element name="appUser" type="tns:appUser"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
