@@ -24,7 +24,7 @@
         <!--######################## UPDATE PROFILE ########################-->
 
         <action name="updateProfile" class="com.openclassrooms.actions.AuthentificationAction" method="updateProfile">
-            <result>/WEB-INF/jsp/account.jsp</result>
+            <result>/WEB-INF/jsp/index.jsp</result>
         </action>
 
         <!--######################## GET ALL USERS ########################-->

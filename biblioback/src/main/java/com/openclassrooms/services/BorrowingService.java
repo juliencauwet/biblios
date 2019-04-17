@@ -180,7 +180,11 @@ public class BorrowingService implements IBorrowingService {
         Date finalDay = calendar.getTime();
         logger.info("processing expiringSoonBorrowings");
         List<Borrowing> borrowings = borrowingRepository.findBorrowingsByDueReturnDateAndStatus(finalDay, Status.ONGOING);
-
+        for (Borrowing b :
+                borrowings) {
+            if (!b.getAppUser().getAlert())
+                borrowings.remove(b);
+        }
         return borrowings;
     }
 

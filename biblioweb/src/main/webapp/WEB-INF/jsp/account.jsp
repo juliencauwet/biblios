@@ -36,7 +36,7 @@
 
             <s:form action="updateProfile" >
 
-                <s:checkbox name="alert" fieldValue="true" value="true" label="Merci de m'alerter quand mon emprunt se rapproche de la date limite" />
+                <s:checkbox name="alert" fieldValue="#session.appUser.alert" value="#session.appUser.alert" label="Merci de m'alerter quand mon emprunt se rapproche de la date limite" />
 
                 <button class="btn btn-primary"> <s:submit class="form-control btn btn-primary" value="Valider" /> </button>
 

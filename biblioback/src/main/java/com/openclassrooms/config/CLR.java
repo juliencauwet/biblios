@@ -100,12 +100,23 @@ public class CLR implements CommandLineRunner{
         Borrowing bor3 = new Borrowing(u2, b2, date3, date4, date6, Status.RETURNED);
         Borrowing bor4 = new Borrowing(u5, b1, date2, date7, date8, Status.RETURNED);
         Borrowing bor5 = new Borrowing(u3, b4, date1, date4, null, Status.ONGOING);
+        Borrowing bor6 = new Borrowing(u1, b1, date1, date5, null, Status.ONGOING);
+        Borrowing bor7 = new Borrowing(u1, b2, date1, date5, null, Status.ONGOING);
+        Borrowing bor8 = new Borrowing(u1, b4, date1, date5, null, Status.ONGOING);
+        Borrowing bor9 = new Borrowing(u1, b5, date1, date5, null, Status.ONGOING);
+        Borrowing bor10 = new Borrowing(u1, b6, date1, date5, null, Status.ONGOING);
+
 
         borrowingService.newBorrowing(bor1);
         borrowingService.newBorrowing(bor2);
         borrowingService.newBorrowing(bor3);
         borrowingService.newBorrowing(bor4);
         borrowingService.newBorrowing(bor5);
+        borrowingService.newBorrowing(bor6);
+        borrowingService.newBorrowing(bor7);
+        borrowingService.newBorrowing(bor8);
+        borrowingService.newBorrowing(bor10);
+        borrowingService.newBorrowing(bor9);
 
         List<Borrowing> borrowings = borrowingService.getExpiredBorrowing();
 
